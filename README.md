@@ -1,2 +1,2 @@
-# Pokemon Guide
+# Pokemon GAI
 

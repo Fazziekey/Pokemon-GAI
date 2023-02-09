@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>This Pokémon Does Not Exist</title>
+    <style>
+      .actions {
+        opacity: 0;
+      }
+    </style>
+    <link rel="shortcut icon" href="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" />
+    <link rel="stylesheet" href="static/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <script type="module" src="static/js/index.js"></script>
+  </head>
+  <body>
+    <main>
+      <section class="info">
+        <div class="poke-trio">
+          <img src="static/image/whitey.gif" alt="AI generated creature" width="80" height="80">
+          <img src="static/image/blacky.gif" alt="AI generated creature" width="80" height="80">
+          <img src="static/image/bluey.gif" alt="AI generated creature" width="80" height="80">
+        </div>
+        <h1>This Pokémon<br />Does Not Exist</h1>
+        <label for="name-input">Enter your trainer name</label>
+        <form class="name-form" action="">
+            <input id="name-input" name="name" type="text" placeholder="Ash" maxlength="75" />
+            <button type="submit">Submit</button>
+        </form>
+        <div class="info-text">
+          <p>Abilities and descriptions via <a href="https://pokemontcg.io" rel="noopener" target="_blank">Pokémon TCG Developers</a>. Not affiliated with The Pokémon Company.</p>
+        </div>
+      </section>
+      <section class="output" data-mode="booster" data-state="ready">
+        <div class="actions" aria-hidden="true">
+            <button class="save" tabindex="-1">Save</button>
+            <button class="toggle-name" data-include tabindex="-1">Trainer Name</button>
+            <button class="generate-new" tabindex="-1">New Pokémon</button>
+        </div>
+        <div class="scene">
+          <div class="booster" title="Open booster pack for new card">
+            <div class="foil triangle top left"></div>
+            <div class="foil triangle top right"></div>
+            <div class="foil top flat"></div>
+            <div class="foil top front"></div>
+            <div class="foil top back"></div>
+            <div class="face front">
+              <img
+                class="title"
+                src="static/image/huggingface-pokemon-logo.gif"
+                alt="The words 'Hugging Face' in the style of the Pokémon logo"
+                draggable="false"
+              />
+              <img class="hf-logo" src="static/image/huggingface-logo.svg" alt="Hugging Face emoji logo" draggable="false" />
+            </div>
+            <div class="face back"></div>
+            <div class="foil back flat"></div>
+            <div class="foil back flap"></div>
+            <div class="face top foil"></div>
+            <div class="face bottom foil"></div>
+            <div class="face left"></div>
+            <div class="face right"></div>
+            <div class="foil bottom front"></div>
+            <div class="foil bottom back"></div>
+            <div class="foil triangle bottom left"></div>
+            <div class="foil triangle bottom right"></div>
+            <div class="foil bottom flat"></div>
+          </div>
+          <div class="card-slot"></div>
+        </div>
+      </section>
+    </main>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.1/iframeResizer.contentWindow.min.js"></script>
+</html>

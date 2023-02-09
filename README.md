@@ -10,3 +10,10 @@ Image Storage and Personal Cloud Space Function: Pokemon GAI provides a personal
 * Sharing Function: Pokemon GAI provides multiple sharing methods, including Twich, Telegram, Facebook, Instagram, WeChat, etc.
 
 In general, Pokemon GAI is a feature-rich Web-based application that brings players a variety of experiences, including generating Pokémon, image storage, battling with friends, sharing, etc.
+
+
+## Run the sever
+
+```
+python start.py
+```

@@ -11,7 +11,10 @@ Image Storage and Personal Cloud Space Function: Pokemon GAI provides a personal
 
 In general, Pokemon GAI is a feature-rich Web-based application that brings players a variety of experiences, including generating Pokémon, image storage, battling with friends, sharing, etc.
 
-
+## Down load the datasets(which will in MySQL infuture)
+```
+wget https://huggingface.co/spaces/Fazzie/Pokemon-GAI/blob/main/datasets/pregenerated_pokemon.h5 datasets
+```
 ## Run the sever
 
 ```

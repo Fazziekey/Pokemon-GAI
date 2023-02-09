@@ -2,7 +2,7 @@ import requests
 
 
 
-url = "https://lambdalabs-text-to-pokemon.hf.space/run/predict"
+url = "https://fazzie-pokemon-gai.hf.space/"
 
 payload = {
     "text_input": "blue dog"

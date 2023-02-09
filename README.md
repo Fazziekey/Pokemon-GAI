@@ -13,7 +13,9 @@ In general, Pokemon GAI is a feature-rich Web-based application that brings play
 
 ## Down load the datasets(which will in MySQL infuture)
 ```
-wget https://huggingface.co/spaces/Fazzie/Pokemon-GAI/blob/main/datasets/pregenerated_pokemon.h5 datasets
+mkdir datasets
+cd datasets
+wget https://huggingface.co/spaces/Fazzie/Pokemon-GAI/blob/main/datasets/pregenerated_pokemon.h5
 ```
 ## Run the sever
 

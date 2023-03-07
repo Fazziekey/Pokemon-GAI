@@ -6,3 +6,5 @@ node_modules
 
 # the directory where compiled files stay
 dist
+
+package-lock.json

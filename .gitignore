@@ -1,2 +1,8 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+
+# node modules
+node_modules
+
+# the directory where compiled files stay
+dist

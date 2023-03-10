@@ -4,7 +4,11 @@ __pycache__/
 # node modules
 node_modules
 
+# npm lockfile
+package-lock.json
+
+# yarn configuration file
+.yarn*
+
 # the directory where compiled files stay
 dist
-
-package-lock.json

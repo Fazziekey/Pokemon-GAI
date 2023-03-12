@@ -34,6 +34,11 @@ const LoginPage = () => {
         console.log("Password: " + password);
     };
 
+    const handleRegister = () => {
+        // Handle register logic here.
+        console.log('Register clicked!');
+    }
+
     return (
         <div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '100ox'}}>
@@ -45,10 +50,9 @@ const LoginPage = () => {
                     </div>
                 </div>
                 <div style={{ gridColumn: "2 / 3", justifySelf: "end"}}>
-                    <button style={{background: 'linear-gradient(180deg, rgba(2, 164, 255, 0.5) 0%, rgba(148, 127, 248, 0.5) 100%)',
-                                    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-                                    borderRadius: '10px',
-                                    marginRight: '5px'}}>Register</button>
+                    <button onClick={handleRegister} style={{background: 'linear-gradient(180deg, rgba(2, 164, 255, 0.5) 0%, rgba(148, 127, 248, 0.5) 100%)', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: '10px', margin: '5px'}}>
+                        Register
+                    </button>
                     <span style={{ textDecoration: 'underline' }}>Log in</span>
                 </div>
             </div>

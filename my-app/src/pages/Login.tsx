@@ -25,8 +25,7 @@ const Login = ({onSubmit}: LoginProps) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center',
-         alignItems: 'center', width: '400px', height: '400px', border: '1px solid black', padding: '20px', backgroundColor: 'white' }}>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '400px', height: '400px', border: '1px solid black', padding: '20px', backgroundColor: 'white' }}>
             <label>
                 Email:
                 <div style={{display: 'flex', flexDirection: 'row'}}>

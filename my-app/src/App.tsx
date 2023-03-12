@@ -1,7 +1,9 @@
-import React, { Component} from "react";
+import React from "react";
 import {hot} from "react-hot-loader";
 import "./App.css";
-import LoginPage from "./login_page/LoginPage";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
 // TODO: find a proper way to set the image as background.
 // const backgroundImage = require("../images/login_background.png");
@@ -12,7 +14,15 @@ const App = () => {
     // <div className="App" style={{backgroundImage: `url(${backgroundImage})`}}>
 
     <div className="App">
-      <LoginPage />
+
+      {/* Test home page without request from the server */}
+      <HomePage />
+
+      {/* Test register page without request from the server */}
+      {/* <RegisterPage /> */}
+
+      {/* Test login page without request from the server */}
+      {/* <LoginPage /> */}
     </div>
   );
 };

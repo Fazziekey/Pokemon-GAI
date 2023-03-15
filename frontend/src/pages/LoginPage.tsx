@@ -58,7 +58,7 @@ const LoginPage = () => {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 <h2>Log In</h2>
-                <Login onSubmit={handleLoginSubmit} />
+                {/* <Login onSubmit={handleLoginSubmit} /> */}
             </div>
         </div>
     );

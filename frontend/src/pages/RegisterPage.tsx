@@ -33,7 +33,7 @@ const RegisterPage = () => {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 <h2>Register</h2>
-                <Register onSubmit={handleRegisterSubmit} />
+                {/* <Register onSubmit={handleRegisterSubmit} /> */}
             </div>
         </div>
     );

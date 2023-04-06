@@ -1,4 +1,8 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+
+from ..database import fake_users_db
+from ..dependencies import get_current_active_user, get_password_hash
+from ..models.users import User, UserCreate, UserInDB
 
 
 router = APIRouter(
@@ -8,49 +12,36 @@ router = APIRouter(
 )
 
 
-fake_users_db = {
-    "johndoe": {
-        "username": "johndoe",
-        "full_name": "John Doe",
-        "email": "johndoe@example.com",
-        "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
-        "disabled": False,
-    },
-    "alice": {
-        "username": "alice",
-        "full_name": "Alice Chains",
-        "email": "alicechains@example.com",
-        "hashed_password": "$2b$12$gSvqqUPvlXP2tfVFaWK1Be7DlH.PKZbv5H8KnzzVgXXbVxpva.pFm",
-        "disabled": True,
-    },
-}
-
-
 @router.get("/")
-async def read_users() -> dict:
+async def read_users():
     return fake_users_db
 
 
-@router.get("/users/me")
-async def read_user_me() -> dict:
-    return fake_users_db["johndoe"]
+@router.get("/me", response_model=User)
+async def read_users_me(current_user: User = Depends(get_current_active_user)):
+    return current_user
 
 
 @router.get("/{username}")
-async def read_user(username: str) -> dict:
+async def read_user(username: str):
     if username in fake_users_db:
         user_dict = fake_users_db[username]
         return user_dict
     return {"error": "User not found"}
 
 
-@router.post("/")
-async def create_user() -> dict:
-    return {"error": "Not implemented"}
+@router.post("/", response_model=UserInDB)
+async def create_user(user: UserCreate):
+    hashed_password = get_password_hash(user.password)
+    user_dict = user.dict()
+    user_dict.update({"hashed_password": hashed_password})
+    del user_dict["password"]
+    fake_users_db[user.username] = user_dict
+    return UserInDB(**user_dict)
 
 
 @router.put("/{username}")
-async def update_user(username: str) -> dict:
+async def update_user(username: str):
     return {"error": "Not implemented"}
 
 

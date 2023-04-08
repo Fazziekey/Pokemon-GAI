@@ -9,7 +9,7 @@ def query(payload):
 		raise Exception("Query failed to run by returning code of {}. {}".format(response.status_code, payload))
 	return response.content
 image_bytes = query({
-	"inputs": "mega dragontype jolteon, claws, concept art,fire",
+	"inputs": "dragon armored eevee, red, ((wings)), claws",
 })
 # You can access the image with PIL.Image for example
 import io

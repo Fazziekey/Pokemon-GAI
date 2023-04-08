@@ -20,5 +20,5 @@ wget https://huggingface.co/spaces/Fazzie/Pokemon-GAI/blob/main/datasets/pregene
 ## Run the sever
 
 ```
-python start.py
+python main.py
 ```

@@ -1,5 +1,0 @@
-Cython
-fastapi==0.74.*
-uvicorn[standard]==0.17.*
-rudalle==1.0.*
-h5py==3.6.*

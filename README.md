@@ -20,5 +20,16 @@ wget https://huggingface.co/spaces/Fazzie/Pokemon-GAI/blob/main/datasets/pregene
 ## Run the sever
 
 ```
-python main.py
+python backend/main.py
+```
+
+## request get image from hf
+
+```
+python ai/space.py 
+```
+
+### get 3D image 
+```
+python ai/space3D.py 
 ```

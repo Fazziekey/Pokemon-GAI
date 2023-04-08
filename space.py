@@ -21,7 +21,7 @@ headers = {"Authorization": "Bearer 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"}
 
 response = requests.post("https://fazzie-timmahw-sd2-1-pokemon3d.hf.space/run/predict", headers=headers, json={
   "data": [
-    "dragon armored eevee, red, ((wings)), claws",
+    "dragon armored eevee, blue, ((wings)), claws",
 ]}).json()
 
 

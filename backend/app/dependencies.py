@@ -5,9 +5,10 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
-from .models.users import TokenData, User, UserInDB
+from .schemas.users import TokenData, User, User
 from .database import fake_users_db
 from .config import SECRET_KEY, ALGORITHM
+from .database import SessionLocal
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -26,7 +27,7 @@ def get_password_hash(password):
 def get_user(db, username: str):
     if username in db:
         user_dict = db[username]
-        return UserInDB(**user_dict)
+        return User(**user_dict)
 
 
 def authenticate_user(fake_db, username: str, password: str):
@@ -86,6 +87,14 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 
 
 async def get_current_active_user(current_user: User = Depends(get_current_user)):
-    if current_user.disabled:
+    if current_user.is_active:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

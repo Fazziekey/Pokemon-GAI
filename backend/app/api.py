@@ -5,11 +5,13 @@ from datetime import timedelta
 
 from .routers import users
 from .dependencies import get_query_token
-from .models.users import Token
+from .schemas.users import Token
 from .config import ACCESS_TOKEN_EXPIRE_MINUTES
 from .dependencies import authenticate_user, create_access_token
-from .database import fake_users_db
+from .database import fake_users_db, engine
+from . import models
 
+models.Base.metadata.create_all(bind=engine)
 
 # app = FastAPI(dependencies=[Depends(get_query_token)])
 app = FastAPI()

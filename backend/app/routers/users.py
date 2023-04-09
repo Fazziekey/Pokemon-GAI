@@ -1,8 +1,12 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
+from typing import List
+from sqlalchemy.orm import Session
 
 from ..database import fake_users_db
-from ..dependencies import get_current_active_user, get_password_hash
-from ..models.users import User, UserCreate, UserInDB
+from ..dependencies import get_current_active_user, get_db, get_password_hash
+from ..schemas.users import UserCreate, User
+from ..crud.users import get_user, get_users, get_user_by_email, get_user_by_username, create_new_user
+from .. import models
 
 
 router = APIRouter(
@@ -12,9 +16,10 @@ router = APIRouter(
 )
 
 
-@router.get("/")
-async def read_users():
-    return fake_users_db
+@router.get("/", response_model=List[User])
+async def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    users = get_users(db, skip=0, limit=100)
+    return users
 
 
 @router.get("/me", response_model=User)
@@ -22,22 +27,23 @@ async def read_users_me(current_user: User = Depends(get_current_active_user)):
     return current_user
 
 
-@router.get("/{username}")
-async def read_user(username: str):
-    if username in fake_users_db:
-        user_dict = fake_users_db[username]
-        return user_dict
-    return {"error": "User not found"}
+@router.get("/{username}", response_model=User)
+async def read_user(username: str, db: Session = Depends(get_db)):
+    db_user = get_user(db, username)
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return db_user
 
 
-@router.post("/", response_model=UserInDB)
-async def create_user(user: UserCreate):
-    hashed_password = get_password_hash(user.password)
-    user_dict = user.dict()
-    user_dict.update({"hashed_password": hashed_password})
-    del user_dict["password"]
-    fake_users_db[user.username] = user_dict
-    return UserInDB(**user_dict)
+@router.post("/", response_model=User)
+async def create_user(user: UserCreate, db: Session = Depends(get_db)):
+    db_user = get_user_by_username(db, username=user.username)
+    if db_user:
+        raise HTTPException(status_code=400, detail="Username already taken")
+    db_user = get_user_by_email(db, email=user.email)
+    if db_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    return create_new_user(db=db, user=user)
 
 
 @router.put("/{username}")

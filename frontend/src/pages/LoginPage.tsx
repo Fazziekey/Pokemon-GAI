@@ -1,67 +1,58 @@
-import React, {useState, useEffect} from "react";
-import Login from "./Login";
-
-// TODO: find a proper way to set the image as background.
-// const backgroundImage = require("../login_background.png");
-
-interface LoginPageState {
-    isLoggedIn: boolean;
-  }
+import React, { useState } from "react";
+import loginBackground from '../assets/login.png';
+import logo from '../assets/logo.png';
+import Login from "../components/Login";
+import Register from "../components/Register";
+import { HeaderLogo } from "../components/Header";
+import { backgroundStyle, loginButtonStyle, registerButtonStyle } from "../styles/homepage";
 
 const LoginPage = () => {
-    // Main login page component.
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    useEffect(() => {
-        // Set the background on mount.
-        document.body.style.backgroundColor = '##FFFFFF';
-        // TODO: find a proper way to set the image as background.
-        // document.body.style.backgroundImage = `url(${backgroundImage})`;
-        // document.body.style.backgroundSize = 'cover';
-        return () => {
-            // Reset the background to its default on unmount.
-            document.body.style.backgroundColor = null;
-            // document.body.style.backgroundImage = 'none';
-            // document.body.style.backgroundSize = 'auto';
-        };
-    }, []);
-
-    const handleLoginSubmit = (email: string, password: string) => {
-        // Handle login submit logic here.
-        setIsLoggedIn(true);
-        console.log("Email: " + email);
-        console.log("Password: " + password);
-    };
+    const [showLogin, setShowLogin] = useState(false);
 
     const handleRegister = () => {
-        // Handle register logic here.
-        console.log('Register clicked!');
+        setShowLogin(false);
+        console.log(showLogin);
+    }
+
+    const handleLogin = () => {
+        setShowLogin(true);
+        console.log(showLogin);
     }
 
     return (
-        <div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '100ox'}}>
-                <div style={{ gridColumn: "1 / 2"}}>
-                    <div style={{ display: 'flex', flexDirection: 'row'}}>
-                        {/* Red square need to be replaced with icon*/}
-                        <div style={{width: "20px", height: "20px", margin: "5px", backgroundColor: "red"}}></div>
-                        <span style={{fontFamily: 'Inter', fontStyle: "italic", fontSize: '20px'}}>PokemonGAI</span>
-                    </div>
-                </div>
-                <div style={{ gridColumn: "2 / 3", justifySelf: "end"}}>
-                    <button onClick={handleRegister} style={{background: 'linear-gradient(180deg, rgba(2, 164, 255, 0.5) 0%, rgba(148, 127, 248, 0.5) 100%)', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: '10px', margin: '5px'}}>
+        <div style={{
+            backgroundImage: `url(${loginBackground})`,
+            position: 'fixed',
+            ...backgroundStyle
+        }}>
+            
+            <HeaderLogo/>
+
+            <div style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: '20px',
+                    position: 'fixed',
+                    right: '30px',
+                }}>
+                    <button onClick={handleRegister} style={registerButtonStyle}>
                         Register
                     </button>
-                    <span style={{ textDecoration: 'underline' }}>Log in</span>
+                    <button onClick={handleLogin} style={loginButtonStyle}>
+                        Login
+                    </button>
                 </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                <h2>Log In</h2>
-                {/* <Login onSubmit={handleLoginSubmit} /> */}
-            </div>
+
+            <div style={{margin: 'auto'}}>{
+                showLogin ? <Login /> : <Register />
+            }</div>
+
         </div>
-    );
-};
+    )
+}
 
 export default LoginPage;

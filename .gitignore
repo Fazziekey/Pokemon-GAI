@@ -12,3 +12,9 @@ package-lock.json
 
 # the directory where compiled files stay
 dist
+
+.DS_Store
+
+src/.DS_Store
+
+../.DS_Store

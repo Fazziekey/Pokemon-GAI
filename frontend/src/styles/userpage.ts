@@ -45,7 +45,46 @@ export const userProfileListStyle = {
 
 export const userProfileBackgroundStyle = {
     display: "flex",
-    // flexDirection: "column",
     alignItems: "center",
     justifyContent: "center"
+};
+
+export const userProfileContainerStyle = {
+    position: "fixed",
+    top: "10vh",
+    width: "25vw",
+    height: "100vh",
+};
+
+export const userHeaderStyle = {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    display: "flex",
+    width: "100vw",
+    height: "25vh",
+    left: "0px",
+    top: "0px"
+};
+
+
+export const navigationListStyle = {
+    listStyle: "none",
+    height: "20px",
+    // position: "absolute",
+    bottom: 0,
+    left: "25vw",
+    marginBottom: "10px"
+};
+
+
+export const navigationLinkStyle = {
+    color: "white",
+    backgroundColor: "rgba(65, 35, 207, 0.35)",
+    padding: "5px 20px",
+    fontFamily: "Inter",
+    fontStyle: "normal",
+    fontWeight: 700,
+    fontSize: "14px",
+    borderRadius: "10px",
+    textDecoration: "none"
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../assets/logo.png";
-import { loginButtonStyle, registerButtonStyle } from "../styles/homepage";
+import { loginButtonStyle, registerButtonStyle } from "../styles/loginpage";
 import { PAGE_STATUS } from "../helpers/constants";
 
 

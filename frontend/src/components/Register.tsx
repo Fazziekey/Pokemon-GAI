@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import complete from "../assets/complete.png";
-import { containerStyle, inputStyle, confirmButtonStyle } from "../styles/homepage";
+import { containerStyle, inputStyle, confirmButtonStyle } from "../styles/loginpage";
 
 
 const Register = () => {

@@ -3,7 +3,7 @@ import loginBackground from "../assets/loginBackground.png";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import { HeaderButton, HeaderLogo } from "../components/Header";
-import { backgroundStyle } from "../styles/homepage";
+import { backgroundStyle } from "../styles/loginpage";
 import { PAGE_STATUS } from "../helpers/constants";
 
 const LoginPage = () => {

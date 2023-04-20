@@ -5,9 +5,6 @@ import HomePage from "./pages/HomePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserPage from "./components/User";
 
-// const Test = () => {
-//   return <div>Test</div>;
-// }
 
 const App = () => {
   return (

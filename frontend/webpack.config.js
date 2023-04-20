@@ -1,5 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
+const ESLintPlugin = require("eslint-webpack-plugin");
+
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -8,15 +10,9 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: "ts-loader",
         exclude: /node_modules/,
       },
-      // {
-      //   test: /\.(js|jsx)$/,
-      //   exclude: /(node_modules|bower_components)/,
-      //   loader: "babel-loader",
-      //   options: { presets: ["@babel/env", "@babel/preset-react"] }
-      // },
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"]
@@ -24,13 +20,13 @@ module.exports = {
       {
         test: /\.(png|gif|jpg)$/i,
         use: [{
-            loader: 'file-loader'
+            loader: "file-loader"
         }]
       },
       {
         test: /\.js$/,
-        enforce: 'pre',
-        use: ['source-map-loader'],
+        enforce: "pre",
+        use: ["source-map-loader"],
       }
     ]
   },
@@ -49,6 +45,9 @@ module.exports = {
     hotOnly: true,
     historyApiFallback: true
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new ESLintPlugin()
+  ],
   devtool: "eval-cheap-source-map"
 };

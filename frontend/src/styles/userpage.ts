@@ -70,7 +70,6 @@ export const userHeaderStyle = {
 export const navigationListStyle = {
     listStyle: "none",
     height: "20px",
-    // position: "absolute",
     bottom: 0,
     left: "25vw",
     marginBottom: "10px"
@@ -87,4 +86,13 @@ export const navigationLinkStyle = {
     fontSize: "14px",
     borderRadius: "10px",
     textDecoration: "none"
+};
+
+export const outletContainerStyle = {
+    position: "fixed",
+    top: "25vh",
+    left: "25vw",
+    width: "75vw",
+    height: "100vh",
+    backgroundColor: "white",
 };

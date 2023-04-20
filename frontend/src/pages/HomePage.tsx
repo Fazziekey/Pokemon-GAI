@@ -2,10 +2,15 @@ import React from "react";
 import homeBackground from "../assets/homeBackground.png";
 import { HeaderButton, HeaderLogo } from "../components/Header";
 import { PAGE_STATUS } from "../helpers/constants";
+import { Profile } from "../components";
 
 const HomePage = () => {
     return (
-        <div>
+        <div
+            style={{
+                display: "flex",
+            }}
+        >
             <div style={{
                 backgroundImage: `url(${homeBackground})`,
                 backgroundSize: "cover",
@@ -25,7 +30,16 @@ const HomePage = () => {
                 }} />
 
             </div>
-            <h1>Home Page</h1>
+            <div
+                style={{
+                    position: "fixed",
+                    top: "10vh",
+                    width: "25vw",
+                    height: "100vh",
+                }}
+            >
+                <Profile/>
+            </div>
         </div>
     );
 };

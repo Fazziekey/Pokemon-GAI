@@ -45,12 +45,30 @@ export const HeaderButton = (props: HeaderButtonProps) => {
 
             {
                 page_status === PAGE_STATUS.login &&
-                <button onClick={handleRegister} style={registerButtonStyle}>
+                <button
+                    onClick={handleRegister}
+                    style={registerButtonStyle}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.color = "rgba(255, 255, 255, 0.5)";
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.color = "white";
+                    }}
+                >
                     Register
                 </button>
             }
             {
-                <button onClick={handleLogin} style={loginButtonStyle}>
+                <button
+                    onClick={handleLogin}
+                    style={loginButtonStyle}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.color = "rgba(255, 255, 255, 0.5)";
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.color = "white";
+                    }}
+                >
                     {page_status === PAGE_STATUS.login ? "Login" : "Log out"}
                 </button>
             }

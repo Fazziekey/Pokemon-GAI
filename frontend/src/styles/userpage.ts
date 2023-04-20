@@ -42,3 +42,10 @@ export const userProfileListStyle = {
     fontStyle: "normal",
     color: "#4E4E4E",
 };
+
+export const userProfileBackgroundStyle = {
+    display: "flex",
+    // flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center"
+};

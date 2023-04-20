@@ -44,7 +44,6 @@ export const registerButtonStyle = {
 };
 
 export const loginButtonStyle = {
-    // width: "80px",
     height: "45px",
     background: "transparent",
     margin: "5px",
@@ -54,6 +53,7 @@ export const loginButtonStyle = {
     borderColor: "transparent",
     borderBottom: "2px solid white",
     marginLeft: "20px",
+    textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
 };
 
 export const backgroundStyle = {

@@ -1,6 +1,6 @@
 import React from "react";
 import avatar from "../assets/avatar.png";
-import { userAvatarStyle, userEditProfileButtonStyle, userIDStyle, userNameStyle, userProfileListStyle } from "../styles/userpage";
+import { userAvatarStyle, userEditProfileButtonStyle, userIDStyle, userNameStyle, userProfileBackgroundStyle, userProfileListStyle } from "../styles/userpage";
 
 const Profile = () => {
 
@@ -16,10 +16,8 @@ const Profile = () => {
     return (
         <div
             style={{
-                display: "flex",
                 flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center"
+                ...userProfileBackgroundStyle
             }}
         >
             <div style={userAvatarStyle}>

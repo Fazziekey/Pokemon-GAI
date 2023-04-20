@@ -18,3 +18,7 @@ dist
 src/.DS_Store
 
 ../.DS_Store
+
+## sql files
+*.db
+

@@ -1,8 +1,13 @@
 Cython
-fastapi==0.74.*
-uvicorn[standard]==0.17.*
+numpy
+sqlalchemy
+python-jose
+passlib
+fastapi==0.88.0
+uvicorn==0.20.0
+python-multipart==0.0.6
 rudalle==1.0.*
-h5py==3.6.*
-email-validator-1.3.1==1.3.1
+# h5py==3.6.*
+email-validator
 python-jose[cryptography]
 passlib[bcrypt]

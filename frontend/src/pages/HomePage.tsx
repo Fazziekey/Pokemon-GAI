@@ -3,8 +3,8 @@ import homeBackground from "../assets/homeBackground.png";
 import { HeaderButton, HeaderLogo } from "../components/Header";
 import { PAGE_STATUS } from "../helpers/constants";
 import { Profile } from "../components";
-import { navigationLinkStyle, navigationListStyle, userHeaderStyle, userProfileContainerStyle } from "../styles/userpage";
-import { Link, Outlet } from "react-router-dom";
+import { navigationLinkStyle, navigationListStyle, outletContainerStyle, userHeaderStyle, userProfileContainerStyle } from "../styles/userpage";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 const HomePage = () => {
 
@@ -14,6 +14,9 @@ const HomePage = () => {
         { to: "/home/gallery", text: "Gallery" },
         { to: "/home/friends", text: "Friends" },
     ];
+
+    const location = useLocation();
+    console.log(location.pathname);
 
     return (
         <div style={{ display: "flex" }}>
@@ -41,12 +44,16 @@ const HomePage = () => {
                         }}>
                             <div
                                 style={{
-                                    borderBottom: "3px solid #FED851",
+                                    borderBottom: location.pathname === link.to ? "3px solid #FED851" : "none",
                                     paddingBottom: "5px",
                                 }}
                             >
                                 <Link to={link.to}
-                                    style={navigationLinkStyle}
+                                    style={{
+                                        ...navigationLinkStyle,
+                                        color: location.pathname === link.to ? "#FED851" : "white",
+                                    }}
+
                                 >{link.text}</Link>
                             </div>
 
@@ -63,16 +70,10 @@ const HomePage = () => {
                 <Profile />
             </div>
 
-            <div
-                style={{
-                    position: "fixed",
-                    top: "25vh",
-                    left: "25vw",
-                    width: "75vw",
-                    height: "100vh",
-                    backgroundColor: "gray",
-                }}
-            >
+            <div style={{
+                ...outletContainerStyle,
+                position: "fixed"
+            }}>
                 <Outlet />
             </div>
         </div>

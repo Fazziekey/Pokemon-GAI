@@ -1,3 +1,5 @@
+import { PURPLE } from "./colors";
+
 export const userNameStyle = {
     fontFamily: "Inter",
     fontStyle: "italic",
@@ -29,9 +31,9 @@ export const userEditProfileButtonStyle = {
     padding: "5px 0",
     width: "200px",
     height: "30px",
-    border: "1px solid #947FF8",
+    border: `1px solid ${PURPLE}`,
     borderRadius: "10px",
-    color: "#947FF8",
+    color: PURPLE,
     backgroundColor: "white",
 };
 
@@ -70,7 +72,6 @@ export const userHeaderStyle = {
 export const navigationListStyle = {
     listStyle: "none",
     height: "20px",
-    // position: "absolute",
     bottom: 0,
     left: "25vw",
     marginBottom: "10px"
@@ -87,4 +88,13 @@ export const navigationLinkStyle = {
     fontSize: "14px",
     borderRadius: "10px",
     textDecoration: "none"
+};
+
+export const outletContainerStyle = {
+    position: "fixed",
+    top: "25vh",
+    left: "25vw",
+    width: "75vw",
+    height: "100vh",
+    backgroundColor: "white",
 };

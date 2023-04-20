@@ -1,8 +1,24 @@
 import React from "react";
+import { contentContainerStyle, panelContainerStyle } from "../styles/content";
 
 const Overview = () => {
     return (
-        <div>Overview</div>
+        <div
+            style={contentContainerStyle}
+        >
+            <div
+                style={panelContainerStyle}
+            >
+                <p>I have accomplished...</p>
+
+            </div>
+            <div
+                style={panelContainerStyle}
+            >
+                
+            </div>
+        </div>
+
     );
 };
 

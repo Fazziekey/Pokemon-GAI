@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Avatar from "../components/Avatar";
+import Avatar from "./Avatar";
 
 
 const UserPage = () => {

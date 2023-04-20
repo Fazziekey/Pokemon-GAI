@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import loginBackground from '../assets/login.png';
-import logo from '../assets/logo.png';
+import loginBackground from '../assets/loginBackground.png';
 import Login from "../components/Login";
 import Register from "../components/Register";
-import { HeaderLogo } from "../components/Header";
-import { backgroundStyle, loginButtonStyle, registerButtonStyle } from "../styles/homepage";
+import { HeaderButton, HeaderLogo } from "../components/Header";
+import { backgroundStyle } from "../styles/homepage";
+import { PAGE_STATUS } from "../helpers/constants";
 
 const LoginPage = () => {
 
@@ -29,7 +29,7 @@ const LoginPage = () => {
             
             <HeaderLogo/>
 
-            <div style={{ justifyContent: 'center', alignItems: 'center' }}>
+            {/* <div style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <div style={{
                     display: 'flex',
                     justifyContent: 'center',
@@ -45,7 +45,13 @@ const LoginPage = () => {
                         Login
                     </button>
                 </div>
-            </div>
+            </div> */}
+
+            <HeaderButton
+                page_status = {PAGE_STATUS.login}
+                handleLogin = {handleLogin}
+                handleRegister = {handleRegister}
+            />
 
             <div style={{margin: 'auto'}}>{
                 showLogin ? <Login /> : <Register />

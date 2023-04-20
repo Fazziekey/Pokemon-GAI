@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
+
 from modules.details import Details, rand_details
 from modules.dataset import get_image, get_stats
 

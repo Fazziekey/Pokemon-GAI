@@ -11,13 +11,28 @@ Image Storage and Personal Cloud Space Function: Pokemon GAI provides a personal
 
 In general, Pokemon GAI is a feature-rich Web-based application that brings players a variety of experiences, including generating Pokémon, image storage, battling with friends, sharing, etc.
 
+## install 
+
+```
+pip install "fastapi[all]"
+
+pip install -r requirements.txt
+```
+
+## render frontend
+
+```
+yarn install
+yarn start
+```
+
 ## Down load the datasets(which will in MySQL infuture)
 ```
 mkdir datasets
 cd datasets
 wget https://huggingface.co/spaces/Fazzie/Pokemon-GAI/blob/main/datasets/pregenerated_pokemon.h5
 ```
-## Run the sever
+## Run the backend sever
 
 ```
 python backend/main.py
@@ -32,4 +47,10 @@ python ai/space.py
 ### get 3D image 
 ```
 python ai/space3D.py 
+```
+
+## run the total project 
+
+```
+python start.py
 ```

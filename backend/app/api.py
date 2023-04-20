@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.responses import FileResponse
 from datetime import timedelta
 
 from .routers import users
@@ -22,6 +23,7 @@ app.include_router(users.router)
 
 origins = [
     "http://localhost:3000",
+    "https://localhost:3000",
     "localhost:3000",
 ]
 
@@ -34,10 +36,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# @app.head('/')
+# @app.get('/')
+# def index() -> FileResponse:
+#     return FileResponse(path="http://localhost:3000/", media_type="text/html")
+
 
 @app.get("/", tags=["root"])
 async def read_root() -> dict:
     return {"message": "Welcome to PokemanGAI!"}
+
+
 
 
 @app.post("/token", response_model=Token)

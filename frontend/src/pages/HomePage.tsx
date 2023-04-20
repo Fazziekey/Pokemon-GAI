@@ -8,6 +8,8 @@ const HomePage = () => {
         <div>
             <div style={{
                 backgroundImage: `url(${homeBackground})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
                 position: "fixed",
                 display: "flex",
                 width: "100vw",

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import complete from "../assets/complete.png";
-import { containerStyle, inputStyle, buttonStyle } from "../styles/homepage";
+import { containerStyle, inputStyle, confirmButtonStyle } from "../styles/homepage";
 
 
 const Register = () => {
@@ -85,7 +85,13 @@ const Register = () => {
                 </label>
 
                 <button type="submit"
-                    style={buttonStyle}
+                    style={confirmButtonStyle}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.color = "rgba(255, 255, 255, 0.5)";
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.color = "white";
+                    }}
                 >CONFIRM</button>
             </form>
         </div>

@@ -23,6 +23,8 @@ const LoginPage = () => {
     return (
         <div style={{
             backgroundImage: `url(${loginBackground})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
             position: "fixed",
             ...backgroundStyle
         }}>

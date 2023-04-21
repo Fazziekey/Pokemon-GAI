@@ -24,6 +24,7 @@ const GalleryItem = () => {
                 fontWeight: "bold",
                 fontSize: "14px",
                 float: "left",
+                marginLeft: "10px",
             }}>Pokemon</p>
             <p style={{
                 fontFamily: "Inter",
@@ -32,6 +33,7 @@ const GalleryItem = () => {
                 color: "#B6B6B6",
                 fontSize: "14px",
                 float: "right",
+                marginRight: "10px",
             }}>2023-1-31</p>
         </div>
     </div>

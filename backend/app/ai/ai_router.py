@@ -7,7 +7,7 @@ import io
 
 
 URL = {
-    '2D': "https://api-inference.huggingface.co/models/Timmahw/SD2.1_Pokemon2DSugimori",
+    '2D': "https://api-inference.huggingface.co/models/Fazzie/PokemonGAI",
     '3D': "https://api-inference.huggingface.co/models/Timmahw/SD2.1_Pokemon3D",
 }
 

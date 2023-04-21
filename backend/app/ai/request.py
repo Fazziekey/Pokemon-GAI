@@ -1,6 +1,8 @@
 import requests
 
-API_URL = "https://api-inference.huggingface.co/models/Timmahw/SD2.1_Pokemon2DSugimori"
+# API_URL = "https://api-inference.huggingface.co/models/Timmahw/SD2.1_Pokemon2DSugimori"
+API_URL =  "https://api-inference.huggingface.co/models/Fazzie/PokemonGAI"
+
 headers = {"Authorization": "Bearer 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"}
 
 def query(payload):

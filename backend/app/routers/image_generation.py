@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 URL = {
-    '2D': "https://api-inference.huggingface.co/models/Timmahw/SD2.1_Pokemon2DSugimori",
+    '2D': "https://api-inference.huggingface.co/models/Fazzie/PokemonGAI",
     '3D': "https://api-inference.huggingface.co/models/Timmahw/SD2.1_Pokemon3D",
 }
 
@@ -21,19 +21,33 @@ headers = {"Authorization": "Bearer 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"}
 class Payload(BaseModel):
     inputs: str
 
-def query(payload: Payload, type: str = '2D'):
+# def query(payload: Payload, type: str = '2D'):
+#     url = URL[type]
+#     response = requests.post(url, headers=headers, json=payload.dict())
+#     if response.status_code != 200:
+#         raise Exception("Query failed to run by returning code of {}. {}".format(response.status_code, payload))
+#     return response.content
+
+def query(prompt: str, type: str, name: str):
     url = URL[type]
-    response = requests.post(url, headers=headers, json=payload.dict())
+    response = requests.post(url, headers=headers, json={"inputs": f"{prompt}"})
     if response.status_code != 200:
-        raise Exception("Query failed to run by returning code of {}. {}".format(response.status_code, payload))
+        raise Exception("Query failed to run by returning code of {}. {}".format(response.status_code, {'prompt': prompt, 'type': type, 'name': name}))
     return response.content
 
 
-@router.post("/generate_image")
-async def generate_image(request: Request) -> Response:
-    payload = Payload(inputs=await request.json())
-    image_bytes = query(payload)
+@router.get("/generate_image")
+async def generate_image(
+        prompt: str = 'fire greninja, wings, (fire claws), smoke, cityscape',
+        type: str = '2D',
+        name: str = 'pokemon'
+    ) -> Response:
+
+    image_bytes = query(prompt, type, name)
     image = Image.open(io.BytesIO(image_bytes))
-    image_buffer = io.BytesIO()
-    image.save(image_buffer, format="PNG")
-    return Response(content=image_buffer.getvalue(), media_type="image/png")
+    image.save(f"{name}.png")
+
+    return {
+        "status": 200,
+        "message": f"Image saved as {name}.png"
+    }

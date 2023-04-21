@@ -10,5 +10,6 @@ python-multipart==0.0.6
 rudalle==1.0.*
 # h5py==3.6.*
 email-validator
+bcrypt
 python-jose[cryptography]
 passlib[bcrypt]

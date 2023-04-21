@@ -24,7 +24,7 @@ app = FastAPI()
 
 app.include_router(users.router)
 app.include_router(items.router)
-# app.include_router(image_generation.router)
+app.include_router(image_generation.router)
 
 origins = [
     "http://localhost:3000",

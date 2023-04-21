@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Response
 import requests
 from pydantic import BaseModel
 from typing import Optional
@@ -28,10 +28,12 @@ def query(payload: Payload, type: str = '2D'):
         raise Exception("Query failed to run by returning code of {}. {}".format(response.status_code, payload))
     return response.content
 
-@router.post("/generate_image", response_class=Optional[Image.Image])
-async def generate_image(request: Request):
-    # payload = Payload(inputs=await request.json())
-    payload = Payload(inputs="dragon armored (eevee), wings, (fire claws), smoke, cityscape")
+
+@router.post("/generate_image")
+async def generate_image(request: Request) -> Response:
+    payload = Payload(inputs=await request.json())
     image_bytes = query(payload)
     image = Image.open(io.BytesIO(image_bytes))
-    return image
+    image_buffer = io.BytesIO()
+    image.save(image_buffer, format="PNG")
+    return Response(content=image_buffer.getvalue(), media_type="image/png")

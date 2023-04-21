@@ -4,7 +4,10 @@ import { contentContainerStyle, panelContainerStyle } from "../styles/content";
 const Overview = () => {
     return (
         <div
-            style={contentContainerStyle}
+            style={{
+                ...contentContainerStyle,
+                display: "flex",
+            }}
         >
             <div
                 style={panelContainerStyle}

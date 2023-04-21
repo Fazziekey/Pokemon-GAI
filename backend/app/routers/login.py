@@ -35,5 +35,8 @@ async def login(email: EmailStr, password: str):
     is_authenticated = fake_authentication(email, password)
     if not is_authenticated:
         raise HTTPException(status_code=401, detail="Invalid email or password")
-    return {"message": "Successfully logged in"}
+    return {
+        "status": 200,
+        "message": "Successfully logged in"
+    }
 

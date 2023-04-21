@@ -1,10 +1,11 @@
-from fastapi import FastAPI, Request
+from fastapi import APIRouter, Request
 import requests
 from pydantic import BaseModel
 from typing import Optional
 from PIL import Image
 import io
 
+router = APIRouter()
 
 URL = {
     '2D': "https://api-inference.huggingface.co/models/Timmahw/SD2.1_Pokemon2DSugimori",
@@ -14,7 +15,7 @@ URL = {
 headers = {"Authorization": "Bearer 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"}
 
 class Payload(BaseModel):
-    inputs: str
+    inputs: dict
 
 def query(payload: Payload, type: str = '2D'):
     url = URL[type]
@@ -23,10 +24,10 @@ def query(payload: Payload, type: str = '2D'):
         raise Exception("Query failed to run by returning code of {}. {}".format(response.status_code, payload))
     return response.content
 
-@app.post("/generate_image", response_class=Optional[Image.Image])
+@router.post("/generate_image", response_class=Optional[Image.Image])
 async def generate_image(request: Request):
     payload = Payload(inputs=await request.json())
+    
     image_bytes = query(payload)
     image = Image.open(io.BytesIO(image_bytes))
     return image
-

@@ -1,10 +1,14 @@
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException, status, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
-from fastapi.responses import FileResponse
+from pydantic import BaseModel
+import requests
+from typing import Optional
+from PIL import Image
+import io
 from datetime import timedelta
 
-from .routers import users
+from .routers import users, image_generation, items
 from .dependencies import get_query_token
 from .schemas.users import Token
 from .config import ACCESS_TOKEN_EXPIRE_MINUTES
@@ -19,7 +23,8 @@ app = FastAPI()
 
 
 app.include_router(users.router)
-
+app.include_router(items.router)
+# app.include_router(image_generation.router, prefix="/ai", tags=["AI"])
 
 origins = [
     "http://localhost:3000",
@@ -36,17 +41,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# @app.head('/')
-# @app.get('/')
-# def index() -> FileResponse:
-#     return FileResponse(path="http://localhost:3000/", media_type="text/html")
-
 
 @app.get("/", tags=["root"])
 async def read_root() -> dict:
     return {"message": "Welcome to PokemanGAI!"}
-
-
 
 
 @app.post("/token", response_model=Token)

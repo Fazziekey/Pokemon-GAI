@@ -1,6 +1,7 @@
 Cython
 numpy
 sqlalchemy
+pillow
 python-jose
 passlib
 fastapi==0.88.0

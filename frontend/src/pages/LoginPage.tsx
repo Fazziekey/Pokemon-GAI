@@ -8,7 +8,7 @@ import { PAGE_STATUS } from "../helpers/constants";
 
 const LoginPage = () => {
 
-    const [showLogin, setShowLogin] = useState(false);
+    const [showLogin, setShowLogin] = useState(true);
 
     const handleRegister = () => {
         setShowLogin(false);

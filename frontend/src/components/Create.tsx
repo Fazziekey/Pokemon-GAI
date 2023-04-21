@@ -6,7 +6,10 @@ import { PURPLE } from "../styles/colors";
 const Create = () => {
     return (
         <div
-            style={contentContainerStyle}
+            style={{
+                ...contentContainerStyle,
+                display: "flex",
+            }}
         >
             <div
                 style={panelContainerStyle}

@@ -16,9 +16,7 @@ const Friends = () => {
     return (<div
         style={{
             ...contentContainerStyle,
-            display: "flex",
             justifyContent: "left",
-            flexWrap: "wrap",
             flexDirection: "column",
         }}
     >

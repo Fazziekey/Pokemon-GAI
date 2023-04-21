@@ -1,7 +1,6 @@
 import { PURPLE } from "./colors";
 
 export const contentContainerStyle = {
-    display: "flex",
     justifyContent: "space-evenly",
     width: "100%",
     height: "100%",
@@ -26,4 +25,36 @@ export const searchBoxStyle = {
     alignItems: "center",
     paddingLeft: "10px",
     margin: "10px 0 0 10px",
+};
+
+export const friendNameStyle = {
+    fontFamily: "Inter",
+    fontStyle: "italic",
+    fontWeight: 900,
+    fontSize: "20px",
+    lineHeight: "24px",
+    margin: "0px",
+};
+
+export const friendIDStyle = {
+    fontFamily: "Inter",
+    fontStyle: "italic",
+    fontWeight: 300,
+    fontSize: "14px",
+    lineHeight: "24px",
+    color: "#959595",
+    margin: "0px",
+};
+
+export const friendVisitButtonStyle = {
+    fontFamily: "Inter",
+    fontStyle: "italic",
+    fontWeight: 900,
+    fontSize: "16px",
+    padding: "5px 20px 5px 20px",
+    border: "1px solid",
+    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    borderRadius: "25px",
+    height: "50px",
+    backgroundColor: "white",
 };

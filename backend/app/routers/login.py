@@ -23,9 +23,9 @@ def fake_authentication(email: str, password: str) -> bool:
     
     return False
 
-@router.post("/login")
+@router.post("/", status_code=200)
 async def login(login_request: LoginRequest):
     is_authenticated = fake_authentication(login_request.email, login_request.password)
     if not is_authenticated:
         raise HTTPException(status_code=401, detail="Invalid email or password")
-    return {"detail": "Successfully logged in"}
+    return {"message": "Successfully logged in"}

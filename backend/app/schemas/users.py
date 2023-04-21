@@ -14,7 +14,7 @@ class TokenData(BaseModel):
 
 class UserBase(BaseModel):
     username: str
-    email: Union[str, None] = None
+    email: str
     full_name: Union[str, None] = None
     is_active: Union[bool, None] = None
 

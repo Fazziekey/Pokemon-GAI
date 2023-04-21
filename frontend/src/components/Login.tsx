@@ -1,18 +1,29 @@
 import React, { useState } from "react";
 import complete from "../assets/complete.png";
 import { containerStyle, inputStyle, confirmButtonStyle } from "../styles/loginpage";
-
+import { postLogin } from "../helpers/apiCall";
+import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
-    // Login form component. It takes in a "onSubmit" function prop which will
-    // be called when the user submits the form.
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // onSubmit(email, password);  // A callback function to pass data to parent component.
+        try {
+            const response = await postLogin(email, password);
+            console.log(response);
+            if (response.status === 200) {
+                navigate("/home");
+            } else {
+                toast.error("Invalid email or password");
+            }
+        } catch (error) {
+            toast.error("An error occurred, please try again later");
+        }
+
     };
 
     const handleEmailchange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,52 +36,58 @@ const Login = () => {
 
     return (
         <div>
-            <div style={{
-                fontSize: "40px",
-                fontWeight: "bold",
-                color: "white",
-                textAlign: "center",
-                textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
-            }}>Log In</div>
-            <form onSubmit={handleSubmit} style={{ color: "white", display: "flex", flexDirection: "column", justifyContent: "center", width: "400px", height: "400px", padding: "20px" }}>
-                <label
-                    style={{ fontSize: "20px", fontWeight: "bold" }}
-                >
-                    Email:
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                        <img src={complete} style={{ width: "40px", height: "40px" }}></img>
-                        <div style={containerStyle}>
-                            <input type="email" value={email} onChange={handleEmailchange}
-                                style={inputStyle}
-                            />
+
+            <div>
+                <div style={{
+                    fontSize: "40px",
+                    fontWeight: "bold",
+                    color: "white",
+                    textAlign: "center",
+                    textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
+                }}>Login</div>
+
+                <form onSubmit={handleSubmit} style={{ color: "white", display: "flex", flexDirection: "column", justifyContent: "center", width: "400px", height: "400px", padding: "20px" }}>
+                    <label
+                        style={{ fontSize: "20px", fontWeight: "bold" }}
+                    >
+                        Email:
+                        <div style={{ display: "flex", flexDirection: "row" }}>
+                            <img src={complete} style={{ width: "40px", height: "40px" }}></img>
+                            <div style={containerStyle}>
+                                <input type="email" value={email} onChange={handleEmailchange}
+                                    style={inputStyle}
+                                />
+                            </div>
                         </div>
-                    </div>
-                </label>
-                <br />
-                <label
-                    style={{ fontSize: "20px", fontWeight: "bold" }}
-                >
-                    Password:
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                        <img src={complete} style={{ width: "40px", height: "40px" }}></img>
-                        <div style={containerStyle}>
-                            <input type="password" value={password} onChange={handlePasswordChange}
-                                style={inputStyle}
-                            />
+                    </label>
+                    <br />
+                    <label
+                        style={{ fontSize: "20px", fontWeight: "bold" }}
+                    >
+                        Password:
+                        <div style={{ display: "flex", flexDirection: "row" }}>
+                            <img src={complete} style={{ width: "40px", height: "40px" }}></img>
+                            <div style={containerStyle}>
+                                <input type="password" value={password} onChange={handlePasswordChange}
+                                    style={inputStyle}
+                                />
+                            </div>
                         </div>
-                    </div>
-                </label>
-                <br />
-                <button type="submit"
-                    style={confirmButtonStyle}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.color = "rgba(255, 255, 255, 0.5)";
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.color = "white";
-                    }}
-                >CONFIRM</button>
-            </form>
+                    </label>
+                    <br />
+                    <button type="submit"
+                        style={confirmButtonStyle}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.color = "rgba(255, 255, 255, 0.5)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.color = "white";
+                        }}
+                    >CONFIRM</button>
+                </form>
+            </div>
+
+            <Toaster />
         </div>
     );
 };

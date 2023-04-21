@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const BASE_URL = "http://127.0.0.1:3000";
+const BASE_URL = "http://0.0.0.0:8000";
 
 
 export const getData = async (url: string, payload?: any) => {
@@ -25,8 +25,11 @@ export const getData = async (url: string, payload?: any) => {
 
 export const postData = async (url: string, payload?: any) => {
     const data = axios
-      .post(`${BASE_URL}${url}`, payload)
+      .post(`${BASE_URL}${url}`, null, {
+        params: payload,
+      })
       .then((response) => {
+        console.log(response);
         return response.data;
       })
       .catch((error) => {

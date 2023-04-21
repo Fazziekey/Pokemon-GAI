@@ -5,7 +5,11 @@ from typing import Optional
 from PIL import Image
 import io
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/imagen",
+    tags=["imagen"],
+    responses={404: {"description": "Not found"}},
+)
 
 URL = {
     '2D': "https://api-inference.huggingface.co/models/Timmahw/SD2.1_Pokemon2DSugimori",
@@ -15,7 +19,7 @@ URL = {
 headers = {"Authorization": "Bearer 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"}
 
 class Payload(BaseModel):
-    inputs: dict
+    inputs: str
 
 def query(payload: Payload, type: str = '2D'):
     url = URL[type]
@@ -26,8 +30,8 @@ def query(payload: Payload, type: str = '2D'):
 
 @router.post("/generate_image", response_class=Optional[Image.Image])
 async def generate_image(request: Request):
-    payload = Payload(inputs=await request.json())
-    
+    # payload = Payload(inputs=await request.json())
+    payload = Payload(inputs="dragon armored (eevee), wings, (fire claws), smoke, cityscape")
     image_bytes = query(payload)
     image = Image.open(io.BytesIO(image_bytes))
     return image

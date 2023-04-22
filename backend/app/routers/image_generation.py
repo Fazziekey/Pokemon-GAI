@@ -36,18 +36,25 @@ def query(prompt: str, type: str, name: str):
     return response.content
 
 
-@router.get("/generate_image")
+@router.get("/generate")
 async def generate_image(
         prompt: str = 'fire greninja, wings, (fire claws), smoke, cityscape',
-        type: str = '2D',
-        name: str = 'pokemon'
+        pokeType: str = '2D',
+        pokeName: str = 'pokemon'
     ) -> Response:
 
-    image_bytes = query(prompt, type, name)
+    try:
+        image_bytes = query(prompt, pokeType, pokeName)
+    except Exception as e:
+        return {
+            "status": 500,
+            "message": str(e)
+        }
+    
     image = Image.open(io.BytesIO(image_bytes))
-    image.save(f"{name}.png")
+    image.save(f"{pokeName}.png")
 
     return {
         "status": 200,
-        "message": f"Image saved as {name}.png"
+        "message": f"Image saved as {pokeName}.png"
     }

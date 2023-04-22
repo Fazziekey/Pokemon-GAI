@@ -14,11 +14,11 @@ class ProfileResponse(BaseModel):
     avatar: str
 
 class ProfileInfo(BaseModel):
-    age: int
-    role: str
-    like: str
-    motto: str
-    contact: str
+    age: int = None
+    role: str = None
+    like: str = None
+    motto: str = None
+    contact: str = None
 
 class ProfileAvatarRequest(BaseModel):
     userID: str

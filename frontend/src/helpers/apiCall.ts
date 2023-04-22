@@ -1,46 +1,51 @@
-import { getDataParam, getDataJSON, postDataParam, postDataJSON } from "./apiCallWrappers";
+import { getData, postData } from "./apiCallWrappers";
 
 
 export const postRegister = async (username: string, password: string, email: string) => {
-    const payload = {
+    const params = {
         username: username,
         password: password,
         email: email
     };
-    const response = await postDataParam("/register", payload);
+    const response = await postData("/register", null, params);
     return response;
 };
 
 
 export const postLogin = async (email: string, password: string) => {
-    const payload = {
+    const params = {
         email: email,
         password: password
     };
-    const response = await postDataParam("/login", payload);
+    const response = await postData("/login", null, params);
     return response;
 };
 
 
 export const getProfile = async (userID: string) => {
-    const payload = {
+    const params = {
         userID: userID
     };
-    const response = await getDataJSON("/profile", payload);
+    const response = await getData("/profile", params);
     return response;
 };
 
 
 export const postProfileInfo = async (userID: string, age?: number, role?: string, like?: string, motto?: string, contact?: string) => {
     const payload = {
-        userID: userID,
-        age: age,
-        role: role,
-        like: like,
-        motto: motto,
-        contact: contact
+        info:
+        {
+            age: age,
+            role: role,
+            like: like,
+            motto: motto,
+            contact: contact
+        }
     };
-    const response = await postDataJSON("/profile/info", payload);
+    const params = {
+        userID: userID,
+    };
+    const response = await postData("/profile/info", payload, params);
     return response;
 };
 
@@ -50,6 +55,17 @@ export const postProfileAvatar = async (userID: string, avatar: string) => {
         userID: userID,
         avatar: avatar
     };
-    const response = await postDataJSON("/profile/avatar", payload);
+    const response = await postData("/profile/avatar", payload);
+    return response;
+};
+
+
+export const getImagenGenerate = async (prompt: string, pokeType: string, pokeName: string) => {
+    const params = {
+        prompt: prompt,
+        pokeType: pokeType,
+        pokeName: pokeName
+    };
+    const response = await getData("/imagen/generate", params);
     return response;
 };

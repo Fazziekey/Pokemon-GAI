@@ -12,6 +12,13 @@ const Login = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // validate email and password
+        if (!email || !password) {
+            toast.error("Please enter your email and password");
+            return;
+        }
+
         try {
             const response = await postLogin(email, password);
             console.log(response);

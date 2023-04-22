@@ -1,4 +1,4 @@
-import { getData, postData } from "./apiCallWrappers";
+import { getDataParam, getDataJSON, postDataParam, postDataJSON } from "./apiCallWrappers";
 
 
 export const postRegister = async (username: string, password: string, email: string) => {
@@ -7,7 +7,7 @@ export const postRegister = async (username: string, password: string, email: st
         password: password,
         email: email
     };
-    const response = await postData("/register", payload);
+    const response = await postDataParam("/register", payload);
     return response;
 };
 
@@ -17,7 +17,7 @@ export const postLogin = async (email: string, password: string) => {
         email: email,
         password: password
     };
-    const response = await postData("/login", payload);
+    const response = await postDataParam("/login", payload);
     return response;
 };
 
@@ -26,12 +26,12 @@ export const getProfile = async (userID: string) => {
     const payload = {
         userID: userID
     };
-    const response = await getData("/profile", payload);
+    const response = await getDataJSON("/profile", payload);
     return response;
 };
 
 
-export const postProfileEdit = async (userID: string, age?: number, role?: string, like?: string, motto?: string, contact?: string) => {
+export const postProfileInfo = async (userID: string, age?: number, role?: string, like?: string, motto?: string, contact?: string) => {
     const payload = {
         userID: userID,
         age: age,
@@ -40,7 +40,7 @@ export const postProfileEdit = async (userID: string, age?: number, role?: strin
         motto: motto,
         contact: contact
     };
-    const response = await postData("/profile/info", payload);
+    const response = await postDataJSON("/profile/info", payload);
     return response;
 };
 
@@ -50,6 +50,6 @@ export const postProfileAvatar = async (userID: string, avatar: string) => {
         userID: userID,
         avatar: avatar
     };
-    const response = await postData("/profile/avatar", payload);
+    const response = await postDataJSON("/profile/avatar", payload);
     return response;
 };

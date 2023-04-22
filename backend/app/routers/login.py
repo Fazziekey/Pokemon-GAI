@@ -12,9 +12,11 @@ class LoginRequest(BaseModel):
     email: EmailStr
     password: str
 
-def fake_authentication(email: str, password: str) -> bool:
-    # 实现真正的身份验证逻辑
 
+def fake_authentication(email: str, password: str) -> bool:
+
+    #TODO: Implement real authentication logic
+    
     if email is not None and password is not None:
         return True
 
@@ -23,18 +25,17 @@ def fake_authentication(email: str, password: str) -> bool:
     
     return False
 
-# @router.post("/", status_code=200)
-# async def login(login_request: LoginRequest):
-#     is_authenticated = fake_authentication(login_request.email, login_request.password)
-#     if not is_authenticated:
-#         raise HTTPException(status_code=401, detail="Invalid email or password")
-#     return {"message": "Successfully logged in"}
 
 @router.post("/", status_code=200)
 async def login(email: EmailStr, password: str):
     is_authenticated = fake_authentication(email, password)
+    
     if not is_authenticated:
-        raise HTTPException(status_code=401, detail="Invalid email or password")
+        return {
+            "status": 400,
+            "message": "Failed to login"
+        }
+    
     return {
         "status": 200,
         "message": "Successfully logged in"

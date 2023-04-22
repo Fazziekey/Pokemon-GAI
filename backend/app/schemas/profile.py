@@ -13,13 +13,12 @@ class ProfileResponse(BaseModel):
     contact: str
     avatar: str
 
-class ProfileInfoRequest(BaseModel):
-    userID: str
-    age: int = None
-    role: str = None
-    like: str = None
-    motto: str = None
-    contact: str = None
+class ProfileInfo(BaseModel):
+    age: int
+    role: str
+    like: str
+    motto: str
+    contact: str
 
 class ProfileAvatarRequest(BaseModel):
     userID: str

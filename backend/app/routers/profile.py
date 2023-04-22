@@ -1,5 +1,5 @@
 from fastapi import FastAPI, APIRouter, HTTPException
-from ..schemas.profile import ProfileRequest, ProfileResponse, ProfileInfoRequest, ProfileAvatarRequest
+from ..schemas.profile import ProfileRequest, ProfileResponse, ProfileInfo, ProfileAvatarRequest
 
 app = FastAPI()
 
@@ -15,7 +15,7 @@ def fake_get_profile(request: ProfileRequest) -> ProfileResponse:
     profile = ProfileResponse(age=18, role="user", like="reading", motto="never give up", contact="test@example.com", avatar="https://example.com/avatar.jpg")
     return profile
 
-def fake_update_profile(request: ProfileInfoRequest) -> bool:
+def fake_update_profile(userID: ProfileRequest, info: ProfileInfo) -> bool:
     # 实现更新用户信息逻辑，例如将用户信息保存到数据库中
     return True
 
@@ -29,8 +29,8 @@ async def get_profile(request: ProfileRequest):
     return profile
 
 @router.post("/info", status_code=200)
-async def update_profile(request: ProfileInfoRequest):
-    success = fake_update_profile(request)
+async def update_profile(userID: ProfileRequest, info: ProfileInfo):
+    success = fake_update_profile(userID, info)
     if not success:
         raise HTTPException(status_code=500, detail="Failed to update profile")
     return {"status": 200, "message": "Successfully updated profile"}

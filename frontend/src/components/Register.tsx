@@ -15,6 +15,21 @@ const Register = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        
+        // Validate the form
+        if (name === "") {
+            toast.error("Please enter your name");
+            return;
+        }
+        if (password === "") {
+            toast.error("Please enter your password");
+            return;
+        }
+        if (email === "") {
+            toast.error("Please enter your email");
+            return;
+        }
+
         try {
             const response = await postRegister(name, password, email);
             console.log(response);

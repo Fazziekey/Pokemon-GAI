@@ -31,7 +31,7 @@ export const getProfile = async (userID: string) => {
 };
 
 
-export const postProfileEdit = async (userID: string, age?: number, role?: string, like?: string, motto?: string, contact?: string) => {
+export const postProfileInfo = async (userID: string, age?: number, role?: string, like?: string, motto?: string, contact?: string) => {
     const payload = {
         userID: userID,
         age: age,

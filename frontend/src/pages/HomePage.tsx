@@ -4,7 +4,7 @@ import { HeaderButton, HeaderLogo } from "../components/Header";
 import { PAGE_STATUS } from "../helpers/constants";
 import { Profile } from "../components";
 import { navigationLinkStyle, navigationListStyle, outletContainerStyle, userHeaderStyle, userProfileContainerStyle } from "../styles/userpage";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 const HomePage = () => {
@@ -21,7 +21,8 @@ const HomePage = () => {
     ];
 
     const location = useLocation();
-    console.log(location.pathname);
+    
+    const navigate = useNavigate();
 
     return (
         <div style={{ display: "flex" }}>
@@ -34,7 +35,7 @@ const HomePage = () => {
                 <HeaderLogo />
 
                 <HeaderButton page_status={PAGE_STATUS.home} handleLogin={() => {
-                    console.log("login");
+                    navigate("/login");
                 }} />
 
                 <ul style={{

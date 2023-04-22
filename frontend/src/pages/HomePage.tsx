@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import homeBackground from "../assets/homeBackground.png";
 import { HeaderButton, HeaderLogo } from "../components/Header";
 import { PAGE_STATUS } from "../helpers/constants";
 import { Profile } from "../components";
 import { navigationLinkStyle, navigationListStyle, outletContainerStyle, userHeaderStyle, userProfileContainerStyle } from "../styles/userpage";
 import { Link, Outlet, useLocation } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const HomePage = () => {
+
+    useEffect(() => {
+        toast.success("Welcome to your home page! ✨");
+    }, []);
 
     const links = [
         { to: "/home/overview", text: "Overview" },
@@ -76,6 +81,7 @@ const HomePage = () => {
             }}>
                 <Outlet />
             </div>
+            <Toaster />
         </div>
     );
 };

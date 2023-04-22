@@ -1,19 +1,31 @@
 import React, { useState } from "react";
 import complete from "../assets/complete.png";
 import { containerStyle, inputStyle, confirmButtonStyle } from "../styles/loginpage";
+import { postRegister } from "../helpers/apiCall";
+import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 
 const Register = () => {
-    // Register form component. It takes in a "onSubmit" function prop which will
-    // be called when the user submits the form.
-
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // onSubmit(name, password, email);  // A callback function to pass data to parent component.
+        try {
+            const response = await postRegister(name, password, email);
+            console.log(response);
+            if (response.status === 200) {
+                navigate("/home");
+            } else {
+                toast.error("Invalid email or password");
+            }
+        } catch (error) {
+            toast.error("An error occurred, please try again later");
+        }
     };
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,6 +106,7 @@ const Register = () => {
                     }}
                 >CONFIRM</button>
             </form>
+            <Toaster />
         </div>
     );
 };

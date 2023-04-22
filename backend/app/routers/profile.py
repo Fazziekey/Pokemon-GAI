@@ -1,5 +1,5 @@
 from fastapi import FastAPI, APIRouter, HTTPException
-from pydantic import BaseModel
+from ..schemas.profile import ProfileRequest, ProfileResponse, ProfileInfoRequest, ProfileAvatarRequest
 
 app = FastAPI()
 
@@ -9,28 +9,6 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-class ProfileRequest(BaseModel):
-    userID: str
-
-class ProfileResponse(BaseModel):
-    age: int
-    role: str
-    like: str
-    motto: str
-    contact: str
-    avatar: str
-
-class ProfileInfoRequest(BaseModel):
-    userID: str
-    age: int = None
-    role: str = None
-    like: str = None
-    motto: str = None
-    contact: str = None
-
-class ProfileAvatarRequest(BaseModel):
-    userID: str
-    avatar: str
 
 def fake_get_profile(request: ProfileRequest) -> ProfileResponse:
     # 实现获取用户信息逻辑，例如从数据库中查询用户信息

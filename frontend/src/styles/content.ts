@@ -58,3 +58,24 @@ export const friendVisitButtonStyle = {
     height: "50px",
     backgroundColor: "white",
 };
+
+export const createTextStyle = {
+    fontFamily: "Inter",
+    fontStyle: "normal",
+    fontWeight: 700,
+    fontSize: "16px",
+    color: PURPLE,
+};
+
+export const createInputStyle = {
+    width: "80%",
+    height: "40px",
+    borderRadius: "8px",
+    border: `1px solid ${PURPLE}`
+};
+
+export const createGroupContainerStyle = {
+    padding: "10px 0",
+    display: "flex",
+    alignItems: "center",
+};

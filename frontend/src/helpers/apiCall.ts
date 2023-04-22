@@ -33,14 +33,14 @@ export const getProfile = async (userID: string) => {
 
 export const postProfileInfo = async (userID: string, age?: number, role?: string, like?: string, motto?: string, contact?: string) => {
     const payload = {
-        info: 
+        info:
         {
             age: age,
             role: role,
             like: like,
             motto: motto,
             contact: contact
-        } 
+        }
     };
     const params = {
         userID: userID,
@@ -56,5 +56,16 @@ export const postProfileAvatar = async (userID: string, avatar: string) => {
         avatar: avatar
     };
     const response = await postData("/profile/avatar", payload);
+    return response;
+};
+
+
+export const getImagenGenerate = async (prompt: string, pokeType: string, pokeName: string) => {
+    const params = {
+        prompt: prompt,
+        pokeType: pokeType,
+        pokeName: pokeName
+    };
+    const response = await getData("/imagen/generate", params);
     return response;
 };

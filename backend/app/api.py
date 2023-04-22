@@ -8,7 +8,7 @@ from PIL import Image
 import io
 from datetime import timedelta
 
-from .routers import users, image_generation, items, login
+from .routers import users, image_generation, items, login, register
 from .dependencies import get_query_token
 from .schemas.users import Token
 from .config import ACCESS_TOKEN_EXPIRE_MINUTES
@@ -25,6 +25,7 @@ app = FastAPI()
 app.include_router(users.router)
 app.include_router(items.router)
 app.include_router(login.router)
+app.include_router(register.router)
 app.include_router(image_generation.router)
 
 origins = [

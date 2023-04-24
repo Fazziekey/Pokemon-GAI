@@ -3,10 +3,11 @@ from typing import List
 from sqlalchemy.orm import Session
 
 from ..database import fake_users_db
-from ..dependencies import get_current_active_user, get_db, get_password_hash
+from ..dependencies import get_db
 from ..schemas.users import UserCreate, User
 from ..crud.users import get_user, get_users, get_user_by_email, get_user_by_username, create_new_user
 from .. import models
+from .login import get_current_active_user
 
 
 router = APIRouter(

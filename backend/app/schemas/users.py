@@ -3,15 +3,6 @@ from typing import Union, List
 from .items import Item
 
 
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-
-
-class TokenData(BaseModel):
-    username: Union[str, None] = None
-
-
 class UserBase(BaseModel):
     username: str
     email: str

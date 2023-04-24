@@ -1,39 +1,25 @@
 import React from "react";
-import { PURPLE } from "../styles/colors";
+import { galleryItemImgStyle, galleryItemDateStyle, galleryItemNameStyle } from "../styles/content";
 
 const GalleryItem = () => {
     return (<div>
         <div
-            style={{
-                width: "300px",
-                height: "185px",
-                borderRadius: "15px",
-                border: `1px solid ${PURPLE}`,
-                margin: "10px 10px 0 10px",
-            }}
+            style={galleryItemImgStyle}
         >
         </div>
-        <div 
+        <div
             style={{
                 margin: "0 10px 0 10px",
             }}
         >
             <p style={{
-                fontFamily: "Inter",
-                fontStyle: "normal",
-                fontWeight: "bold",
-                fontSize: "14px",
+                ...galleryItemNameStyle,
                 float: "left",
-                marginLeft: "10px",
             }}>Pokemon</p>
+
             <p style={{
-                fontFamily: "Inter",
-                fontStyle: "normal",
-                fontWeight: "lighter",
-                color: "#B6B6B6",
-                fontSize: "14px",
+                ...galleryItemDateStyle,
                 float: "right",
-                marginRight: "10px",
             }}>2023-1-31</p>
         </div>
     </div>

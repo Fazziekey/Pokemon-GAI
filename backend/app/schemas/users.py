@@ -7,7 +7,7 @@ class UserBase(BaseModel):
     username: str
     email: str
     full_name: Union[str, None] = None
-    is_active: Union[bool, None] = None
+    is_active: Union[bool, None] = True
 
 
 class UserCreate(UserBase):

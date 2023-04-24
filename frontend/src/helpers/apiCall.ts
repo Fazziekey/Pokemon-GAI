@@ -1,4 +1,5 @@
 import { getData, postData } from "./apiCallWrappers";
+import axios from "axios";
 
 
 export const postRegister = async (username: string, password: string, email: string) => {
@@ -13,12 +14,24 @@ export const postRegister = async (username: string, password: string, email: st
 
 
 export const postLogin = async (email: string, password: string) => {
-    const params = {
-        email: email,
-        password: password
-    };
-    const response = await postData("/login", null, params);
-    return response;
+
+    const formData = new FormData();
+    formData.append('username', email);
+    formData.append('password', password);
+
+    const response = await fetch("http://localhost:8000/login", {
+        method: "POST",
+        body: formData
+    })
+
+    return response
+
+    // TODO: Adapt to axios
+    // const params = {
+    //     email: email,
+    //     password: password
+    // };
+    // const response = await postData("/login", null, params);
 };
 
 

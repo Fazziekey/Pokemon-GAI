@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 from ..schemas.login import Token, TokenData
 from ..dependencies import pwd_context, get_db
-from ..crud.users import get_user
+from ..crud.users import get_user, get_user_by_email
 
 router = APIRouter(
     prefix="/login",
@@ -23,46 +23,13 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
-# class LoginRequest(BaseModel):
-#     email: EmailStr
-#     password: str
-
-
-# def fake_authentication(email: str, password: str) -> bool:
-
-#     #TODO: Implement real authentication logic
-    
-#     if email is not None and password is not None:
-#         return True
-
-#     if email == "user@example.com" and password == "password":
-#         return True
-    
-#     return False
-
-
-# @router.post("/", status_code=200)
-# async def login(email: EmailStr, password: str):
-#     is_authenticated = fake_authentication(email, password)
-    
-#     if not is_authenticated:
-#         return {
-#             "status": 400,
-#             "message": "Failed to login"
-#         }
-    
-#     return {
-#         "status": 200,
-#         "message": "Successfully logged in"
-#     }
-
-
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 
-def authenticate_user(db, username: str, password: str):
-    user = get_user(db, username)
+def authenticate_user(db, email: str, password: str):
+    # user = get_user(db, username)
+    user = get_user_by_email(db, email=email)
     if not user:
         return False
     if not verify_password(password, user.hashed_password):
@@ -89,18 +56,22 @@ def decode_access_token(token: str):
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
+        # username: str = payload.get("sub")
+        email: str = payload.get("sub")
+        # if username is None:
+        if email is None:
             raise credentials_exception
-        token_data = TokenData(username=username)
+        # token_data = TokenData(username=username)
+        token_data = TokenData(email=email)
     except JWTError:
         raise credentials_exception
     return token_data
 
 
-@router.post("/token", response_model=Token)
+@router.post("/", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    user = authenticate_user(db, form_data.username, form_data.password)
+    user_email = form_data.username
+    user = authenticate_user(db, user_email, form_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -109,7 +80,8 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
         )
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": user.username}, expires_delta=access_token_expires
+        # data={"sub": user.username}, expires_delta=access_token_expires
+        data={"sub": user.email}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
 

@@ -36,15 +36,22 @@ export const getProfile = async (userID: string) => {
 
 
 export const postProfileInfo = async (userID: string, age?: number, role?: string, like?: string, motto?: string, contact?: string) => {
-    const payload = {
-        info:
-        {
-            age: age,
-            role: role,
-            like: like,
-            motto: motto,
-            contact: contact
-        }
+    // const payload = {
+    //     info:
+    //     {
+    //         age: age,
+    //         role: role,
+    //         like: like,
+    //         motto: motto,
+    //         contact: contact
+    //     }
+    // };
+    const payload = {        
+        age: age,
+        role: role,
+        like: like,
+        motto: motto,
+        contact: contact
     };
     const params = {
         userID: userID,
@@ -56,8 +63,10 @@ export const postProfileInfo = async (userID: string, age?: number, role?: strin
 
 export const postProfileAvatar = async (userID: string, avatar: string) => {
     const payload = {
-        userID: userID,
         avatar: avatar
+    };
+    const params = {
+        userID: userID,
     };
     const response = await postData("/profile/avatar", payload);
     return response;

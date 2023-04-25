@@ -4,8 +4,8 @@ from .images import Image
 
 
 class UserBase(BaseModel):
-    username: str
-    email: str
+    username: str = None
+    email: str = None
     full_name: Union[str, None] = None
     is_active: Union[bool, None] = True
 

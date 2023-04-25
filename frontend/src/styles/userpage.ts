@@ -1,4 +1,4 @@
-import { PURPLE } from "./colors";
+import { PURPLE, YELLOW } from "./colors";
 
 export const userNameStyle = {
     fontFamily: "Inter",
@@ -26,6 +26,14 @@ export const userAvatarStyle = {
     overflow: "hidden",
 };
 
+export const userEditProfileInputStyle = {
+    color: "#4E4E4E",
+    border: `1px solid ${PURPLE}`,
+    borderRadius: "5px",
+    fontSize: "14px",
+    padding: "0 8px",
+};
+
 export const userEditProfileButtonStyle = {
     marginTop: "20px",
     padding: "5px 0",
@@ -49,6 +57,21 @@ export const userProfileBackgroundStyle = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center"
+};
+
+export const userProfileUploadStyle = {
+    backgroundColor: YELLOW,
+    color: "white",
+    height: "30px",
+    width: "30px",
+    borderRadius: "15px",
+    fontFamily: "Montserrat",
+    fontSize: "16px",
+    fontWeight: 900,
+    cursor: "pointer",
+    marginLeft: "150px",
+    marginTop: "-40px",
+    border: "1px solid white",
 };
 
 export const userProfileContainerStyle = {

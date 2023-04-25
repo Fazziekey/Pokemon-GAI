@@ -4,7 +4,7 @@ import threading
 # subprocess.run("uvicorn main:app --host 0.0.0.0 --port 8000", shell=True)
 
 def start_backend():
-    command = "python backend/main.py"
+    command = "python3 backend/main.py"
     subprocess.run(command, shell=True, check=True)
 
 def start_frontend():

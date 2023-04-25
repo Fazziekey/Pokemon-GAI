@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, APIRouter
 
-from ..core.chatbot import generate_response 
+from ..core.chatbot import generate_response, get_memory
 from ..schemas.chatbot import ChatRequest
 
 router = APIRouter(
@@ -14,6 +14,12 @@ router = APIRouter(
 async def chat(content: str):
     response = generate_response(content)
     return {
-        "status": 200,
+        "response": response
+    }
+
+@router.get("/get_memory", status_code=200)
+async def get_all_memory():
+    response = get_memory()
+    return {
         "response": response
     }

@@ -11,6 +11,9 @@ const Friends = () => {
         { id: 3 },
         { id: 4 },
         { id: 5 },
+        { id: 6 },
+        { id: 7 },
+        { id: 8 },
     ];
 
     return (<div
@@ -18,6 +21,8 @@ const Friends = () => {
             ...contentContainerStyle,
             justifyContent: "left",
             flexDirection: "column",
+            overflow: "scroll",
+            paddingBottom: "200px",
         }}
     >
         <div style={searchBoxStyle}>
@@ -42,6 +47,7 @@ const Friends = () => {
                 flexDirection: "row",
                 flexWrap: "wrap",
                 width: "100%",
+                paddingBottom: "120px",
             }}
         >
             {friends.map((item) => {

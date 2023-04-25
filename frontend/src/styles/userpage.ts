@@ -26,6 +26,14 @@ export const userAvatarStyle = {
     overflow: "hidden",
 };
 
+export const userEditProfileInputStyle = {
+    color: "#4E4E4E",
+    border: `1px solid ${PURPLE}`,
+    borderRadius: "5px",
+    fontSize: "14px",
+    padding: "0 8px",
+};
+
 export const userEditProfileButtonStyle = {
     marginTop: "20px",
     padding: "5px 0",

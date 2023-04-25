@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import avatarPlaceholder from "../assets/avatar.png";
-import { userAvatarStyle, userEditProfileButtonStyle, userIDStyle, userNameStyle, userProfileBackgroundStyle, userProfileListStyle, userProfileUploadStyle } from "../styles/userpage";
+import { userAvatarStyle, userEditProfileButtonStyle, userEditProfileInputStyle, userIDStyle, userNameStyle, userProfileBackgroundStyle, userProfileListStyle, userProfileUploadStyle } from "../styles/userpage";
 import AutosizeInput from "react-input-autosize";
-import { PURPLE, YELLOW } from "../styles/colors";
+import { PURPLE, PURPLE_LIGHT, YELLOW } from "../styles/colors";
 import { postProfileAvatar, postProfileInfo } from "../helpers/apiCall";
 import { getProfile } from "../helpers/apiCall";
 import toast, { Toaster } from "react-hot-toast";
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 import { Tooltip } from "antd";
+import { PROFILE_INFO_LIST } from "../helpers/constants";
 
 
 // Initialize once (at the start of your app).
@@ -19,15 +20,6 @@ const uploader = Uploader({
 
 // Configuration options: https://upload.io/uploader#customize
 const options = { multi: true };
-
-
-const infoList = [
-    { emoji: "✅", label: "Age:" },
-    { emoji: "✨", label: "Role:" },
-    { emoji: "😍", label: "Like:" },
-    { emoji: "📖", label: "Motto:" },
-    { emoji: "📧", label: "Contact:" },
-];
 
 
 const Profile = () => {
@@ -157,7 +149,7 @@ const Profile = () => {
                 listStyleType: "none",
                 marginInlineStart: "-1em",
             }}>
-                {infoList.map((item, index) => (
+                {PROFILE_INFO_LIST.map((item, index) => (
                     <li key={item.label}
                         style={userProfileListStyle}
                     >
@@ -180,12 +172,7 @@ const Profile = () => {
                                     backgroundColor: "transparent",
                                     marginLeft: "5px"
                                 }}
-                                inputStyle={{
-                                    color: "#4E4E4E",
-                                    border: `1px solid ${PURPLE}`,
-                                    borderRadius: "5px",
-                                    fontSize: "14px",
-                                }}
+                                inputStyle={userEditProfileInputStyle}
                             />
                         ) : (
                             <span
@@ -201,8 +188,8 @@ const Profile = () => {
             <button
                 style={{
                     ...userEditProfileButtonStyle,
-                    backgroundColor: editStatus ? "#947FF8" : "white",
-                    color: editStatus ? "white" : "#947FF8",
+                    backgroundColor: editStatus ? PURPLE : "white",
+                    color: editStatus ? "white" : PURPLE,
                 }}
                 onClick={(e) => {
                     setEditStatus(!editStatus);
@@ -212,18 +199,18 @@ const Profile = () => {
                 }}
                 onMouseEnter={(e) => {
                     if (editStatus) {
-                        e.currentTarget.style.backgroundColor = "rgba(148, 127, 248, 0.5)";
+                        e.currentTarget.style.backgroundColor = PURPLE_LIGHT;
                     }
                     else {
-                        e.currentTarget.style.color = "rgba(148, 127, 248, 0.5)";
+                        e.currentTarget.style.color = PURPLE_LIGHT;
                     }
                 }}
                 onMouseLeave={(e) => {
                     if (editStatus) {
-                        e.currentTarget.style.backgroundColor = "#947FF8";
+                        e.currentTarget.style.backgroundColor = PURPLE;
                     }
                     else {
-                        e.currentTarget.style.color = "#947FF8";
+                        e.currentTarget.style.color = PURPLE;
                     }
                 }}
             >{editStatus ? "Save Profile" : "Edit Profile"}</button>

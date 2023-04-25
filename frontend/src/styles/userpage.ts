@@ -72,6 +72,9 @@ export const userProfileUploadStyle = {
     marginLeft: "150px",
     marginTop: "-40px",
     border: "1px solid white",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
 };
 
 export const userProfileContainerStyle = {

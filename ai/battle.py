@@ -138,7 +138,7 @@ def battle_one_step(pokemon1: Pokemon = None, pokemon2: Pokemon = None):
 
     if pokemon1.hp <= 0:
         results[-1] += f"\n {pokemon1.name} has fainted. {pokemon2.name} wins!"
-        results.append(f"{pokemon1.name} has fainted. {pokemon2.name} wins!")
+        # results.append(f"{pokemon1.name} has fainted. {pokemon2.name} wins!")
         return results
         
     return results
@@ -153,9 +153,10 @@ with gr.Blocks() as demo:
     pokemon2 = Pokemon("Blastoise", ElementType.WATER, 100, 25)
 
     def bot(history):
+        if len(history) > 0 and 'wins' in history[-1][-1]:
+            return history
         result = battle_one_step(pokemon1, pokemon2)
         history.append(result)
-        print(history)
         return history
 
     go.click(bot, chatbot, chatbot, queue=False)

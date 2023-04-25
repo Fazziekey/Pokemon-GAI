@@ -79,3 +79,30 @@ export const createGroupContainerStyle = {
     display: "flex",
     alignItems: "center",
 };
+
+export const galleryItemImgStyle = {
+    width: "300px",
+    height: "185px",
+    borderRadius: "15px",
+    border: `1px solid ${PURPLE}`,
+    margin: "10px 10px 0 10px",
+};
+
+export const galleryItemNameStyle = {
+    fontFamily: "Inter",
+    fontStyle: "normal",
+    fontWeight: "bold",
+    fontSize: "14px",
+    float: "left",
+    marginLeft: "10px",
+};
+
+export const galleryItemDateStyle = {
+    fontFamily: "Inter",
+    fontStyle: "normal",
+    fontWeight: "lighter",
+    color: "#B6B6B6",
+    fontSize: "14px",
+    float: "right",
+    marginRight: "10px",
+};

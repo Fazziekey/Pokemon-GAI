@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Integer, String, ForeignKey
+from sqlalchemy import Boolean, Column, Integer, String, ForeignKey, LargeBinary
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -14,15 +14,21 @@ class User(Base):
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
 
-    items = relationship("Item", back_populates="owner")
+    images = relationship("Image", back_populates="owner")
 
 
-class Item(Base):
-    __tablename__ = "items"
+class Image(Base):
+    __tablename__ = "images"
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, index=True)
+    prompt = Column(String, index=True)
+    pokeType = Column(String, index=True)
+    pokeName = Column(String, index=True)
     description = Column(String, index=True)
+    # attribute = Column(String, index=True)
+    # hp = Column(Integer, index=True)
+    # attack = Column(Integer, index=True)
+    image_store = Column(LargeBinary)
     owner_id = Column(Integer, ForeignKey("users.id"))
 
-    owner = relationship("User", back_populates="items")
+    owner = relationship("User", back_populates="images")

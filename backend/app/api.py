@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image
 
-from .routers import imagen, users, items, login, register, profile, chatbot
+from .routers import imagen, users, login, register, profile, chatbot
 from .database import engine
 from . import models
 
@@ -13,7 +13,6 @@ app = FastAPI()
 
 
 app.include_router(users.router)
-app.include_router(items.router)
 app.include_router(login.router)
 app.include_router(register.router)
 app.include_router(profile.router)

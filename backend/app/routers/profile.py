@@ -1,5 +1,10 @@
-from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi import FastAPI, APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+
+from ..dependencies import get_db
 from ..schemas.profile import ProfileRequest, ProfileResponse, ProfileInfo, ProfileAvatarRequest
+# from .. import crud
+from ..crud.profiles import get_profile_by_id, update_profile_by_id, update_profile_avatar_by_id
 
 app = FastAPI()
 
@@ -10,39 +15,23 @@ router = APIRouter(
 )
 
 
-def fake_get_profile(request: ProfileRequest) -> ProfileResponse:
-    # 实现获取用户信息逻辑，例如从数据库中查询用户信息
-    profile = ProfileResponse(age=18, role="user", like="reading", motto="never give up", contact="test@example.com", avatar="https://exoplanets.nasa.gov/system/news_items/main_images/214_earthfromspace.png")
-    return profile
-
-
-def fake_update_profile(userID: ProfileRequest, info: ProfileInfo) -> bool:
-    # 实现更新用户信息逻辑，例如将用户信息保存到数据库中
-    return True
-
-
-def fake_upload_avatar(request: ProfileAvatarRequest) -> bool:
-    # 实现上传用户头像逻辑，例如将头像保存到云存储中
-    return True
-
-
-@router.get("/", response_model=ProfileResponse)
-async def get_profile(userID: str):
-    profile = fake_get_profile(userID)
+@router.get("/")
+async def get_profile(userID: str, db: Session = Depends(get_db)):
+    profile = get_profile_by_id(db=db, user_id=userID)
     return profile
 
 
 @router.post("/info")
-async def update_profile(userID: str, info: ProfileInfo):
-    success = fake_update_profile(userID, info)
+async def update_profile(userID: str, profile_info: ProfileInfo,  db: Session = Depends(get_db)):
+    success = update_profile_by_id(db=db, user_id=userID, profile_info=profile_info)
     if not success:
         raise HTTPException(status_code=500, detail="Failed to update profile")
-    return {"status": 200, "message": "Successfully updated profile"}
+    return {"message": "Successfully updated profile"}
 
 
 @router.post("/avatar")
-async def upload_avatar(request: ProfileAvatarRequest):
-    success = fake_upload_avatar(request)
+async def upload_avatar(userID: str, avatar: ProfileAvatarRequest,  db: Session = Depends(get_db)):
+    success = update_profile_avatar_by_id(db=db, user_id=userID, avatar=avatar)
     if not success:
         raise HTTPException(status_code=500, detail="Failed to upload avatar")
-    return {"status": 200, "message": "Successfully uploaded avatar"}
+    return {"message": "Successfully uploaded avatar"}

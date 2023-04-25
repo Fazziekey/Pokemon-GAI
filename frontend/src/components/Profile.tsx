@@ -48,7 +48,7 @@ const Profile = () => {
     };
 
     const handleEditProfile = async () => {
-        const response = await postProfileInfo("", infoData.age, infoData.role, infoData.like, infoData.motto, infoData.contact);
+        const response = await postProfileInfo("1", infoData.age, infoData.role, infoData.like, infoData.motto, infoData.contact);
         if (response.status === 200) {
             toast.success("Profile info updated");
         }
@@ -79,7 +79,7 @@ const Profile = () => {
     useEffect(() => {
         // TODO: read userID from cookie
         // const userID = localStorage.getItem("userID");
-        const userID = "PK230204";
+        const userID = "1";
         const userName = "Hollie77";
         setUserID(userID);
         setUserName(userName);

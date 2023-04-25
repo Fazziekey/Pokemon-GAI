@@ -16,6 +16,7 @@ export const panelContainerStyle = {
     borderRadius: "30px",
     margin: "10px",
     padding: "20px",
+    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
 };
 
 export const searchBoxStyle = {

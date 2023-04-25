@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import avatarPlaceholder from "../assets/avatar.png";
 import { userAvatarStyle, userEditProfileButtonStyle, userEditProfileInputStyle, userIDStyle, userNameStyle, userProfileBackgroundStyle, userProfileListStyle, userProfileUploadStyle } from "../styles/userpage";
 import AutosizeInput from "react-input-autosize";
-import { PURPLE, PURPLE_LIGHT, YELLOW } from "../styles/colors";
+import { PURPLE, PURPLE_LIGHT } from "../styles/colors";
 import { postProfileAvatar, postProfileInfo } from "../helpers/apiCall";
 import { getProfile } from "../helpers/apiCall";
 import toast, { Toaster } from "react-hot-toast";

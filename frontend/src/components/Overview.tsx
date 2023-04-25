@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { contentContainerStyle, panelContainerStyle } from "../styles/content";
 import { PURPLE } from "../styles/colors";
 import pokemonPlaceholder from "../assets/pokemon.png";
+import Visualization from "./Visualization";
 
 const Overview = () => {
     const [name, setName] = React.useState("");
@@ -54,10 +55,12 @@ const Overview = () => {
                             fontWeight: "normal"
                         }}>
                         <li><span style={{
-                            color: PURPLE
+                            color: PURPLE,
+                            fontSize: "18px",
                         }}>{`${victories}`}</span> victories in battles</li>
                         <li><span style={{
-                            color: PURPLE
+                            color: PURPLE,
+                            fontSize: "18px",
                         }}>{`${battles}`}</span> battles all together</li>
                     </ul>
                     <li>I have collected...</li>
@@ -65,7 +68,8 @@ const Overview = () => {
                             fontWeight: "normal"
                         }}>
                         <li><span style={{
-                            color: PURPLE
+                            color: PURPLE,
+                            fontSize: "18px",
                         }}>{`${pokemonList.length}`}</span> Pokemon</li>
                     </ul>
                     <li>This is my Collection...</li>
@@ -77,9 +81,7 @@ const Overview = () => {
                         flexDirection: "row",
                         flexWrap: "wrap",
                         width: "100%",
-                        // justifyContent: "space-between",
                         alignItems: "center",
-                        // padding: "0px 10px",
                         justifyContent: "center",
                     }}
                 >{pokemonList.map((pokemon, index)=>{
@@ -110,7 +112,7 @@ const Overview = () => {
                     marginRight: "30px",
                 }}
             >
-
+                <Visualization  />
             </div>
         </div>
 

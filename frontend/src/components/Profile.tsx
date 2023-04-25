@@ -8,7 +8,7 @@ import { getProfile } from "../helpers/apiCall";
 import toast, { Toaster } from "react-hot-toast";
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
-import { Tooltip } from "antd";
+import { Tooltip, Modal, Button } from "antd";
 import { PROFILE_INFO_LIST } from "../helpers/constants";
 
 
@@ -26,6 +26,7 @@ const Profile = () => {
     const [editStatus, setEditStatus] = useState(false);
     const [userID, setUserID] = useState("");
     const [userName, setUserName] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [infoData, setInfoData] = useState({
         age: 0,
@@ -66,6 +67,15 @@ const Profile = () => {
         }
     };
 
+    const handleOk = () => {
+        handleEditProfile();
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
     useEffect(() => {
         // TODO: read userID from cookie
         // const userID = localStorage.getItem("userID");
@@ -78,14 +88,8 @@ const Profile = () => {
             // fetch user profile info
             getProfile(userID).then((res) => {
                 const resData = res.data;
-                if(resData) {
-                    setInfoData({
-                        age: resData.age,
-                        role: resData.role,
-                        like: resData.like,
-                        motto: resData.motto,
-                        contact: resData.contact
-                    });
+                if (resData) {
+                    setInfoData({...resData});
                 }
                 else {
                     toast.error("Profile info not found");
@@ -194,7 +198,7 @@ const Profile = () => {
                 onClick={(e) => {
                     setEditStatus(!editStatus);
                     if (editStatus) {
-                        handleEditProfile();
+                        setIsModalOpen(true);
                     }
                 }}
                 onMouseEnter={(e) => {
@@ -215,6 +219,27 @@ const Profile = () => {
                 }}
             >{editStatus ? "Save Profile" : "Edit Profile"}</button>
             <Toaster />
+            <Modal 
+                title="" 
+                open={isModalOpen} 
+                onOk={handleOk} 
+                onCancel={handleCancel}
+                footer={[
+                    <Button key="back" onClick={handleCancel}>
+                      No
+                    </Button>,
+                    <Button key="submit" onClick={handleOk}
+                        style={{
+                            backgroundColor: PURPLE,
+                            color: "white",
+                        }}
+                    >
+                      Yes
+                    </Button>
+                  ]}
+            >
+                <p>Do you want to update the profile?</p>
+            </Modal>
         </div>
     );
 };

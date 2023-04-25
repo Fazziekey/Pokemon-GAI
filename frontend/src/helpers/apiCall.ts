@@ -4,11 +4,13 @@ import axios from "axios";
 
 export const postRegister = async (username: string, password: string, email: string) => {
     const params = {
-        username: username,
-        password: password,
         email: email
     };
-    const response = await postData("/register", null, params);
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("password", password);
+
+    const response = await postData("/register", formData, params, "multipart/form-data");
     return response;
 };
 

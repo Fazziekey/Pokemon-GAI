@@ -51,6 +51,7 @@ class Pokemon:
         self.hp = hp
         self.attack = attack
 
+
 def calculate_damage_multiplier(attacker: Pokemon, defender: Pokemon) -> float:
     base_multiplier = type_chart.get(attacker.element_type, {}).get(defender.element_type, 1.0)
 

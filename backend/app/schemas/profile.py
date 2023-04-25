@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Union, List
-from .items import Item
+from .images import Image
 
 class ProfileRequest(BaseModel):
     userID: str

@@ -14,3 +14,4 @@ bcrypt
 gradio_client
 openai
 langchain
+gradio

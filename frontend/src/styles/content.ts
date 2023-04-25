@@ -158,4 +158,5 @@ export const cardAttributeContainerStyle = {
     alignItems: "center",
     width: "100%",
     height: "45px",
+
 };

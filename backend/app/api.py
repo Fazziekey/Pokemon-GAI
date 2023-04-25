@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image
 
-from .routers import users, image_generation, items, login, register, profile
+from .routers import imagen, users, login, register, profile, chatbot
 from .database import engine
 from . import models
 
@@ -13,11 +13,11 @@ app = FastAPI()
 
 
 app.include_router(users.router)
-app.include_router(items.router)
 app.include_router(login.router)
 app.include_router(register.router)
 app.include_router(profile.router)
-app.include_router(image_generation.router)
+app.include_router(imagen.router)
+app.include_router(chatbot.router)
 
 origins = [
     "http://localhost:3000",

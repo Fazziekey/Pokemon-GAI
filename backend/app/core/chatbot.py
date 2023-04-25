@@ -5,6 +5,7 @@ import os
 
 os.environ["OPENAI_API_KEY"] = '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'
 
+
 template = """You are having a conversation with a magical Pokémon character who can understand human language and engage in a dialogue.
     This Pokémon has a unique personality and knowledge, and is willing to answer your questions about the Pokémon world. 
     Please note that its responses may not be entirely accurate, but it will do its best to provide interesting perspectives and suggestions.,
@@ -26,6 +27,15 @@ chatgpt_chain = LLMChain(
     memory=ConversationBufferWindowMemory(k=2),
 )
 
+
+def generate_response(input_text: str) -> str:
+
+    human_input = "Human: " + input_text
+    
+    output = chatgpt_chain.predict(human_input=human_input)
+
+    return output
+
 def get_memory():
     messages = chatgpt_chain.memory.buffer
 
@@ -44,17 +54,3 @@ def convert_messages_format(messages):
         formatted_messages.append(formatted_message)
 
     return formatted_messages
-
-if __name__ == "__main__":
-
-    while True:
-        human_input = input("Human: ")
-        if human_input == "exit":
-            break
-        
-        output = chatgpt_chain.predict(human_input=human_input)
-        print(output)
-
-    print(chatgpt_chain.memory.buffer)
-
-    print(get_memory())

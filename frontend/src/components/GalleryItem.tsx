@@ -63,6 +63,7 @@ const GalleryItem = () => {
         <div
             onClick={() => setIsModalOpen(true)}
             style={galleryItemImgContainerStyle}
+
         >
             <img
                 src={image}
@@ -86,6 +87,7 @@ const GalleryItem = () => {
                 ...galleryItemDateStyle,
                 float: "right",
             }}>{date}</p>
+
         </div>
 
         <Modal

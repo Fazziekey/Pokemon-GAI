@@ -5,6 +5,10 @@ from typing import Optional
 from PIL import Image
 import io
 
+from ..dependencies import get_db
+from ..schemas.images import ImageCreate, Image
+from ..crud.images import create_user_image
+
 router = APIRouter(
     prefix="/imagen",
     tags=["imagen"],
@@ -36,7 +40,7 @@ def query(prompt: str, type: str, name: str):
     return response.content
 
 
-@router.get("/generate")
+@router.get("/generate/{user_id}")
 async def generate_image(
         prompt: str = 'fire greninja, wings, (fire claws), smoke, cityscape',
         pokeType: str = '2D',
@@ -54,6 +58,7 @@ async def generate_image(
     image = Image.open(io.BytesIO(image_bytes))
     image.save(f"{pokeName}.png")
 
+    # db_image = ImageCreate()
     return {
         "status": 200,
         "message": f"Image saved as {pokeName}.png"

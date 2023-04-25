@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Union, List
-from .items import Item
+from .images import Image
 
 
 class UserBase(BaseModel):
@@ -17,7 +17,7 @@ class UserCreate(UserBase):
 class User(UserBase):
     id : int
     hashed_password: str
-    items: List[Item] = []
+    images: List[Image] = []
 
     class Config:
         orm_mode = True

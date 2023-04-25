@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 
 from ..schemas.login import Token, TokenData
 from ..dependencies import pwd_context, get_db
-from ..crud.users import get_user, get_user_by_email
+from ..crud.users import get_user_by_username, get_user_by_email
 
 router = APIRouter(
     prefix="/login",
@@ -64,7 +64,7 @@ def verify_password(plain_password, hashed_password):
 
 
 def authenticate_user(db, email: str, password: str):
-    # user = get_user(db, username)
+    # user = get_user_by_username(db, username)
     user = get_user_by_email(db, email=email)
     if not user:
         return False

@@ -11,11 +11,12 @@ export const contentContainerStyle = {
 
 export const panelContainerStyle = {
     width: "45%",
-    height: "60%",
+    height: "65vh",
     border: `1px solid ${PURPLE}`,
     borderRadius: "30px",
     margin: "10px",
     padding: "20px",
+    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
 };
 
 export const searchBoxStyle = {
@@ -128,7 +129,7 @@ export const cardModalContainerStyle = {
 export const cardModalImgContainerStyle = {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
     backgroundImage: `url(${cardBackground})`,
     backgroundSize: "cover",
@@ -137,7 +138,7 @@ export const cardModalImgContainerStyle = {
     height: "60vh",
     marginTop: "-140px",
     borderRadius: "30px",
-    paddingTop: "40px"
+    paddingTop: "150px"
 };
 
 export const cardAttributeTitleStyle = {

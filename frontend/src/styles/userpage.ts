@@ -122,4 +122,5 @@ export const outletContainerStyle = {
     left: "25vw",
     width: "75vw",
     height: "100vh",
+    overflow: "scroll",
 };

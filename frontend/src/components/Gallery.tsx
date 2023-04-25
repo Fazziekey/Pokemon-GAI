@@ -14,6 +14,13 @@ const Gallery = () => {
         { id: 3 },
         { id: 4 },
         { id: 5 },
+        { id: 6 },
+        { id: 7 },
+        { id: 8 },
+        { id: 9 },
+        { id: 10 },
+        { id: 11 },
+        { id: 12 },
     ];
 
     return (<div
@@ -21,8 +28,9 @@ const Gallery = () => {
             ...contentContainerStyle,
             display: "flex",
             justifyContent: "left",
-            flexWrap: "wrap",
             flexDirection: "column",
+            overflow: "scroll",
+            height: "auto",
         }}
     >
         <div style={searchBoxStyle}>
@@ -47,6 +55,8 @@ const Gallery = () => {
                 flexDirection: "row",
                 flexWrap: "wrap",
                 width: "100%",
+                height: "100%",
+                paddingBottom: "300px",
             }}
         >
             {pokemonList.map((item) => {

@@ -1,4 +1,6 @@
 import { PURPLE } from "./colors";
+import cardBackground from "../assets/card.png";
+
 
 export const contentContainerStyle = {
     justifyContent: "space-evenly",
@@ -8,11 +10,11 @@ export const contentContainerStyle = {
 };
 
 export const panelContainerStyle = {
-    width: "40%",
+    width: "45%",
     height: "60%",
     border: `1px solid ${PURPLE}`,
-    borderRadius: "10px",
-    margin: "10px 0 10px 0",
+    borderRadius: "30px",
+    margin: "10px",
     padding: "20px",
 };
 
@@ -25,6 +27,41 @@ export const searchBoxStyle = {
     alignItems: "center",
     paddingLeft: "10px",
     margin: "10px 0 0 10px",
+};
+
+export const galleryItemImgContainerStyle = {
+    width: "300px",
+    height: "185px",
+    borderRadius: "15px",
+    border: `1px solid ${PURPLE}`,
+    margin: "10px 10px 0 10px",
+    overflow: "hidden",
+    cursor: "pointer",
+};
+
+export const galleryItemImgStyle = {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+};
+
+export const galleryItemTitleStyle = {
+    fontFamily: "Inter",
+    fontStyle: "normal",
+    fontWeight: "bold",
+    fontSize: "14px",
+    float: "left",
+    marginLeft: "10px",
+};
+
+export const galleryItemDateStyle = {
+    fontFamily: "Inter",
+    fontStyle: "normal",
+    fontWeight: "lighter",
+    color: "#B6B6B6",
+    fontSize: "14px",
+    float: "right",
+    marginRight: "10px",
 };
 
 export const friendNameStyle = {
@@ -80,29 +117,46 @@ export const createGroupContainerStyle = {
     alignItems: "center",
 };
 
-export const galleryItemImgStyle = {
-    width: "300px",
-    height: "185px",
-    borderRadius: "15px",
-    border: `1px solid ${PURPLE}`,
-    margin: "10px 10px 0 10px",
+export const cardModalContainerStyle = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
+    height: "600px"
 };
 
-export const galleryItemNameStyle = {
+export const cardModalImgContainerStyle = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundImage: `url(${cardBackground})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    width: "100%",
+    height: "60vh",
+    marginTop: "-140px",
+    borderRadius: "30px",
+    paddingTop: "40px"
+};
+
+export const cardAttributeTitleStyle = {
     fontFamily: "Inter",
-    fontStyle: "normal",
+    fontStyle: "italic",
     fontWeight: "bold",
-    fontSize: "14px",
-    float: "left",
-    marginLeft: "10px",
+    fontSize: "16px",
+    lineHeight: "19px",
+    color: "white",
+    width: "100px",
+    textShadow: "0px 4px 4px #ED9111",
 };
 
-export const galleryItemDateStyle = {
-    fontFamily: "Inter",
-    fontStyle: "normal",
-    fontWeight: "lighter",
-    color: "#B6B6B6",
-    fontSize: "14px",
-    float: "right",
-    marginRight: "10px",
+export const cardAttributeContainerStyle = {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "45px",
+
 };

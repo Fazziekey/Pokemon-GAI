@@ -127,7 +127,6 @@ const Profile = () => {
                 onComplete={files => {
                     const avatar = files[0].originalFile.fileUrl;
                     setAvatar(avatar);
-                    console.log(avatar);
                     handleUpdateAvatar(avatar);
                 }}>
                 {({ onClick }) =>

@@ -146,7 +146,10 @@ const Create = () => {
 
             </div>
             <div
-                style={panelContainerStyle}
+                style={{
+                    ...panelContainerStyle,
+                    marginRight: "30px",
+                }}
             >
 
             </div>

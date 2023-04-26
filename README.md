@@ -31,33 +31,17 @@ cd frontend
 yarn install
 ```
 
-## Down load the datasets(which will in MySQL infuture)
-```
-mkdir datasets
-cd datasets
-wget https://huggingface.co/spaces/Fazzie/Pokemon-GAI/blob/main/datasets/pregenerated_pokemon.h5
-```
-## Run the backend sever
-
-```
-python backend/main.py
-```
-
-## request get image from hf
-
-```
-python ai/space.py 
-```
-
-### get 3D image 
-```
-python ai/space3D.py 
-```
-
-## run the total project 
+## Run 
+## Run backend and frontend only
 
 ```
 python start.py
+```
+
+### run with chat and battle
+###
+```
+python start.py --chat --battle
 ```
 
 ## use docker

@@ -1,25 +1,17 @@
-# import requests
-
-# response = requests.post("https://fazzie-timmahw-sd2-1-pokemon3d.hf.space/run/predict", json={
-#   "data": [
-#     "hello world",
-# ]}).json()
-
-# data = response["data"]
-
-# import io
-# from PIL import Image
-# image = Image.open(io.BytesIO(data))
-
-# # save the image
-
-# image.save("image_space.png")
-
 import requests
+import os
 
-headers = {"Authorization": "Bearer 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"}
+API_URL = os.environ.get("SPACE")
+hf_token = os.environ.get("HF_TOKEN")
 
-response = requests.post("https://fazzie-pokemongai.hf.space/run/predict", headers=headers, json={
+if hf_token is None:
+	print("HF_TOKEN environment variable is missing")
+	hf_token = input("Enter your Hugging Face token: ")
+	os.environ["HF_TOKEN"] = hf_token
+	
+headers = {f"Authorization": "Bearer {hf_token}"}
+
+response = requests.post(API_URL, headers=headers, json={
   "data": [
     "dragon armored eevee, blue, ((wings)), claws",
 ]}).json()

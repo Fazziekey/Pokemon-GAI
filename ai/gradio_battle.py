@@ -3,6 +3,9 @@ import gradio as gr
 from enum import Enum
 import random
 import time
+import os
+
+SEVER_PORT = int(os.environ.get("BATTLE_PORT", 7681))
 
 class ElementType(Enum):
     NORMAL = 1
@@ -160,11 +163,6 @@ with gr.Blocks() as demo:
         return history
 
     go.click(bot, chatbot, chatbot, queue=False)
-    
-    # .then(
-    #     bot, chatbot, chatbot
-    # )
-
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(share=True, server_port = SEVER_PORT)

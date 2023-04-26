@@ -1,9 +1,10 @@
 import gradio as gr
 import random
 import time
-
+import os
 from chatbot import chatgpt_chain
 
+SEVER_PORT = int(os.environ.get("CHAT_PORT", 7680))
 
 with gr.Blocks() as demo:
     chatbot = gr.Chatbot()
@@ -28,4 +29,4 @@ with gr.Blocks() as demo:
     clear.click(lambda: None, None, chatbot, queue=False)
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(share=True, server_port=SEVER_PORT)

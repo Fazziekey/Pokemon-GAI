@@ -1,9 +1,13 @@
 from langchain import OpenAI, ConversationChain, LLMChain, PromptTemplate
 from langchain.memory import ConversationBufferWindowMemory
-
 import os
 
-os.environ["OPENAI_API_KEY"] = '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'
+
+if os.environ.get("OPENAI_API_KEY") is None:
+    print("OPENAI_API_KEY environment variable is not set.")
+    api = input("Please enter your OpenAI API key: ")
+    os.environ["OPENAI_API_KEY"] = api
+
 
 template = """You are having a conversation with a magical Pokémon character who can understand human language and engage in a dialogue.
     This Pokémon has a unique personality and knowledge, and is willing to answer your questions about the Pokémon world. 
@@ -17,7 +21,6 @@ prompt = PromptTemplate(
     input_variables=["history", "human_input"], 
     template=template
 )
-
 
 chatgpt_chain = LLMChain(
     llm=OpenAI(temperature=0), 
@@ -56,5 +59,4 @@ if __name__ == "__main__":
         print(output)
 
     print(chatgpt_chain.memory.buffer)
-
     print(get_memory())

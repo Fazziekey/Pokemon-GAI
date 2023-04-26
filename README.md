@@ -66,6 +66,30 @@ python start.py
 python start.py --chat --battle
 ```
 
+### run frontend only
+
+```
+python start.py --frontend_only
+```
+
+### run backend only
+
+```
+python start.py --backend_only
+```
+
+### run chat only
+
+```
+python start.py --chat_only
+```
+
+### run battle only
+
+```
+python start.py --battle_only
+```
+
 ## use docker
 
 ### build docker

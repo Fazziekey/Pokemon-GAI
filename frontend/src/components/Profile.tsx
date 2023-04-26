@@ -29,11 +29,11 @@ const Profile = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [infoData, setInfoData] = useState({
-        age: 0,
-        role: "",
-        like: "",
-        motto: "",
-        contact: ""
+        age: null,
+        role: "undefined",
+        like: "undefined",
+        motto: "undefined",
+        contact: "undefined"
     });
 
     const [avatar, setAvatar] = useState(avatarPlaceholder);

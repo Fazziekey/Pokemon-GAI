@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -59,7 +59,12 @@ const Login = () => {
                     >
                         Email:
                         <div style={{ display: "flex", flexDirection: "row" }}>
-                            <img src={complete} style={{ width: "40px", height: "40px" }}></img>
+                            {
+                                email && email.length > 0 ? 
+                                <img src={complete} style={{ width: "40px", height: "40px" }}></img> 
+                                : 
+                                <div style={{width: "40px", height: "40px"}}></div>
+                            }
                             <div style={containerStyle}>
                                 <input type="email" value={email} onChange={handleEmailchange}
                                     style={inputStyle}
@@ -73,7 +78,12 @@ const Login = () => {
                     >
                         Password:
                         <div style={{ display: "flex", flexDirection: "row" }}>
-                            <img src={complete} style={{ width: "40px", height: "40px" }}></img>
+                            {
+                                password && password.length > 0 ?
+                                <img src={complete} style={{ width: "40px", height: "40px" }}></img>
+                                :
+                                <div style={{width: "40px", height: "40px"}}></div>
+                            }
                             <div style={containerStyle}>
                                 <input type="password" value={password} onChange={handlePasswordChange}
                                     style={inputStyle}

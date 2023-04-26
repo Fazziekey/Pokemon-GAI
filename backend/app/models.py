@@ -16,6 +16,7 @@ class User(Base):
 
     images = relationship("Image", back_populates="owner")
     profiles = relationship("Profile", back_populates="owner")
+    friends = relationship("Friend", back_populates="owner")
 
 
 class Image(Base):
@@ -54,11 +55,11 @@ class Profile(Base):
     owner = relationship("User", back_populates="profiles")
 
 
-# class Friend(Base):
-#     __tablename__ = "friends"
+class Friend(Base):
+    __tablename__ = "friends"
 
-#     id = Column(Integer, primary_key=True, index=True)
-#     friend_id = Column(Integer, index=True)
-#     owner_id = Column(Integer, ForeignKey("users.id"))
+    id = Column(Integer, primary_key=True, index=True)
+    friend_id = Column(Integer, index=True)
+    owner_id = Column(Integer, ForeignKey("users.id"))
 
-#     owner = relationship("User", back_populates="friends")
+    owner = relationship("User", back_populates="friends")

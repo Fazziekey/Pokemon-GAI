@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { contentContainerStyle, panelContainerStyle } from "../styles/content";
 import { ORANGE, PURPLE } from "../styles/colors";
-import pokemonPlaceholder from "../assets/pokemon.png";
 import Visualization from "./Visualization";
 import { USE_MOCK_DATA } from "../config";
 import { mock_battle_num, mock_gallery_data, mock_user_name, mock_victory_num } from "../data/profile";
@@ -11,6 +10,13 @@ const userMockData = USE_MOCK_DATA;
 
 
 const Overview = () => {
+    /* 
+        Overview page should display:
+        - User's name
+        - User's number of victories
+        - User's number of battles
+        - User's gallery of pokemon
+    */
     const [name, setName] = React.useState("");
     const [victories, setVictories] = React.useState(0);
     const [battles, setBattles] = React.useState(0);
@@ -57,7 +63,6 @@ const Overview = () => {
                     style={{
                         fontFamily: "Inter",
                         fontSize: "14px",
-                        // fontWeight: "bold",
                         lineHeight: "30px",
                     }}
                 >

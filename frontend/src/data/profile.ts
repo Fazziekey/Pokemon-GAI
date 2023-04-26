@@ -1,5 +1,6 @@
 export const mock_user_id = "PK230204";
 export const mock_user_name = "Hollie77";
+export const mock_user_avatar = "https://upcdn.io/W142hJk/raw/demo/4mVDs3uEFA.png";
 export const mock_user_info_data = {
     age: 23,
     role: "Pokemon Trainer",

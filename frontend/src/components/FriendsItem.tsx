@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { ORANGE, PURPLE } from "../styles/colors";
 import { Modal, Popover } from "antd";
 import { cardModalContainerStyle, friendIDStyle, friendNameStyle, friendVisitButtonStyle } from "../styles/content";
-import { mock_gallery_data } from "../data/profile";
+import { mock_gallery_data, mock_user_avatar } from "../data/profile";
 import { USE_MOCK_DATA } from "../config";
 
 
@@ -16,20 +16,26 @@ interface FriendsItemProps {
 }
 
 
+interface GalleryItemProps {
+    pokemon_id: string;
+    pokemon_name: string;
+    pokemon_img: string;
+    pokemon_date: string;
+    pokemon_star: number;
+}
+
+
 const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar }) => {
 
+    const [userPokemon, setUserPokemon] = React.useState(undefined);
+    const [friendPokemon, setFriendPokemon] = React.useState(undefined);
+    const [userAvatar, setUserAvatar] = React.useState(undefined);
     const [friendName, setFriendName] = React.useState(undefined);
     const [friendID, setFriendID] = React.useState(undefined);
     const [friendAvatar, setFriendAvatar] = React.useState(undefined);
 
     const [isModalOpen, setIsModalOpen] = React.useState(false);
-    const [friendGallery, setFriendGallery] = React.useState([{
-        pokemon_id: undefined,
-        pokemon_name: undefined,
-        pokemon_img: undefined,
-        pokemon_date: undefined,
-        pokemon_star: undefined,
-    }]);
+    const [friendGallery, setFriendGallery] = React.useState([] as GalleryItemProps[]);
 
     useEffect(() => {
         setFriendName(name);
@@ -37,6 +43,9 @@ const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar }) => {
         setFriendAvatar(avatar);
         if (useMockData) {
             setFriendGallery(mock_gallery_data);
+            setUserAvatar(mock_user_avatar);
+            setUserPokemon(mock_gallery_data[0]);
+            setFriendPokemon(mock_gallery_data[1]);
             return;
         }
     }, []);
@@ -64,18 +73,43 @@ const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar }) => {
                 alignItems: "center",
             }}
         >
-            <div style={{
-                width: "100px",
-                height: "100px",
-                borderRadius: "50%",
-                overflow: "hidden",
-            }}>
-                <img
-                    src={friendAvatar}
-                    alt="Image"
-                    style={{ width: "100%", height: "auto" }}
-                />
-            </div>
+            <Popover 
+                content={<div style={{
+                    padding: "10px",
+                    display: "flex",
+                    flexDirection: "row",
+                }}>
+                    <div
+                    style={{
+                        ...friendVisitButtonStyle,
+                        backgroundColor: ORANGE,
+                        height: "30px",
+                        color: "white",
+                    }}
+                >ACCEPT</div>
+                <div
+                    style={{
+                        ...friendVisitButtonStyle,
+                        backgroundColor: "gray",
+                        height: "30px",
+                        color: "white",
+                    }}
+                >DELETE</div>
+                </div>}
+            >
+                <div style={{
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                }}>
+                    <img
+                        src={friendAvatar}
+                        alt="Image"
+                        style={{ width: "100%", height: "auto" }}
+                    />
+                </div>
+            </Popover>
 
             <div style={{
                 width: "150px",
@@ -178,6 +212,60 @@ const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar }) => {
                 ...cardModalContainerStyle,
                 flexDirection: "column",
             }}>
+                <div style={{
+                    width: "100%",
+                    // display: "flex",
+                }}>
+                    <img src={userAvatar}
+                        style={{
+                            width: "100px",
+                            height: "100px",
+                            borderRadius: "50%",
+                            overflow: "hidden",
+                            margin: "20px",
+                            float: "left",
+                        }}
+                    />
+                    <img src={userPokemon?.pokemon_img}
+                        style={{
+                            width: "100px",
+                            height: "100px",
+                            borderRadius: "50%",
+                            overflow: "hidden",
+                            margin: "20px",
+                            float: "left",
+                        }}
+                    />
+
+                    <img src={friendAvatar}
+                        style={{
+                            width: "100px",
+                            height: "100px",
+                            borderRadius: "50%",
+                            overflow: "hidden",
+                            margin: "20px",
+                            float: "right",
+                        }}
+                    />
+                    <img src={friendPokemon?.pokemon_img}
+                        style={{
+                            width: "100px",
+                            height: "100px",
+                            borderRadius: "50%",
+                            overflow: "hidden",
+                            margin: "20px",
+                            float: "right",
+                        }}
+                    />
+                </div>
+                <iframe
+                    src="http://localhost:7681/"
+                    width="100%"
+                    height="450"
+                    style={{
+                        border: "none",
+                    }}
+                ></iframe>
 
             </div>
         </Modal>

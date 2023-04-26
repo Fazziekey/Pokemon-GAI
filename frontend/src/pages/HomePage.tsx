@@ -7,7 +7,7 @@ import { navigationLinkStyle, navigationListStyle, outletContainerStyle, userHea
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import addFriend from "../assets/add_friend.png";
-import { Modal } from "antd";
+import { Modal, Tooltip } from "antd";
 import { createInputStyle, createTextStyle } from "../styles/content";
 import { friendVisitButtonStyle } from "../styles/content";
 import { PURPLE } from "../styles/colors";
@@ -52,17 +52,23 @@ const HomePage = () => {
                         position: "fixed",
                         right: "150px",
                     }}>
-                        <img
-                            src={addFriend}
-                            style={{
-                                width: "50px",
-                                height: "50px",
-                                cursor: "pointer",
-                            }}
-                            onClick={() => {
-                                setIsModalOpen(true);
-                            }}
-                        ></img>
+                        <Tooltip
+                            placement="bottom"
+                            title="Add friends"
+                        >
+                            <img
+                                src={addFriend}
+                                style={{
+                                    width: "50px",
+                                    height: "50px",
+                                    cursor: "pointer",
+                                }}
+                                onClick={() => {
+                                    setIsModalOpen(true);
+                                }}
+                            ></img>
+                        </Tooltip>
+
                     </div>
                 </div>
 
@@ -132,7 +138,7 @@ const HomePage = () => {
                     alignItems: "center",
                 }}>
                     <p style={createTextStyle}>{"Add friends by name or ID"}</p>
-                    <input 
+                    <input
                         style={createInputStyle}
                         placeholder="Enter friend's name or ID"
                         onChange={(event) => {
@@ -147,7 +153,7 @@ const HomePage = () => {
                         marginTop: "20px",
                     }}
                         onClick={() => {
-                            if(friendName === undefined || friendName === "") {
+                            if (friendName === undefined || friendName === "") {
                                 toast.error("Please enter a valid name or ID!");
                                 return;
                             }

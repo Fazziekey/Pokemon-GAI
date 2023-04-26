@@ -9,6 +9,11 @@ import { mock_friend_list } from "../data/profile";
 const userMockData = USE_MOCK_DATA;
 
 const Friends = () => {
+    /*
+        Friends page should display:
+        - Search bar
+        - List of friends
+    */
     const [friends, setFriends] = React.useState([]);
     useEffect(() => {
         if(userMockData){

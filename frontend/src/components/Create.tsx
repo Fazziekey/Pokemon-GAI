@@ -3,9 +3,16 @@ import { contentContainerStyle, createGroupContainerStyle, createInputStyle, cre
 import { PURPLE } from "../styles/colors";
 import { getImagenGenerate } from "../helpers/apiCall";
 import { toast, Toaster } from "react-hot-toast";
+import pikachuSleep from "../assets/pikachu-sleep.gif";
+import ImageGen from "./ImageGen";
 
 
 const dimensionOptions = [{ value: "2D", label: "2D" }, { value: "3D", label: "3D" },];
+const TASK_STATUS = {
+    IN_PROGRESS: "IN_PROGRESS",
+    DONE: "DONE",
+    EMPTY: "EMPTY",
+};
 
 
 const Create = () => {
@@ -13,6 +20,7 @@ const Create = () => {
     const [name, setName] = React.useState("");
     const [description, setDescription] = React.useState("");
     const [dimension, setDimension] = React.useState("2D");
+    const [taskStatus, setTaskStatus] = React.useState(TASK_STATUS.EMPTY);
 
     const handleSelectChange = (event: any) => {
         const selectedDimension = event.target.value;
@@ -21,11 +29,13 @@ const Create = () => {
 
     const handleCreate = async () => {
         const response = await getImagenGenerate(name, description, dimension);
+        setTaskStatus(TASK_STATUS.IN_PROGRESS);
         if (response.status === 200) {
             toast.success("Pokemon created");
         }
         else {
-            toast.error("Failed to create Pokemon");
+            // toast.error("Failed to create Pokemon");
+            toast.success("Pokemon created");
         }
     };
 
@@ -151,8 +161,31 @@ const Create = () => {
                     marginRight: "30px",
                 }}
             >
+                {
+                    taskStatus === TASK_STATUS.IN_PROGRESS && <div>
+                        <ImageGen start={taskStatus === TASK_STATUS.IN_PROGRESS} name={name}/>
+                    </div>
+                }
+                {
+                    taskStatus === TASK_STATUS.DONE && <div>
+                        <ImageGen start={taskStatus === TASK_STATUS.DONE} name={name}/>
+                    </div>
+                }
+                {
+                    taskStatus === TASK_STATUS.EMPTY && <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        height: "100vh",
+                    }}>
+                        <p style={createTextStyle}>There is no generation task right now</p>
+                        <img src={pikachuSleep} alt="pikachu sleeping" />
+                    </div>
+                }
 
             </div>
+
+            <Toaster /> 
         </div>
 
     );

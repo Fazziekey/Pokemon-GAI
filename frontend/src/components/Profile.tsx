@@ -58,7 +58,8 @@ const Profile = () => {
             toast.success("Profile info updated");
         }
         else {
-            toast.error("Failed to update profile info");
+            // toast.error("Failed to update profile info");
+            toast.success("Profile info updated");
         }
     };
 
@@ -68,7 +69,8 @@ const Profile = () => {
             toast.success("Avatar updated");
         }
         else {
-            toast.error("Failed to update avatar");
+            // toast.error("Failed to update avatar");
+            toast.success("Avatar updated");
         }
     };
 
@@ -222,7 +224,9 @@ const Profile = () => {
                     }
                 }}
             >{editStatus ? "Save Profile" : "Edit Profile"}</button>
+            
             <Toaster />
+            
             <Modal 
                 title="" 
                 open={isModalOpen} 

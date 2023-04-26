@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 
 # from .. import crud
 from ..crud.images import create_user_image, upload_image
+
 from ..dependencies import get_db
 from ..schemas.images import ImageCreate
 
@@ -77,6 +78,7 @@ class Imagen(BaseModel):
     pokeName: str = 'pokemon'
 
 
+
 @router.post("/generate")
 async def generate_image(user_id: int, imagen: Imagen, db: Session = Depends(get_db)) -> Response:
 
@@ -90,6 +92,7 @@ async def generate_image(user_id: int, imagen: Imagen, db: Session = Depends(get
 
     image = Image.open(io.BytesIO(image_bytes))
     image.save(f"{imagen.pokeName}.png")
+
 
     image_url = upload_image(image_bytes)
 

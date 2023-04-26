@@ -1,6 +1,7 @@
 import os
 import random
 
+
 import requests
 from sqlalchemy.orm import Session
 
@@ -16,6 +17,7 @@ def get_images(db: Session, skip: int = 0, limit: int = 100):
 
 
 def create_user_image(db: Session, image: ImageCreate, user_id: int):
+
     property = random.choice([
         "NORMAL", "FIRE", "WATER", "ELECTRIC", "GRASS", "ICE", "FIGHTING", "POISON", "GROUND", "FLYING", "PSYCHIC",
         "BUG", "ROCK", "GHOST", "DARK", "DRAGON", "STEEL", "FAIRY"
@@ -36,10 +38,12 @@ def create_user_image(db: Session, image: ImageCreate, user_id: int):
                             star=star,
                             IQ=IQ,
                             MBTI=MBTI)
+
     db.add(db_image)
     db.commit()
     db.refresh(db_image)
     return db_image
+
 
 
 def upload_image(image_bytes: bytes):

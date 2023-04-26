@@ -2,6 +2,11 @@ import React, { useEffect } from "react";
 import { ORANGE, PURPLE } from "../styles/colors";
 import { Modal, Popover } from "antd";
 import { cardModalContainerStyle, friendIDStyle, friendNameStyle, friendVisitButtonStyle } from "../styles/content";
+import { mock_gallery_data, mock_user_avatar } from "../data/profile";
+import { USE_MOCK_DATA } from "../config";
+
+
+const useMockData = USE_MOCK_DATA;
 
 
 interface FriendsItemProps {
@@ -11,18 +16,38 @@ interface FriendsItemProps {
 }
 
 
+interface GalleryItemProps {
+    pokemon_id: string;
+    pokemon_name: string;
+    pokemon_img: string;
+    pokemon_date: string;
+    pokemon_star: number;
+}
+
+
 const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar }) => {
 
+    const [userPokemon, setUserPokemon] = React.useState(undefined);
+    const [friendPokemon, setFriendPokemon] = React.useState(undefined);
+    const [userAvatar, setUserAvatar] = React.useState(undefined);
     const [friendName, setFriendName] = React.useState(undefined);
     const [friendID, setFriendID] = React.useState(undefined);
     const [friendAvatar, setFriendAvatar] = React.useState(undefined);
 
     const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [friendGallery, setFriendGallery] = React.useState([] as GalleryItemProps[]);
 
     useEffect(() => {
         setFriendName(name);
         setFriendID(id);
         setFriendAvatar(avatar);
+        if (useMockData) {
+            setFriendGallery(mock_gallery_data);
+            setUserAvatar(mock_user_avatar);
+            setUserPokemon(mock_gallery_data[0]);
+            setFriendPokemon(mock_gallery_data[1]);
+            return;
+        }
     }, []);
 
     const handleOk = () => {
@@ -48,18 +73,43 @@ const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar }) => {
                 alignItems: "center",
             }}
         >
-            <div style={{
-                width: "100px",
-                height: "100px",
-                borderRadius: "50%",
-                overflow: "hidden",
-            }}>
-                <img
-                    src={friendAvatar}
-                    alt="Image"
-                    style={{ width: "100%", height: "auto" }}
-                />
-            </div>
+            <Popover 
+                content={<div style={{
+                    padding: "10px",
+                    display: "flex",
+                    flexDirection: "row",
+                }}>
+                    <div
+                    style={{
+                        ...friendVisitButtonStyle,
+                        backgroundColor: ORANGE,
+                        height: "30px",
+                        color: "white",
+                    }}
+                >ACCEPT</div>
+                <div
+                    style={{
+                        ...friendVisitButtonStyle,
+                        backgroundColor: "gray",
+                        height: "30px",
+                        color: "white",
+                    }}
+                >DELETE</div>
+                </div>}
+            >
+                <div style={{
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                }}>
+                    <img
+                        src={friendAvatar}
+                        alt="Image"
+                        style={{ width: "100%", height: "auto" }}
+                    />
+                </div>
+            </Popover>
 
             <div style={{
                 width: "150px",
@@ -72,13 +122,41 @@ const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar }) => {
             </div>
 
             <Popover
-                content={<div 
+                content={<div
                     style={{
                         width: "400px",
                         height: "300px",
                     }}
                 >
-                    
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            flexWrap: "wrap",
+                            width: "100%",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >{friendGallery.map((pokemon: any, index: number) => {
+                        return <div key={index}
+                            style={{
+                                width: "100px",
+                                height: "100px",
+                                borderRadius: "15px",
+                                border: `1px solid ${PURPLE}`,
+                                overflow: "hidden",
+                                boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                                margin: "10px",
+                            }}
+                        >
+                            <img src={pokemon.pokemon_img}
+                                style={{
+                                    width: "100%",
+                                    height: "100%",
+                                }}
+                            />
+                        </div>;
+                    })}</div>
                 </div>} title={friendName} trigger="hover"
             >
                 <button
@@ -95,7 +173,6 @@ const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar }) => {
                     onMouseLeave={(e) => {
                         e.currentTarget.style.color = PURPLE;
                     }}
-                    onClick={() => setIsModalOpen(true)}
                 >View Gallery</button>
             </Popover>
 
@@ -135,6 +212,60 @@ const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar }) => {
                 ...cardModalContainerStyle,
                 flexDirection: "column",
             }}>
+                <div style={{
+                    width: "100%",
+                    // display: "flex",
+                }}>
+                    <img src={userAvatar}
+                        style={{
+                            width: "100px",
+                            height: "100px",
+                            borderRadius: "50%",
+                            overflow: "hidden",
+                            margin: "20px",
+                            float: "left",
+                        }}
+                    />
+                    <img src={userPokemon?.pokemon_img}
+                        style={{
+                            width: "100px",
+                            height: "100px",
+                            borderRadius: "50%",
+                            overflow: "hidden",
+                            margin: "20px",
+                            float: "left",
+                        }}
+                    />
+
+                    <img src={friendAvatar}
+                        style={{
+                            width: "100px",
+                            height: "100px",
+                            borderRadius: "50%",
+                            overflow: "hidden",
+                            margin: "20px",
+                            float: "right",
+                        }}
+                    />
+                    <img src={friendPokemon?.pokemon_img}
+                        style={{
+                            width: "100px",
+                            height: "100px",
+                            borderRadius: "50%",
+                            overflow: "hidden",
+                            margin: "20px",
+                            float: "right",
+                        }}
+                    />
+                </div>
+                <iframe
+                    src="http://localhost:7681/"
+                    width="100%"
+                    height="450"
+                    style={{
+                        border: "none",
+                    }}
+                ></iframe>
 
             </div>
         </Modal>

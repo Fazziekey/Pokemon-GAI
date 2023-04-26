@@ -6,6 +6,13 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
+    /* 
+        Login page should display:
+        - Login title
+        - Email input
+        - Password input
+        - Login button
+    */
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const navigate = useNavigate();
@@ -18,7 +25,6 @@ const Login = () => {
             toast.error("Please enter your email and password");
             return;
         }
-
         try {
             const response = await postLogin(email, password);
             console.log(response);

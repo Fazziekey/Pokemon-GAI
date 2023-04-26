@@ -1,5 +1,6 @@
 export const mock_user_id = "PK230204";
 export const mock_user_name = "Hollie77";
+export const mock_user_avatar = "https://upcdn.io/W142hJk/raw/demo/4mVDs3uEFA.png";
 export const mock_user_info_data = {
     age: 23,
     role: "Pokemon Trainer",
@@ -20,28 +21,28 @@ export const mock_gallery_data = [
     {
         pokemon_id: "2",
         pokemon_name: "Bulbasaur",
-        pokemon_img: "https://upcdn.io/W142hJk/raw/demo/4mVEjh2396.png",
+        pokemon_img: "https://upcdn.io/W142hJk/raw/demo/4mVE1EvQAy.png",
         pokemon_date: "2023-12-31",
         pokemon_star: 3,
     },
     {
         pokemon_id: "3",
         pokemon_name: "Charmander",
-        pokemon_img: "https://upcdn.io/W142hJk/raw/demo/4mVEjh2396.png",
+        pokemon_img: "https://upcdn.io/W142hJk/raw/demo/4mVDzxm1DU.png",
         pokemon_date: "2023-03-11",
         pokemon_star: 4,
     },
     {
         pokemon_id: "4",
         pokemon_name: "Squirtle",
-        pokemon_img: "https://upcdn.io/W142hJk/raw/demo/4mVEjh2396.png",
+        pokemon_img: "https://upcdn.io/W142hJk/raw/demo/4mVDzo2s8a.jpeg",
         pokemon_date: "2023-03-15",
         pokemon_star: 2,
     },
     {
         pokemon_id: "5",
         pokemon_name: "Pikachu",
-        pokemon_img: "https://upcdn.io/W142hJk/raw/demo/4mVEjh2396.png",
+        pokemon_img: "https://upcdn.io/W142hJk/raw/demo/4mVDzK9U3z.png",
         pokemon_date: "2023-04-26",
         pokemon_star: 5,
     },

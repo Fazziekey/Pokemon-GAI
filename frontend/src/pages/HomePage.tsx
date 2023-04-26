@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
 import homeBackground from "../assets/homeBackground.png";
 import { HeaderButton, HeaderLogo } from "../components/Header";
-import { PAGE_STATUS } from "../helpers/constants";
+import { PAGE_STATUS, PATHS } from "../helpers/constants";
 import { Profile } from "../components";
 import { navigationLinkStyle, navigationListStyle, outletContainerStyle, userHeaderStyle, userProfileContainerStyle } from "../styles/userpage";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import addFriend from "../assets/add_friend.png";
+import { Modal, Tooltip } from "antd";
+import { createInputStyle, createTextStyle } from "../styles/content";
+import { friendVisitButtonStyle } from "../styles/content";
+import { PURPLE } from "../styles/colors";
+
 
 const HomePage = () => {
 
@@ -13,16 +19,19 @@ const HomePage = () => {
         toast.success("Welcome to your home page! ✨");
     }, []);
 
-    const links = [
-        { to: "/home/overview", text: "Overview" },
-        { to: "/home/create", text: "Create" },
-        { to: "/home/gallery", text: "Gallery" },
-        { to: "/home/friends", text: "Friends" },
-    ];
-
     const location = useLocation();
-    
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [friendName, setFriendName] = React.useState(undefined);
+
+    const handleOk = () => {
+        // handleEditProfile();
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <div style={{ display: "flex" }}>
@@ -34,6 +43,35 @@ const HomePage = () => {
 
                 <HeaderLogo />
 
+                <div style={{ justifyContent: "center", alignItems: "center" }}>
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: "20px",
+                        position: "fixed",
+                        right: "150px",
+                    }}>
+                        <Tooltip
+                            placement="bottom"
+                            title="Add friends"
+                        >
+                            <img
+                                src={addFriend}
+                                style={{
+                                    width: "50px",
+                                    height: "50px",
+                                    cursor: "pointer",
+                                }}
+                                onClick={() => {
+                                    setIsModalOpen(true);
+                                }}
+                            ></img>
+                        </Tooltip>
+
+                    </div>
+                </div>
+
                 <HeaderButton page_status={PAGE_STATUS.home} handleLogin={() => {
                     navigate("/login");
                 }} />
@@ -42,7 +80,7 @@ const HomePage = () => {
                     position: "absolute",
                     ...navigationListStyle,
                 }}>
-                    {links.map((link, index) => (
+                    {PATHS.map((link, index) => (
                         <li key={index} style={{
                             display: "inline-block",
                             marginRight: "10px",
@@ -83,7 +121,49 @@ const HomePage = () => {
                 <Outlet />
             </div>
             <Toaster />
-        </div>
+
+            <Modal
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                footer={null}
+                width={500}
+                centered
+            >
+                <div style={{
+                    height: "250px",
+                    flexDirection: "column",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}>
+                    <p style={createTextStyle}>{"Add friends by name or ID"}</p>
+                    <input
+                        style={createInputStyle}
+                        placeholder="Enter friend's name or ID"
+                        onChange={(event) => {
+                            setFriendName(event.target.value);
+                        }}
+                    ></input>
+                    <button style={{
+                        ...friendVisitButtonStyle,
+                        backgroundColor: PURPLE,
+                        color: "white",
+                        paddingTop: "10px",
+                        marginTop: "20px",
+                    }}
+                        onClick={() => {
+                            if (friendName === undefined || friendName === "") {
+                                toast.error("Please enter a valid name or ID!");
+                                return;
+                            }
+                            toast.success(`Friend request to ${friendName} has been sent! 🎉`);
+                            setIsModalOpen(false);
+                        }}
+                    >COMMIT 🧑‍🤝‍🧑</button>
+                </div>
+            </Modal>
+        </div >
     );
 };
 

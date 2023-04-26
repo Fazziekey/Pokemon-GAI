@@ -6,6 +6,7 @@ from . import models
 from .database import engine
 from .routers import chatbot, friends, gallery, imagen, login, profile, register, users
 
+
 models.Base.metadata.create_all(bind=engine)
 
 # app = FastAPI(dependencies=[Depends(get_query_token)])

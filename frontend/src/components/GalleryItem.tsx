@@ -4,12 +4,7 @@ import pokemonPlaceholder from "../assets/pokemonBall.png";
 import { Slider, Modal, Tag } from "antd";
 import { ORANGE } from "../styles/colors";
 import star from "../assets/star.png";
-import pokemon from "../assets/pokemon.png";
 import { ATTRIBUTE_LIST, ATTRIBUTE_TYPE } from "../helpers/constants";
-import { USE_MOCK_DATA } from "../config";
-
-
-const useMockData = USE_MOCK_DATA;
 
 
 interface Props {

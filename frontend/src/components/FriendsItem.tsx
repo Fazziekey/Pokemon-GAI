@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ORANGE, PURPLE } from "../styles/colors";
-import friend from "../assets/friend.png";
-import { friendIDStyle, friendNameStyle, friendVisitButtonStyle } from "../styles/content";
+import { Modal, Popover } from "antd";
+import { cardModalContainerStyle, friendIDStyle, friendNameStyle, friendVisitButtonStyle } from "../styles/content";
 
 
 interface FriendsItemProps {
@@ -11,11 +11,13 @@ interface FriendsItemProps {
 }
 
 
-const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar}) => {
+const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar }) => {
 
     const [friendName, setFriendName] = React.useState(undefined);
     const [friendID, setFriendID] = React.useState(undefined);
     const [friendAvatar, setFriendAvatar] = React.useState(undefined);
+
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
 
     useEffect(() => {
         setFriendName(name);
@@ -23,6 +25,14 @@ const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar}) => {
         setFriendAvatar(avatar);
     }, []);
 
+    const handleOk = () => {
+        // handleEditProfile();
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     return (<div
         style={{
@@ -61,24 +71,37 @@ const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar}) => {
                 <p style={friendIDStyle}>ID: {`${friendID}`}</p>
             </div>
 
+            <Popover
+                content={<div 
+                    style={{
+                        width: "400px",
+                        height: "300px",
+                    }}
+                >
+                    
+                </div>} title={friendName} trigger="hover"
+            >
+                <button
+                    style={{
+                        ...friendVisitButtonStyle,
+                        borderColor: PURPLE,
+                        color: PURPLE,
+                        marginRight: "20px",
+                        marginLeft: "auto"
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.color = "rgba(148, 127, 248, 0.5)";
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.color = PURPLE;
+                    }}
+                    onClick={() => setIsModalOpen(true)}
+                >View Gallery</button>
+            </Popover>
+
             <button
                 style={{
                     ...friendVisitButtonStyle,
-                    borderColor: PURPLE,
-                    color: PURPLE,
-                    marginRight: "20px",
-                    marginLeft: "auto"
-                }}
-                onMouseEnter={(e) => {
-                    e.currentTarget.style.color = "rgba(148, 127, 248, 0.5)";
-                }}
-                onMouseLeave={(e) => {
-                    e.currentTarget.style.color = PURPLE;
-                }}
-            >Visit Homepage</button>
-            <button
-                style={{
-                    ...friendVisitButtonStyle, 
                     borderColor: ORANGE,
                     color: ORANGE
                 }}
@@ -88,6 +111,7 @@ const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar}) => {
                 onMouseLeave={(e) => {
                     e.currentTarget.style.color = ORANGE;
                 }}
+                onClick={() => setIsModalOpen(true)}
             >Battle</button>
 
         </div>
@@ -98,6 +122,22 @@ const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar}) => {
             marginLeft: "50px"
         }}
         ></div>
+
+        <Modal
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={null}
+            width={1000}
+            centered
+        >
+            <div style={{
+                ...cardModalContainerStyle,
+                flexDirection: "column",
+            }}>
+
+            </div>
+        </Modal>
     </div>
     );
 };

@@ -14,7 +14,13 @@ const Overview = () => {
     const [name, setName] = React.useState("");
     const [victories, setVictories] = React.useState(0);
     const [battles, setBattles] = React.useState(0);
-    const [pokemonList, setPokemonList] = React.useState([{}]);
+    const [pokemonList, setPokemonList] = React.useState([{
+        pokemon_id: undefined,
+        pokemon_name: undefined,
+        pokemon_img: undefined,
+        pokemon_date: undefined,
+        pokemon_star: undefined,
+    }]);
 
     useEffect(() => {
         if(userMockData){
@@ -101,7 +107,7 @@ const Overview = () => {
                             margin: "10px",
                         }}
                     >
-                        <img src={pokemonPlaceholder} 
+                        <img src={pokemon.pokemon_img} 
                             style={{
                                 width: "100%",
                                 height: "100%",

@@ -34,11 +34,11 @@ const Profile = () => {
     const [isModalOpen, setIsModalOpen] = useState(undefined);
 
     const [infoData, setInfoData] = useState({
-        age: 0,
-        role: "",
-        like: "",
-        motto: "",
-        contact: ""
+        age: undefined,
+        role: undefined,
+        like: undefined,
+        motto: undefined,
+        contact: undefined,
     });
 
     const [avatar, setAvatar] = useState(avatarPlaceholder);
@@ -82,14 +82,6 @@ const Profile = () => {
     };
 
     useEffect(() => {
-<<<<<<< Updated upstream
-        // TODO: read userID from cookie
-        // const userID = localStorage.getItem("userID");
-        const userID = "PK230204";
-        const userName = "Hollie77";
-        setUserID(userID);
-        setUserName(userName);
-=======
         if (useMockData) {
             setUserID(mock_user_id);
             setUserName(mock_user_name);
@@ -97,7 +89,6 @@ const Profile = () => {
             setAvatar(avatarPlaceholder);
             return;
         }
->>>>>>> Stashed changes
 
         if (userID) {
             // fetch user profile info

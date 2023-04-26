@@ -1,7 +1,8 @@
-import gradio as gr
+import os
 import random
 import time
-import os
+
+import gradio as gr
 from chatbot import chatgpt_chain
 
 SEVER_PORT = int(os.environ.get("CHAT_PORT", 7680))
@@ -23,9 +24,7 @@ with gr.Blocks() as demo:
         print(history)
         return history
 
-    msg.submit(user, [msg, chatbot], [msg, chatbot], queue=False).then(
-        bot, chatbot, chatbot
-    )
+    msg.submit(user, [msg, chatbot], [msg, chatbot], queue=False).then(bot, chatbot, chatbot)
     clear.click(lambda: None, None, chatbot, queue=False)
 
 if __name__ == "__main__":

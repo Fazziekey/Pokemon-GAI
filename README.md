@@ -11,17 +11,22 @@ Image Storage and Personal Cloud Space Function: Pokemon GAI provides a personal
 
 In general, Pokemon GAI is a feature-rich Web-based application that brings players a variety of experiences, including generating Pokémon, image storage, battling with friends, sharing, etc.
 
-## install 
+## install
 
-### create conda env 
+### create conda env
 ```
-conda create -n pokemon python==3.9.12 
+conda create -n pokemon python==3.9.12
 ```
 
 ### install python requirements
 
 ```
 pip install -r requirements.txt
+```
+
+### init pre-commit
+```
+pre-commit install
 ```
 
 ## install js modules
@@ -31,22 +36,39 @@ cd frontend
 yarn install
 ```
 
-## Run 
+
+## Config
+
+you must modified the `.env` to make your own config
+
+- OPENAI_API_KEY: your openai api key
+- STABILITY_API_KEY: your stability api key
+- HF_TOKEN: your huggingface token
+- SPACE: your huggingface space, example: https://fazzie-pokemongai.hf.space/run/predict
+- SPACE_3D: your huggingface 3D space, example: https://fazzie-pokemongai.hf.space/run/predict
+- MODEL: your huggingface model
+- MODEL_3D: your huggingface 3D model
+- FRONTEND_PORT: default 3000
+- BACKEND_PORT: default 8000
+- CHAT_PORT: default 7680
+- BATTLE_PORT: default 7681
+
+
+## Run
 ## Run backend and frontend only
 
 ```
 python start.py
 ```
-
 ### run with chat and battle
-###
+
 ```
 python start.py --chat --battle
 ```
 
 ## use docker
 
-### build docker 
+### build docker
 ```
 docker build -t pokemon:0.0.1  .
 ```

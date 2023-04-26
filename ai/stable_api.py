@@ -1,5 +1,6 @@
 import base64
 import os
+
 import requests
 
 engine_id = "stable-diffusion-v1-5"
@@ -19,11 +20,9 @@ response = requests.post(
         "Authorization": f"Bearer {api_key}"
     },
     json={
-        "text_prompts": [
-            {
-                "text": "dragon armored (eevee), wings, (fire claws), smoke, cityscape"
-            }
-        ],
+        "text_prompts": [{
+            "text": "dragon armored (eevee), wings, (fire claws), smoke, cityscape"
+        }],
         "cfg_scale": 7,
         "clip_guidance_preset": "FAST_BLUE",
         "height": 512,

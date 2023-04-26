@@ -3,7 +3,6 @@ from passlib.context import CryptContext
 
 from .database import SessionLocal
 
-
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")

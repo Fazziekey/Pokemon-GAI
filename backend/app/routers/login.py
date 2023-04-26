@@ -1,18 +1,21 @@
-from fastapi import Depends, HTTPException, APIRouter, status
-from fastapi.security import OAuth2PasswordRequestForm
-from jose import JWTError, jwt
 from datetime import datetime, timedelta
 from typing import Union
+
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
+from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 
+from ..crud.users import get_user_by_email, get_user_by_username
+from ..dependencies import get_db, pwd_context
 from ..schemas.login import TokenData
-from ..dependencies import pwd_context, get_db
-from ..crud.users import get_user_by_username, get_user_by_email
 
 router = APIRouter(
     prefix="/login",
     tags=["login"],
-    responses={404: {"description": "Not found"}},
+    responses={404: {
+        "description": "Not found"
+    }},
 )
 
 # to get a string like this run:
@@ -79,16 +82,12 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
         )
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        # data={"sub": user.username}, expires_delta=access_token_expires
-        data={"sub": user.email}, expires_delta=access_token_expires
-    )
+    # data={"sub": user.username}, expires_delta=access_token_expires
+        data={"sub": user.email},
+        expires_delta=access_token_expires)
     return {
         "message": "Successfully logged in",
         "userID": user.id,
         "access_token": access_token,
         "token_type": "bearer"
     }
-
-
-
-

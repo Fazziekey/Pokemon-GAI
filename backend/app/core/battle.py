@@ -1,5 +1,6 @@
-from enum import Enum
 import random
+from enum import Enum
+
 
 class ElementType(Enum):
     NORMAL = 1
@@ -23,28 +24,164 @@ class ElementType(Enum):
 
 
 type_chart = {
-    ElementType.NORMAL: {ElementType.ROCK: 0.5, ElementType.GHOST: 0, ElementType.STEEL: 0.5},
-    ElementType.FIRE: {ElementType.FIRE: 0.5, ElementType.WATER: 0.5, ElementType.GRASS: 2.0, ElementType.ICE: 2.0, ElementType.BUG: 2.0, ElementType.ROCK: 0.5, ElementType.DRAGON: 0.5, ElementType.STEEL: 2.0},
-    ElementType.WATER: {ElementType.FIRE: 2.0, ElementType.WATER: 0.5, ElementType.GRASS: 0.5, ElementType.GROUND: 2.0, ElementType.ROCK: 2.0, ElementType.DRAGON: 0.5},
-    ElementType.ELECTRIC: {ElementType.WATER: 2.0, ElementType.ELECTRIC: 0.5, ElementType.GRASS: 0.5, ElementType.GROUND: 0, ElementType.FLYING: 2.0, ElementType.DRAGON: 0.5},
-    ElementType.GRASS: {ElementType.FIRE: 0.5, ElementType.WATER: 2.0, ElementType.GRASS: 0.5, ElementType.POISON: 0.5, ElementType.GROUND: 2.0, ElementType.FLYING: 0.5, ElementType.BUG: 0.5, ElementType.ROCK: 2.0, ElementType.DRAGON: 0.5, ElementType.STEEL: 0.5},
-    ElementType.ICE: {ElementType.FIRE: 0.5, ElementType.WATER: 0.5, ElementType.GRASS: 2.0, ElementType.ICE: 0.5, ElementType.GROUND: 2.0, ElementType.FLYING: 2.0, ElementType.DRAGON: 2.0, ElementType.STEEL: 0.5},
-    ElementType.FIGHTING: {ElementType.NORMAL: 2.0, ElementType.ICE: 2.0, ElementType.POISON: 0.5, ElementType.FLYING: 0.5, ElementType.PSYCHIC: 0.5, ElementType.BUG: 0.5, ElementType.ROCK: 2.0, ElementType.GHOST: 0, ElementType.DARK: 2.0, ElementType.STEEL: 2.0, ElementType.FAIRY: 0.5},
-    ElementType.POISON: {ElementType.GRASS: 2.0, ElementType.POISON: 0.5, ElementType.GROUND: 0.5, ElementType.ROCK: 0.5, ElementType.GHOST: 0.5, ElementType.STEEL: 0, ElementType.FAIRY: 2.0},
-    ElementType.GROUND: {ElementType.FIRE: 2.0, ElementType.ELECTRIC: 2.0, ElementType.GRASS: 0.5, ElementType.POISON: 2.0, ElementType.FLYING: 0, ElementType.BUG: 0.5, ElementType.ROCK: 2.0, ElementType.STEEL: 2.0},
-    ElementType.FLYING: {ElementType.ELECTRIC: 0.5, ElementType.GRASS: 2.0, ElementType.FIGHTING: 2.0, ElementType.BUG: 2.0, ElementType.ROCK: 0.5, ElementType.STEEL: 0.5},
-    ElementType.PSYCHIC: {ElementType.FIGHTING: 2.0, ElementType.POISON: 2.0, ElementType.PSYCHIC: 0.5, ElementType.DARK: 0, ElementType.STEEL: 0.5},
-    ElementType.BUG: {ElementType.FIRE: 0.5, ElementType.GRASS: 2.0, ElementType.FIGHTING: 0.5, ElementType.POISON: 0.5, ElementType.FLYING: 0.5, ElementType.PSYCHIC: 2.0, ElementType.GHOST: 0.5, ElementType.DARK: 2.0, ElementType.STEEL: 0.5},
-    ElementType.ROCK: {ElementType.FIRE: 2.0, ElementType.ICE: 2.0, ElementType.FIGHTING: 0.5, ElementType.GROUND: 0.5, ElementType.FLYING: 2.0, ElementType.BUG: 2.0, ElementType.STEEL: 0.5},
-    ElementType.GHOST: {ElementType.NORMAL: 0, ElementType.PSYCHIC: 2.0, ElementType.GHOST: 2.0, ElementType.DARK: 0.5},
-    ElementType.DRAGON: {ElementType.DRAGON: 2.0, ElementType.STEEL: 0.5, ElementType.FAIRY: 0},
-    ElementType.DARK: {ElementType.FIGHTING: 0.5, ElementType.PSYCHIC: 2.0, ElementType.GHOST: 2.0, ElementType.DARK: 0.5, ElementType.FAIRY: 0.5},
-    ElementType.STEEL: {ElementType.FIRE: 0.5, ElementType.WATER: 0.5, ElementType.ELECTRIC: 0.5, ElementType.ICE: 2.0, ElementType.ROCK: 2.0, ElementType.STEEL: 0.5, ElementType.FAIRY: 2.0},
-    ElementType.FAIRY: {ElementType.FIGHTING: 2.0, ElementType.POISON: 0.5, ElementType.STEEL: 0.5, ElementType.DARK: 2.0}
+    ElementType.NORMAL: {
+        ElementType.ROCK: 0.5,
+        ElementType.GHOST: 0,
+        ElementType.STEEL: 0.5
+    },
+    ElementType.FIRE: {
+        ElementType.FIRE: 0.5,
+        ElementType.WATER: 0.5,
+        ElementType.GRASS: 2.0,
+        ElementType.ICE: 2.0,
+        ElementType.BUG: 2.0,
+        ElementType.ROCK: 0.5,
+        ElementType.DRAGON: 0.5,
+        ElementType.STEEL: 2.0
+    },
+    ElementType.WATER: {
+        ElementType.FIRE: 2.0,
+        ElementType.WATER: 0.5,
+        ElementType.GRASS: 0.5,
+        ElementType.GROUND: 2.0,
+        ElementType.ROCK: 2.0,
+        ElementType.DRAGON: 0.5
+    },
+    ElementType.ELECTRIC: {
+        ElementType.WATER: 2.0,
+        ElementType.ELECTRIC: 0.5,
+        ElementType.GRASS: 0.5,
+        ElementType.GROUND: 0,
+        ElementType.FLYING: 2.0,
+        ElementType.DRAGON: 0.5
+    },
+    ElementType.GRASS: {
+        ElementType.FIRE: 0.5,
+        ElementType.WATER: 2.0,
+        ElementType.GRASS: 0.5,
+        ElementType.POISON: 0.5,
+        ElementType.GROUND: 2.0,
+        ElementType.FLYING: 0.5,
+        ElementType.BUG: 0.5,
+        ElementType.ROCK: 2.0,
+        ElementType.DRAGON: 0.5,
+        ElementType.STEEL: 0.5
+    },
+    ElementType.ICE: {
+        ElementType.FIRE: 0.5,
+        ElementType.WATER: 0.5,
+        ElementType.GRASS: 2.0,
+        ElementType.ICE: 0.5,
+        ElementType.GROUND: 2.0,
+        ElementType.FLYING: 2.0,
+        ElementType.DRAGON: 2.0,
+        ElementType.STEEL: 0.5
+    },
+    ElementType.FIGHTING: {
+        ElementType.NORMAL: 2.0,
+        ElementType.ICE: 2.0,
+        ElementType.POISON: 0.5,
+        ElementType.FLYING: 0.5,
+        ElementType.PSYCHIC: 0.5,
+        ElementType.BUG: 0.5,
+        ElementType.ROCK: 2.0,
+        ElementType.GHOST: 0,
+        ElementType.DARK: 2.0,
+        ElementType.STEEL: 2.0,
+        ElementType.FAIRY: 0.5
+    },
+    ElementType.POISON: {
+        ElementType.GRASS: 2.0,
+        ElementType.POISON: 0.5,
+        ElementType.GROUND: 0.5,
+        ElementType.ROCK: 0.5,
+        ElementType.GHOST: 0.5,
+        ElementType.STEEL: 0,
+        ElementType.FAIRY: 2.0
+    },
+    ElementType.GROUND: {
+        ElementType.FIRE: 2.0,
+        ElementType.ELECTRIC: 2.0,
+        ElementType.GRASS: 0.5,
+        ElementType.POISON: 2.0,
+        ElementType.FLYING: 0,
+        ElementType.BUG: 0.5,
+        ElementType.ROCK: 2.0,
+        ElementType.STEEL: 2.0
+    },
+    ElementType.FLYING: {
+        ElementType.ELECTRIC: 0.5,
+        ElementType.GRASS: 2.0,
+        ElementType.FIGHTING: 2.0,
+        ElementType.BUG: 2.0,
+        ElementType.ROCK: 0.5,
+        ElementType.STEEL: 0.5
+    },
+    ElementType.PSYCHIC: {
+        ElementType.FIGHTING: 2.0,
+        ElementType.POISON: 2.0,
+        ElementType.PSYCHIC: 0.5,
+        ElementType.DARK: 0,
+        ElementType.STEEL: 0.5
+    },
+    ElementType.BUG: {
+        ElementType.FIRE: 0.5,
+        ElementType.GRASS: 2.0,
+        ElementType.FIGHTING: 0.5,
+        ElementType.POISON: 0.5,
+        ElementType.FLYING: 0.5,
+        ElementType.PSYCHIC: 2.0,
+        ElementType.GHOST: 0.5,
+        ElementType.DARK: 2.0,
+        ElementType.STEEL: 0.5
+    },
+    ElementType.ROCK: {
+        ElementType.FIRE: 2.0,
+        ElementType.ICE: 2.0,
+        ElementType.FIGHTING: 0.5,
+        ElementType.GROUND: 0.5,
+        ElementType.FLYING: 2.0,
+        ElementType.BUG: 2.0,
+        ElementType.STEEL: 0.5
+    },
+    ElementType.GHOST: {
+        ElementType.NORMAL: 0,
+        ElementType.PSYCHIC: 2.0,
+        ElementType.GHOST: 2.0,
+        ElementType.DARK: 0.5
+    },
+    ElementType.DRAGON: {
+        ElementType.DRAGON: 2.0,
+        ElementType.STEEL: 0.5,
+        ElementType.FAIRY: 0
+    },
+    ElementType.DARK: {
+        ElementType.FIGHTING: 0.5,
+        ElementType.PSYCHIC: 2.0,
+        ElementType.GHOST: 2.0,
+        ElementType.DARK: 0.5,
+        ElementType.FAIRY: 0.5
+    },
+    ElementType.STEEL: {
+        ElementType.FIRE: 0.5,
+        ElementType.WATER: 0.5,
+        ElementType.ELECTRIC: 0.5,
+        ElementType.ICE: 2.0,
+        ElementType.ROCK: 2.0,
+        ElementType.STEEL: 0.5,
+        ElementType.FAIRY: 2.0
+    },
+    ElementType.FAIRY: {
+        ElementType.FIGHTING: 2.0,
+        ElementType.POISON: 0.5,
+        ElementType.STEEL: 0.5,
+        ElementType.DARK: 2.0
+    }
 }
 
 
 class Pokemon:
+
     def __init__(self, name: str, element_type: ElementType, hp: int, attack: int):
         self.name = name
         self.element_type = element_type
@@ -62,12 +199,12 @@ def calculate_damage_multiplier(attacker: Pokemon, defender: Pokemon) -> float:
     elif base_multiplier == 0.5:
         base_multiplier = random.uniform(0.5, 0.8)
 
-
     critical_hit = random.random() < 0.1
     if critical_hit:
         base_multiplier *= 2
 
     return base_multiplier
+
 
 def battle(pokemon1: Pokemon, pokemon2: Pokemon):
     while pokemon1.hp > 0 and pokemon2.hp > 0:
@@ -76,7 +213,9 @@ def battle(pokemon1: Pokemon, pokemon2: Pokemon):
         damage = pokemon1.attack * damage_multiplier
         pokemon2.hp -= damage
 
-        print(f"{pokemon1.name} ({pokemon1.element_type.name}) attacks {pokemon2.name} ({pokemon2.element_type.name}) and deals {damage:.2f} damage!")
+        print(
+            f"{pokemon1.name} ({pokemon1.element_type.name}) attacks {pokemon2.name} ({pokemon2.element_type.name}) and deals {damage:.2f} damage!"
+        )
 
         if pokemon2.hp <= 0:
             print(f"{pokemon2.name} has fainted. {pokemon1.name} wins!")
@@ -87,7 +226,9 @@ def battle(pokemon1: Pokemon, pokemon2: Pokemon):
         damage = pokemon2.attack * damage_multiplier
         pokemon1.hp -= damage
 
-        print(f"{pokemon2.name} ({pokemon2.element_type.name}) attacks {pokemon1.name} ({pokemon1.element_type.name}) and deals {damage:.2f} damage!")
+        print(
+            f"{pokemon2.name} ({pokemon2.element_type.name}) attacks {pokemon1.name} ({pokemon1.element_type.name}) and deals {damage:.2f} damage!"
+        )
 
         if pokemon1.hp <= 0:
             print(f"{pokemon1.name} has fainted. {pokemon2.name} wins!")

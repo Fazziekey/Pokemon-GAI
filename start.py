@@ -1,10 +1,9 @@
+import os
 import subprocess
 import threading
-import os
 from argparse import ArgumentParser
 
 from dotenv import load_dotenv
-
 
 
 def print_env():
@@ -27,23 +26,28 @@ def start_backend():
     command = "python3 backend/main.py"
     subprocess.run(command, shell=True, check=True)
 
+
 def start_frontend():
     command = "cd frontend && yarn start --port " + os.environ["FRONTEND_PORT"]
     subprocess.run(command, shell=True, check=True)
+
 
 def start_chat():
     command = "python3 ai/gradio_chatbot.py"
     subprocess.run(command, shell=True, check=True)
 
+
 def start_battle():
     command = "python3 ai/gradio_battle.py"
     subprocess.run(command, shell=True, check=True)
+
 
 def args():
     parser = ArgumentParser()
     parser.add_argument("--chat", action="store_true")
     parser.add_argument("--battle", action="store_true")
     return parser.parse_args()
+
 
 if __name__ == "__main__":
 

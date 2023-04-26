@@ -10,3 +10,4 @@ passlib
 python-multipart
 email-validator
 bcrypt
+pre-commit

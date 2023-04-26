@@ -46,6 +46,10 @@ def args():
     parser = ArgumentParser()
     parser.add_argument("--chat", action="store_true")
     parser.add_argument("--battle", action="store_true")
+    parser.add_argument("--backend_only", action="store_true")
+    parser.add_argument("--frontend_only", action="store_true")
+    parser.add_argument("--chat_only", action="store_true")
+    parser.add_argument("--battle_only", action="store_true")
     return parser.parse_args()
 
 
@@ -57,11 +61,28 @@ if __name__ == "__main__":
     load_dotenv()
     print_env()
 
-    # start services
-    backend_thread = threading.Thread(target=start_backend)
-    frontend_thread = threading.Thread(target=start_frontend)
+    if args.backend_only:
+        start_backend()
+        exit()
 
+    if args.frontend_only:
+        start_frontend()
+        exit()
+
+    if args.chat_only:
+        start_chat()
+        exit()
+
+    if args.battle_only:
+        start_battle()
+        exit()
+
+    # start services
+
+    backend_thread = threading.Thread(target=start_backend)
     backend_thread.start()
+
+    frontend_thread = threading.Thread(target=start_frontend)
     frontend_thread.start()
 
     if args.chat:

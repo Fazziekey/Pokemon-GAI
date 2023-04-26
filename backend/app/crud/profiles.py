@@ -1,13 +1,14 @@
 from sqlalchemy.orm import Session
 
-from .. import models, schemas
+from .. import models
+from ..schemas.profile import ProfileAvatarRequest, ProfileInfo
 
 
 def get_profile_by_id(db: Session, user_id: str):
     return db.query(models.Profile).filter(models.Profile.owner_id == user_id).first()
 
 
-def update_profile_by_id(db: Session, profile_info: schemas.profile.ProfileInfo, user_id: str):
+def update_profile_by_id(db: Session, profile_info: ProfileInfo, user_id: str):
     db_profile = db.query(models.Profile).filter(models.Profile.owner_id == user_id).first()
     if db_profile:
         db_profile.age = profile_info.age
@@ -16,13 +17,18 @@ def update_profile_by_id(db: Session, profile_info: schemas.profile.ProfileInfo,
         db_profile.motto = profile_info.motto
         db_profile.contact = profile_info.contact
     else:
-        new_profile = models.Profile(owner_id=user_id, age=profile_info.age, role=profile_info.role, like=profile_info.like, motto=profile_info.motto, contact=profile_info.contact)
+        new_profile = models.Profile(owner_id=user_id,
+                                     age=profile_info.age,
+                                     role=profile_info.role,
+                                     like=profile_info.like,
+                                     motto=profile_info.motto,
+                                     contact=profile_info.contact)
         db.add(new_profile)
     db.commit()
     return db_profile
 
 
-def update_profile_avatar_by_id(db: Session, avatar: schemas.profile.ProfileAvatarRequest, user_id: str):
+def update_profile_avatar_by_id(db: Session, avatar: ProfileAvatarRequest, user_id: str):
     db_profile = db.query(models.Profile).filter(models.Profile.owner_id == user_id).first()
     if db_profile:
         db_profile.avatar = avatar.avatar
@@ -31,7 +37,3 @@ def update_profile_avatar_by_id(db: Session, avatar: schemas.profile.ProfileAvat
         db.add(new_profile)
     db.commit()
     return db_profile
-
-
-
-

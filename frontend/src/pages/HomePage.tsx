@@ -8,7 +8,7 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import addFriend from "../assets/add_friend.png";
 import { Modal } from "antd";
-import { cardModalContainerStyle, createInputStyle, createTextStyle } from "../styles/content";
+import { createInputStyle, createTextStyle } from "../styles/content";
 import { friendVisitButtonStyle } from "../styles/content";
 import { PURPLE } from "../styles/colors";
 

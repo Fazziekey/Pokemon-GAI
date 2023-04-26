@@ -36,6 +36,9 @@ cd frontend
 yarn install
 ```
 
+## config your huggingface sapce
+
+you can Duplicate this huggingaface Space: https://huggingface.co/spaces/Fazzie/PokemonGAI
 
 ## Config
 

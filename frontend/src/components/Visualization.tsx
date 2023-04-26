@@ -66,12 +66,6 @@ const RadarChart: React.FC<RadarChartProps> = ({ data_original, data_professiona
 };
 
 
-const participationRecord = [
-    0, 5, 7, 3, 3, 0, 3, 20, 0, 5, 5, 10, 8, 5, 5, 9, 5, 1, 1, 5, 8, 20, 15, 0, 2, 7, 0, 0, 0, 0, 12, 0, 1, 6, 8, 6, 4, 9, 2, 0, 6, 20, 17, 4, 6, 4, 6, 14, 4, 4, 1, 4, 4, 3, 9, 4, 6, 19, 20, 2, 1, 1,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 5, 20, 10, 20, 3, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 20, 20, 4, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
-];
-
-
 const Visualization = () => {
     const [radarChartData, setRadarChartData] = React.useState({ data_original: [], data_professional: []});
     const [participationRecord, setParticipationRecord] = React.useState([]);
@@ -107,9 +101,8 @@ const Visualization = () => {
             }}
         >
             <Heatmap
-                colour={["#ebedf0", "#c6e48b", "#40c463", "#30a14e", "#216e39"]}
-                squareNumber={5}
-
+                colour={["#FCF7DF", "#F8B678", "#ED9111", "#C9760A", "#865505"]}
+                squareNumber={participationRecord.length}
                 count={participationRecord}
                 squareGap="4px"
                 squareSize="15px"

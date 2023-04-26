@@ -2,6 +2,11 @@ import React, { useEffect } from "react";
 import { ORANGE, PURPLE } from "../styles/colors";
 import { Modal, Popover } from "antd";
 import { cardModalContainerStyle, friendIDStyle, friendNameStyle, friendVisitButtonStyle } from "../styles/content";
+import { mock_gallery_data } from "../data/profile";
+import { USE_MOCK_DATA } from "../config";
+
+
+const useMockData = USE_MOCK_DATA;
 
 
 interface FriendsItemProps {
@@ -18,11 +23,22 @@ const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar }) => {
     const [friendAvatar, setFriendAvatar] = React.useState(undefined);
 
     const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [friendGallery, setFriendGallery] = React.useState([{
+        pokemon_id: undefined,
+        pokemon_name: undefined,
+        pokemon_img: undefined,
+        pokemon_date: undefined,
+        pokemon_star: undefined,
+    }]);
 
     useEffect(() => {
         setFriendName(name);
         setFriendID(id);
         setFriendAvatar(avatar);
+        if (useMockData) {
+            setFriendGallery(mock_gallery_data);
+            return;
+        }
     }, []);
 
     const handleOk = () => {
@@ -72,13 +88,41 @@ const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar }) => {
             </div>
 
             <Popover
-                content={<div 
+                content={<div
                     style={{
                         width: "400px",
                         height: "300px",
                     }}
                 >
-                    
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            flexWrap: "wrap",
+                            width: "100%",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >{friendGallery.map((pokemon: any, index: number) => {
+                        return <div key={index}
+                            style={{
+                                width: "100px",
+                                height: "100px",
+                                borderRadius: "15px",
+                                border: `1px solid ${PURPLE}`,
+                                overflow: "hidden",
+                                boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                                margin: "10px",
+                            }}
+                        >
+                            <img src={pokemon.pokemon_img}
+                                style={{
+                                    width: "100%",
+                                    height: "100%",
+                                }}
+                            />
+                        </div>;
+                    })}</div>
                 </div>} title={friendName} trigger="hover"
             >
                 <button
@@ -95,7 +139,6 @@ const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar }) => {
                     onMouseLeave={(e) => {
                         e.currentTarget.style.color = PURPLE;
                     }}
-                    onClick={() => setIsModalOpen(true)}
                 >View Gallery</button>
             </Popover>
 

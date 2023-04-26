@@ -3,6 +3,13 @@ export const PAGE_STATUS = {
     home: 1,
 };
 
+export const PATHS = [
+    { to: "/home/overview", text: "Overview" },
+    { to: "/home/create", text: "Create" },
+    { to: "/home/gallery", text: "Gallery" },
+    { to: "/home/friends", text: "Friends" },
+];
+
 export const PROFILE_INFO_LIST = [
     { emoji: "✅", label: "Age:" },
     { emoji: "✨", label: "Role:" },

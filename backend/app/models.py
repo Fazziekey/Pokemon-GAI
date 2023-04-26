@@ -26,10 +26,14 @@ class Image(Base):
     pokeType = Column(String, index=True)
     pokeName = Column(String, index=True)
     description = Column(String, index=True)
-    # attribute = Column(String, index=True)
-    # hp = Column(Integer, index=True)
-    # attack = Column(Integer, index=True)
+    property = Column(String, index=True)
+    hp = Column(Integer, index=True)
+    attack = Column(Integer, index=True)
+    star = Column(Integer, index=True)
+    IQ = Column(Integer, index=True)
+    MBTI = Column(String, index=True)
     image_store = Column(LargeBinary)
+    image_url = Column(String, index=True)
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="images")
@@ -48,3 +52,13 @@ class Profile(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="profiles")
+
+
+# class Friend(Base):
+#     __tablename__ = "friends"
+
+#     id = Column(Integer, primary_key=True, index=True)
+#     friend_id = Column(Integer, index=True)
+#     owner_id = Column(Integer, ForeignKey("users.id"))
+
+#     owner = relationship("User", back_populates="friends")

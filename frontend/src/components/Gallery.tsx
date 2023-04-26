@@ -1,27 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import search from "../assets/search.png";
 import { contentContainerStyle, searchBoxStyle } from "../styles/content";
 import GalleryItem from "./GalleryItem";
+import { USE_MOCK_DATA } from "../config";
+import { mock_gallery_data } from "../data/profile";
 
 
+const userMockData = USE_MOCK_DATA;
 
 
 const Gallery = () => {
+    const [pokemonList, setPokemonList] = React.useState([]);
 
-    const pokemonList = [
-        { id: 1 },
-        { id: 2 },
-        { id: 3 },
-        { id: 4 },
-        { id: 5 },
-        { id: 6 },
-        { id: 7 },
-        { id: 8 },
-        { id: 9 },
-        { id: 10 },
-        { id: 11 },
-        { id: 12 },
-    ];
+    useEffect(() => {
+        if (userMockData) {
+            setPokemonList(mock_gallery_data);
+            return;
+        }
+    }, []);
 
     return (<div
         style={{
@@ -49,7 +45,7 @@ const Gallery = () => {
             ></input>
         </div>
 
-        <div 
+        <div
             style={{
                 display: "flex",
                 flexDirection: "row",
@@ -60,7 +56,13 @@ const Gallery = () => {
             }}
         >
             {pokemonList.map((item) => {
-                return <GalleryItem key={item.id} />;
+                return <GalleryItem
+                    key={item.id}
+                    pokemon_date={item.pokemon_date}
+                    pokemon_name={item.pokemon_name}
+                    pokemon_img={item.pokemon_img}
+                    pokemon_star={item.pokemon_star}
+                />;
             })}
         </div>
 

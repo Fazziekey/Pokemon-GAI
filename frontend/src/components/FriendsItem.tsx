@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ORANGE, PURPLE } from "../styles/colors";
 import friend from "../assets/friend.png";
 import { friendIDStyle, friendNameStyle, friendVisitButtonStyle } from "../styles/content";
 
-const FriendsItem = () => {
+
+interface FriendsItemProps {
+    name: string;
+    id: string;
+    avatar: string;
+}
+
+
+const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar}) => {
+
+    const [friendName, setFriendName] = React.useState(undefined);
+    const [friendID, setFriendID] = React.useState(undefined);
+    const [friendAvatar, setFriendAvatar] = React.useState(undefined);
+
+    useEffect(() => {
+        setFriendName(name);
+        setFriendID(id);
+        setFriendAvatar(avatar);
+    }, []);
+
+
     return (<div
         style={{
             width: "100%",
@@ -25,7 +45,7 @@ const FriendsItem = () => {
                 overflow: "hidden",
             }}>
                 <img
-                    src={friend}
+                    src={friendAvatar}
                     alt="Image"
                     style={{ width: "100%", height: "auto" }}
                 />
@@ -37,8 +57,8 @@ const FriendsItem = () => {
                 flexDirection: "column",
                 padding: "0 50px"
             }}>
-                <p style={friendNameStyle}>HeHeHeCan</p>
-                <p style={friendIDStyle}>ID: PK230289</p>
+                <p style={friendNameStyle}>{`${friendName}`}</p>
+                <p style={friendIDStyle}>ID: {`${friendID}`}</p>
             </div>
 
             <button

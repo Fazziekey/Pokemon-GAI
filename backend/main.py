@@ -1,5 +1,6 @@
-import uvicorn
 import os
+
+import uvicorn
 
 PORT = int(os.environ.get("BACKEND_PORT", 8000))
 

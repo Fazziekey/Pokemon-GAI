@@ -2,15 +2,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image
 
-from .routers import imagen, users, login, register, profile, chatbot
-from .database import engine
 from . import models
+from .database import engine
+from .routers import chatbot, imagen, login, profile, register, users
 
 models.Base.metadata.create_all(bind=engine)
 
 # app = FastAPI(dependencies=[Depends(get_query_token)])
 app = FastAPI()
-
 
 app.include_router(users.router)
 app.include_router(login.router)
@@ -25,7 +24,6 @@ origins = [
     "localhost:3000",
 ]
 
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -38,4 +36,3 @@ app.add_middleware(
 @app.get("/", tags=["root"])
 async def read_root() -> dict:
     return {"message": "Welcome to PokemanGAI!"}
-

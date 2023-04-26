@@ -1,9 +1,13 @@
+from typing import List, Union
+
 from pydantic import BaseModel
-from typing import Union, List
+
 from .images import Image
+
 
 class ProfileRequest(BaseModel):
     userID: str = None
+
 
 class ProfileResponse(BaseModel):
     age: int = None

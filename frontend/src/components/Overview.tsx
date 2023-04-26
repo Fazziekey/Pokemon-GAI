@@ -3,23 +3,34 @@ import { contentContainerStyle, panelContainerStyle } from "../styles/content";
 import { ORANGE, PURPLE } from "../styles/colors";
 import pokemonPlaceholder from "../assets/pokemon.png";
 import Visualization from "./Visualization";
+import { USE_MOCK_DATA } from "../config";
+import { mock_battle_num, mock_gallery_data, mock_user_name, mock_victory_num } from "../data/profile";
+
+
+const userMockData = USE_MOCK_DATA;
+
 
 const Overview = () => {
     const [name, setName] = React.useState("");
     const [victories, setVictories] = React.useState(0);
     const [battles, setBattles] = React.useState(0);
-    const [pokemonList, setPokemonList] = React.useState([{}]);
+    const [pokemonList, setPokemonList] = React.useState([{
+        pokemon_id: undefined,
+        pokemon_name: undefined,
+        pokemon_img: undefined,
+        pokemon_date: undefined,
+        pokemon_star: undefined,
+    }]);
 
     useEffect(() => {
-        setName("Hollie77");
-        setVictories(15);
-        setBattles(28);
-        setPokemonList([
-            { id: 1 },
-            { id: 2 },
-            { id: 3 },
-            { id: 4 },
-        ]);
+        if(userMockData){
+            setName(mock_user_name);
+            setVictories(mock_victory_num);
+            setBattles(mock_battle_num);
+            setPokemonList(mock_gallery_data);
+            return;
+        }
+
     }, []);
 
     return (
@@ -96,7 +107,7 @@ const Overview = () => {
                             margin: "10px",
                         }}
                     >
-                        <img src={pokemonPlaceholder} 
+                        <img src={pokemon.pokemon_img} 
                             style={{
                                 width: "100%",
                                 height: "100%",

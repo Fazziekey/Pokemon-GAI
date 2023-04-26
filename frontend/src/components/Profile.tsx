@@ -10,6 +10,11 @@ import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 import { Tooltip, Modal, Button } from "antd";
 import { PROFILE_INFO_LIST } from "../helpers/constants";
+import { mock_user_id, mock_user_info_data, mock_user_name } from "../data/profile";
+import { USE_MOCK_DATA } from "../config";
+
+
+const useMockData = USE_MOCK_DATA;
 
 
 // Initialize once (at the start of your app).
@@ -23,17 +28,17 @@ const options = { multi: true };
 
 
 const Profile = () => {
-    const [editStatus, setEditStatus] = useState(false);
-    const [userID, setUserID] = useState("");
-    const [userName, setUserName] = useState("");
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editStatus, setEditStatus] = useState(undefined);
+    const [userID, setUserID] = useState(undefined);
+    const [userName, setUserName] = useState(undefined);
+    const [isModalOpen, setIsModalOpen] = useState(undefined);
 
     const [infoData, setInfoData] = useState({
-        age: null,
-        role: "undefined",
-        like: "undefined",
-        motto: "undefined",
-        contact: "undefined"
+        age: undefined,
+        role: undefined,
+        like: undefined,
+        motto: undefined,
+        contact: undefined,
     });
 
     const [avatar, setAvatar] = useState(avatarPlaceholder);
@@ -77,12 +82,13 @@ const Profile = () => {
     };
 
     useEffect(() => {
-        // TODO: read userID from cookie
-        // const userID = localStorage.getItem("userID");
-        const userID = "1";
-        const userName = "Hollie77";
-        setUserID(userID);
-        setUserName(userName);
+        if (useMockData) {
+            setUserID(mock_user_id);
+            setUserName(mock_user_name);
+            setInfoData(mock_user_info_data);
+            setAvatar(avatarPlaceholder);
+            return;
+        }
 
         if (userID) {
             // fetch user profile info
@@ -104,7 +110,6 @@ const Profile = () => {
                 }
             });
         }
-
     }, []);
 
     return (

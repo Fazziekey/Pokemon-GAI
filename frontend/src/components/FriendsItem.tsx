@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ORANGE, PURPLE } from "../styles/colors";
-import friend from "../assets/friend.png";
-import { friendIDStyle, friendNameStyle, friendVisitButtonStyle } from "../styles/content";
+import { Modal, Popover } from "antd";
+import { cardModalContainerStyle, friendIDStyle, friendNameStyle, friendVisitButtonStyle } from "../styles/content";
 
-const FriendsItem = () => {
+
+interface FriendsItemProps {
+    name: string;
+    id: string;
+    avatar: string;
+}
+
+
+const FriendsItem: React.FC<FriendsItemProps> = ({ name, id, avatar }) => {
+
+    const [friendName, setFriendName] = React.useState(undefined);
+    const [friendID, setFriendID] = React.useState(undefined);
+    const [friendAvatar, setFriendAvatar] = React.useState(undefined);
+
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+    useEffect(() => {
+        setFriendName(name);
+        setFriendID(id);
+        setFriendAvatar(avatar);
+    }, []);
+
+    const handleOk = () => {
+        // handleEditProfile();
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
     return (<div
         style={{
             width: "100%",
@@ -25,7 +55,7 @@ const FriendsItem = () => {
                 overflow: "hidden",
             }}>
                 <img
-                    src={friend}
+                    src={friendAvatar}
                     alt="Image"
                     style={{ width: "100%", height: "auto" }}
                 />
@@ -37,28 +67,41 @@ const FriendsItem = () => {
                 flexDirection: "column",
                 padding: "0 50px"
             }}>
-                <p style={friendNameStyle}>HeHeHeCan</p>
-                <p style={friendIDStyle}>ID: PK230289</p>
+                <p style={friendNameStyle}>{`${friendName}`}</p>
+                <p style={friendIDStyle}>ID: {`${friendID}`}</p>
             </div>
+
+            <Popover
+                content={<div 
+                    style={{
+                        width: "400px",
+                        height: "300px",
+                    }}
+                >
+                    
+                </div>} title={friendName} trigger="hover"
+            >
+                <button
+                    style={{
+                        ...friendVisitButtonStyle,
+                        borderColor: PURPLE,
+                        color: PURPLE,
+                        marginRight: "20px",
+                        marginLeft: "auto"
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.color = "rgba(148, 127, 248, 0.5)";
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.color = PURPLE;
+                    }}
+                    onClick={() => setIsModalOpen(true)}
+                >View Gallery</button>
+            </Popover>
 
             <button
                 style={{
                     ...friendVisitButtonStyle,
-                    borderColor: PURPLE,
-                    color: PURPLE,
-                    marginRight: "20px",
-                    marginLeft: "auto"
-                }}
-                onMouseEnter={(e) => {
-                    e.currentTarget.style.color = "rgba(148, 127, 248, 0.5)";
-                }}
-                onMouseLeave={(e) => {
-                    e.currentTarget.style.color = PURPLE;
-                }}
-            >Visit Homepage</button>
-            <button
-                style={{
-                    ...friendVisitButtonStyle, 
                     borderColor: ORANGE,
                     color: ORANGE
                 }}
@@ -68,6 +111,7 @@ const FriendsItem = () => {
                 onMouseLeave={(e) => {
                     e.currentTarget.style.color = ORANGE;
                 }}
+                onClick={() => setIsModalOpen(true)}
             >Battle</button>
 
         </div>
@@ -78,6 +122,22 @@ const FriendsItem = () => {
             marginLeft: "50px"
         }}
         ></div>
+
+        <Modal
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={null}
+            width={1000}
+            centered
+        >
+            <div style={{
+                ...cardModalContainerStyle,
+                flexDirection: "column",
+            }}>
+
+            </div>
+        </Modal>
     </div>
     );
 };

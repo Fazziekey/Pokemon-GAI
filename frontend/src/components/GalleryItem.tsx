@@ -4,7 +4,6 @@ import pokemonPlaceholder from "../assets/pokemonBall.png";
 import { Slider, Modal, Tag } from "antd";
 import { ORANGE } from "../styles/colors";
 import star from "../assets/star.png";
-import pokemon from "../assets/pokemon.png";
 import { ATTRIBUTE_LIST, ATTRIBUTE_TYPE } from "../helpers/constants";
 
 
@@ -35,19 +34,29 @@ const StarRow: React.FC<Props> = ({ numStars }) => {
 };
 
 
-const GalleryItem = () => {
+interface GalleryItemProps {
+    pokemon_date: string;
+    pokemon_name: string;
+    pokemon_img: string;
+    pokemon_star: number;
+}
 
-    const [title, setTitle] = React.useState("");
-    const [date, setDate] = React.useState("");
-    const [image, setImage] = React.useState("");
+
+const GalleryItem: React.FC<GalleryItemProps>  = ({ pokemon_date, pokemon_name, pokemon_img, pokemon_star }) => {
+
+    const [title, setTitle] = React.useState(undefined);
+    const [date, setDate] = React.useState(undefined);
+    const [image, setImage] = React.useState(undefined);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
-    const [starNum, setStarNum] = React.useState(3);
-    const [avatar, setAvatar] = React.useState(pokemon);
+    const [starNum, setStarNum] = React.useState(undefined);
+    const [avatar, setAvatar] = React.useState(undefined);
 
-    useEffect(() => {
-        setTitle("Pokemon");
-        setDate("2023-1-31");
+    useEffect(() => {  
+        setTitle(pokemon_name);
+        setDate(pokemon_date);
         setImage(pokemonPlaceholder);
+        setStarNum(pokemon_star);
+        setAvatar(pokemon_img);
     }, []);
 
     const handleOk = () => {

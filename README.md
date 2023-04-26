@@ -21,8 +21,6 @@ conda create -n pokemon python==3.9.12
 ### install python requirements
 
 ```
-pip install "fastapi[all]"
-
 pip install -r requirements.txt
 ```
 
@@ -60,4 +58,18 @@ python ai/space3D.py
 
 ```
 python start.py
+```
+
+## use docker
+
+### build docker 
+```
+docker build -t pokemon:0.0.1  .
+```
+
+### docker run
+```
+docker run -it --rm \
+    ubuntu:18.04 \
+    bash
 ```

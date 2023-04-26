@@ -1,9 +1,15 @@
 import requests
+import os
 
-# API_URL = "https://api-inference.huggingface.co/models/Timmahw/SD2.1_Pokemon2DSugimori"
-API_URL =  "https://api-inference.huggingface.co/models/Fazzie/PokemonGAI"
+API_URL =  os.environ.get("MODEL", "https://api-inference.huggingface.co/models/Fazzie/PokemonGAI")
+hf_token = os.environ.get("HF_TOKEN")
 
-headers = {"Authorization": "Bearer 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"}
+if hf_token is None:
+	print("HF_TOKEN environment variable is missing")
+	hf_token = input("Enter your Hugging Face token: ")
+	os.environ["HF_TOKEN"] = hf_token
+
+headers = {f"Authorization": "Bearer {hf_token}"} # Add your own Hugging Face token here or in the .env file
 
 def query(payload):
 	response = requests.post(API_URL, headers=headers, json=payload)

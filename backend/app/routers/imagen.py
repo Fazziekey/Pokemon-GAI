@@ -6,6 +6,7 @@ from typing import Optional
 import base64
 from PIL import Image
 import io
+import os
 
 from ..dependencies import get_db
 from ..schemas.images import ImageCreate
@@ -19,16 +20,23 @@ router = APIRouter(
 )
 
 MODEL_URL = {
-    '2D': "https://api-inference.huggingface.co/models/Fazzie/PokemonGAI",
-    '3D': "https://api-inference.huggingface.co/models/Timmahw/SD2.1_Pokemon3D",
+    '2D': os.environ.get("MODEL"),
+    '3D': os.environ.get("MODEL_3D"),
 }
 
 SPACE_URL = {
-    '2D': "https://fazzie-pokemongai.hf.space/run/predict",
-    '3D': "https://fazzie-timmahw-sd2-1-pokemon3d.hf.space/run/predict",
+    '2D': os.environ.get("SPACE"),
+    '3D': os.environ.get("SPACE_3D"),
 }
 
-headers = {"Authorization": "Bearer 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"}
+hf_token = os.environ.get("HF_TOKEN")
+
+if hf_token is None:
+    print("HF_TOKEN environment variable is missing")
+    hf_token = input("Enter your Hugging Face token: ")
+    os.environ["HF_TOKEN"] = hf_token
+
+headers = {"Authorization": f"Bearer {hf_token}"}
 
 def query_model(prompt: str, type: str, name: str):
     url = MODEL_URL[type]

@@ -1,17 +1,26 @@
 import subprocess
 import threading
 import os
-# subprocess.run("uvicorn main:app --host 0.0.0.0 --port 8000", shell=True)
+from argparse import ArgumentParser
 
-def config_env():
-    os.environ["OPENAI_API_KEY"] = '' #your openai api key
-    os.environ["API_HOST"] = 'https://api.stability.ai' #your openai api key
-    os.environ["STABILITY_API_KEY"] = '' #your stability api key
-    os.environ["HF_TOKEN"] = '' #your huggingface token
-    os.environ["space_id"] = "" #your space id
-    os.environ["space_id_3d"] = "" #your space id
-    os.environ["model_id"] = "" #your model id
-    os.environ["model_id_3d"] = "" #your model id
+from dotenv import load_dotenv
+
+
+
+def print_env():
+
+    print("OPENAI_API_KEY:", os.environ["OPENAI_API_KEY"])
+    print("API_HOST:", os.environ["API_HOST"])
+    print("STABILITY_API_KEY:", os.environ["STABILITY_API_KEY"])
+    print("HF_TOKEN:", os.environ["HF_TOKEN"])
+    print("SPACE:", os.environ["SPACE"])
+    print("SPACE_3D:", os.environ["SPACE_3D"])
+    print("MODEL:", os.environ["MODEL"])
+    print("MODEL_3D:", os.environ["MODEL_3D"])
+    print("FRONTEND_PORT:", os.environ["FRONTEND_PORT"])
+    print("BACKEND_PORT:", os.environ["BACKEND_PORT"])
+    print("CHAT_PORT:", os.environ["CHAT_PORT"])
+    print("BATTLE_PORT:", os.environ["BATTLE_PORT"])
 
 
 def start_backend():
@@ -19,18 +28,53 @@ def start_backend():
     subprocess.run(command, shell=True, check=True)
 
 def start_frontend():
-    command = "cd frontend && yarn start"
+    command = "cd frontend && yarn start --port " + os.environ["FRONTEND_PORT"]
     subprocess.run(command, shell=True, check=True)
+
+def start_chat():
+    command = "python3 ai/gradio_chatbot.py"
+    subprocess.run(command, shell=True, check=True)
+
+def start_battle():
+    command = "python3 ai/gradio_battle.py"
+    subprocess.run(command, shell=True, check=True)
+
+def args():
+    parser = ArgumentParser()
+    parser.add_argument("--chat", action="store_true")
+    parser.add_argument("--battle", action="store_true")
+    return parser.parse_args()
 
 if __name__ == "__main__":
 
-    config_env()
+    args = args()
 
+    # config env
+    load_dotenv()
+    print_env()
+
+    # start services
     backend_thread = threading.Thread(target=start_backend)
     frontend_thread = threading.Thread(target=start_frontend)
 
     backend_thread.start()
     frontend_thread.start()
 
+    if args.chat:
+        chat_thread = threading.Thread(target=start_chat)
+        chat_thread.start()
+
+    if args.battle:
+        battle_thread = threading.Thread(target=start_battle)
+        battle_thread.start()
+
     backend_thread.join()
     frontend_thread.join()
+
+    # start chatbot
+    if args.chat:
+        chat_thread.join()
+
+    # start battle
+    if args.battle:
+        battle_thread.join()

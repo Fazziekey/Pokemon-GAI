@@ -4,10 +4,12 @@ import requests
 
 engine_id = "stable-diffusion-v1-5"
 api_host = os.getenv('API_HOST', 'https://api.stability.ai')
-api_key = os.getenv("STABILITY_API_KEY", "sk-eAwLMN5A0w6Smlha3sBDULK5D6z5pWmzaujm1cnzmPTyNkNG")
+api_key = os.getenv("STABILITY_API_KEY")
 
 if api_key is None:
-    raise Exception("Missing Stability API key.")
+    print("Missing Stability API key.")
+    api_key = input("Enter your Stability API key: ")
+    os.environ["STABILITY_API_KEY"] = api_key
 
 response = requests.post(
     f"{api_host}/v1/generation/{engine_id}/text-to-image",

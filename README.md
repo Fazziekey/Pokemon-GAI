@@ -18,6 +18,11 @@ In general, Pokemon GAI is a feature-rich Web-based application that brings play
 conda create -n pokemon python==3.9.12
 ```
 
+### activate conda env
+```
+conda activate pokemon
+```
+
 ### install python requirements
 
 ```
@@ -36,6 +41,9 @@ cd frontend
 yarn install
 ```
 
+## config your huggingface sapce
+
+you can Duplicate this huggingaface Space: https://huggingface.co/spaces/Fazzie/PokemonGAI
 
 ## Config
 

@@ -4,7 +4,8 @@ from PIL import Image
 
 from . import models
 from .database import engine
-from .routers import chatbot, imagen, login, profile, register, users
+from .routers import chatbot, friends, gallery, imagen, login, profile, register, users
+
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -17,6 +18,8 @@ app.include_router(register.router)
 app.include_router(profile.router)
 app.include_router(imagen.router)
 app.include_router(chatbot.router)
+app.include_router(gallery.router)
+app.include_router(friends.router)
 
 origins = [
     "http://localhost:3000",

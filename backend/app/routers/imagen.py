@@ -10,7 +10,8 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 # from .. import crud
-from ..crud.images import create_user_image
+from ..crud.images import create_user_image, upload_image
+
 from ..dependencies import get_db
 from ..schemas.images import ImageCreate
 
@@ -77,7 +78,8 @@ class Imagen(BaseModel):
     pokeName: str = 'pokemon'
 
 
-@router.post("/generate/{user_id}")
+
+@router.post("/generate")
 async def generate_image(user_id: int, imagen: Imagen, db: Session = Depends(get_db)) -> Response:
 
     try:
@@ -91,7 +93,11 @@ async def generate_image(user_id: int, imagen: Imagen, db: Session = Depends(get
     image = Image.open(io.BytesIO(image_bytes))
     image.save(f"{imagen.pokeName}.png")
 
-    temp_image = ImageCreate(**imagen.dict(), image_store=image_bytes)
+
+    image_url = upload_image(image_bytes)
+
+    temp_image = ImageCreate(**imagen.dict(), image_store=image_bytes, image_url=image_url)
+
     db_image = create_user_image(db=db, image=temp_image, user_id=user_id)
 
     return {"message": f"Image saved as {imagen.pokeName}.png"}

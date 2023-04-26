@@ -11,6 +11,7 @@ with gr.Blocks() as demo:
     clear = gr.Button("Clear")
 
     def user(user_message, history):
+        print(history + [[user_message, None]])
         return "", history + [[user_message, None]]
 
     def bot(history):
@@ -18,6 +19,7 @@ with gr.Blocks() as demo:
         bot_message = chatgpt_chain.predict(human_input=history[-1][0])
         history[-1][1] = bot_message
         time.sleep(1)
+        print(history)
         return history
 
     msg.submit(user, [msg, chatbot], [msg, chatbot], queue=False).then(

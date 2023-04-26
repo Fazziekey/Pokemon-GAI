@@ -1,4 +1,3 @@
-// import React from "react";
 import React, { useRef, useEffect } from "react";
 import * as echarts from "echarts";
 import { Heatmap } from "contribution-heatmap";
@@ -23,25 +22,24 @@ const RadarChart: React.FC<RadarChartProps> = ({ data_original, data_professiona
 
         const option = {
             title: {
-                text: "Basic Radar Chart"
+                text: "Display"
             },
             legend: {
-                data: ["Allocated Budget", "Actual Spending"]
+                data: ["Original", "Performance"]
             },
             radar: {
-                // shape: "circle",
                 indicator: [
-                    { name: "Sales", max: 6500 },
-                    { name: "Administration", max: 16000 },
-                    { name: "Information Technology", max: 30000 },
-                    { name: "Customer Support", max: 38000 },
-                    { name: "Development", max: 52000 },
-                    { name: "Marketing", max: 25000 }
+                    { name: "HP", max: 6500 },
+                    { name: "Attack", max: 16000 },
+                    { name: "Intelligence", max: 30000 },
+                    { name: "Speed", max: 38000 },
+                    { name: "Power", max: 52000 },
+                    { name: "Characteristic", max: 25000 }
                 ]
             },
             series: [
                 {
-                    name: "Budget vs spending",
+                    name: "Original & Performance",
                     type: "radar",
                     data: [
                         {
@@ -64,8 +62,14 @@ const RadarChart: React.FC<RadarChartProps> = ({ data_original, data_professiona
         };
     }, [data_original, data_professional]);
 
-    return <div ref={chartRef} style={{ width: "100%", height: "300px" }} />;
+    return <div ref={chartRef} style={{ width: "100%", height: "350px" }} />;
 };
+
+
+const participationRecord = [
+    0, 5, 7, 3, 3, 0, 3, 20, 0, 5, 5, 10, 8, 5, 5, 9, 5, 1, 1, 5, 8, 20, 15, 0, 2, 7, 0, 0, 0, 0, 12, 0, 1, 6, 8, 6, 4, 9, 2, 0, 6, 20, 17, 4, 6, 4, 6, 14, 4, 4, 1, 4, 4, 3, 9, 4, 6, 19, 20, 2, 1, 1,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 5, 20, 10, 20, 3, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 20, 20, 4, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
+];
 
 
 const Visualization = () => {
@@ -91,17 +95,21 @@ const Visualization = () => {
             alignItems: "center",
             justifyContent: "center",
         }}>
+
             <RadarChart data_original={radarChartData.data_original} data_professional={radarChartData.data_professional} />
         </div>
         <div
             style={{
                 width: "100%",
-                height: "100%"
+                height: "100%",
+                marginLeft: "-50px",
+                marginTop: "-30px",
             }}
         >
             <Heatmap
                 colour={["#ebedf0", "#c6e48b", "#40c463", "#30a14e", "#216e39"]}
                 squareNumber={5}
+
                 count={participationRecord}
                 squareGap="4px"
                 squareSize="15px"

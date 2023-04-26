@@ -53,7 +53,7 @@ const Profile = () => {
     };
 
     const handleEditProfile = async () => {
-        const response = await postProfileInfo("", infoData.age, infoData.role, infoData.like, infoData.motto, infoData.contact);
+        const response = await postProfileInfo("1", infoData.age, infoData.role, infoData.like, infoData.motto, infoData.contact);
         if (response.status === 200) {
             toast.success("Profile info updated");
         }

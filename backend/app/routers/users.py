@@ -17,7 +17,7 @@ router = APIRouter(
 
 async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     token_data = decode_access_token(token)
-    user = crud.users.get_user(db, username=token_data.username)
+    user = crud.users.get_user_by_email(db, email=token_data.email)
     if user is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials", headers={"WWW-Authenticate": "Bearer"})
     return user

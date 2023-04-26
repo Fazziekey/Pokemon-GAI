@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { contentContainerStyle, panelContainerStyle } from "../styles/content";
-import { PURPLE } from "../styles/colors";
+import { ORANGE, PURPLE } from "../styles/colors";
 import pokemonPlaceholder from "../assets/pokemon.png";
 import Visualization from "./Visualization";
 import { USE_MOCK_DATA } from "../config";
@@ -46,7 +46,7 @@ const Overview = () => {
                 <p
                     style={{
                         fontFamily: "Inter",
-                        fontSize: "20px",
+                        fontSize: "16px",
                         fontWeight: 700,
                         lineHeight: "24px",
                         letterSpacing: "0em",
@@ -56,8 +56,8 @@ const Overview = () => {
                 <ul
                     style={{
                         fontFamily: "Inter",
-                        fontSize: "16px",
-                        fontWeight: "bold",
+                        fontSize: "14px",
+                        // fontWeight: "bold",
                         lineHeight: "30px",
                     }}
                 >
@@ -79,7 +79,7 @@ const Overview = () => {
                             fontWeight: "normal"
                         }}>
                         <li><span style={{
-                            color: PURPLE,
+                            color: ORANGE,
                             fontSize: "18px",
                         }}>{`${pokemonList.length}`}</span> Pokemon</li>
                     </ul>
@@ -121,6 +121,7 @@ const Overview = () => {
                 style={{
                     ...panelContainerStyle,
                     marginRight: "30px",
+                    overflow: "hidden"
                 }}
             >
                 <Visualization  />

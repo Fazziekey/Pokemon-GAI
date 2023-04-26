@@ -7,9 +7,9 @@ import toast, { Toaster } from "react-hot-toast";
 
 
 const Register = () => {
-    const [name, setName] = useState("");
-    const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
+    const [name, setName] = useState(undefined);
+    const [password, setPassword] = useState(undefined);
+    const [email, setEmail] = useState(undefined);
 
     const navigate = useNavigate();
 
@@ -70,7 +70,12 @@ const Register = () => {
                 >
                     Enter the NAME for a Pokemon trainer
                     <div style={{ display: "flex", flexDirection: "row" }}>
-                        <img src={complete} style={{ width: "40px", height: "40px" }}></img>
+                        {
+                            name && name.length > 0 ?
+                                <img src={complete} style={{ width: "40px", height: "40px" }}></img>
+                                :
+                                <div style={{ width: "40px", height: "40px" }}></div>
+                        }
                         <div style={containerStyle}>
                             <input type="name" value={name} onChange={handleNameChange}
                                 style={inputStyle}
@@ -86,7 +91,12 @@ const Register = () => {
                 >
                     Enter your PASSWORD
                     <div style={{ display: "flex", flexDirection: "row" }}>
-                        <img src={complete} style={{ width: "40px", height: "40px" }}></img>
+                        {
+                            password && password.length > 0 ?
+                                <img src={complete} style={{ width: "40px", height: "40px" }}></img>
+                                :
+                                <div style={{ width: "40px", height: "40px" }}></div>
+                        }
                         <div style={containerStyle}>
                             <input type="password" value={password} onChange={handlePasswordChange}
                                 style={inputStyle}
@@ -102,7 +112,12 @@ const Register = () => {
                 >
                     Enter your EMAIL for contact
                     <div style={{ display: "flex", flexDirection: "row" }}>
-                        <img src={complete} style={{ width: "40px", height: "40px" }}></img>
+                        {
+                            email && email.length > 0 ?
+                                <img src={complete} style={{ width: "40px", height: "40px" }}></img>
+                                :
+                                <div style={{ width: "40px", height: "40px" }}></div>
+                        }
                         <div style={containerStyle}>
                             <input type="email" value={email} onChange={handleEmailchange}
                                 style={inputStyle}

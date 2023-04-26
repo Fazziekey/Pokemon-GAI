@@ -10,14 +10,14 @@ router = APIRouter(
 )
 
 
-@router.post("/", status_code=200)
+@router.post("/submit_message", status_code=200)
 async def chat(content: str):
     response = generate_response(content)
     return {
         "response": response
     }
 
-@router.get("/get_memory", status_code=200)
+@router.get("/get_all_memory", status_code=200)
 async def get_all_memory():
     response = get_memory()
     return {

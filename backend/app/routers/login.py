@@ -4,9 +4,8 @@ from jose import JWTError, jwt
 from datetime import datetime, timedelta
 from typing import Union
 from sqlalchemy.orm import Session
-# from pydantic import BaseModel, EmailStr
 
-from ..schemas.login import Token, TokenData
+from ..schemas.login import TokenData
 from ..dependencies import pwd_context, get_db
 from ..crud.users import get_user_by_username, get_user_by_email
 
@@ -15,42 +14,6 @@ router = APIRouter(
     tags=["login"],
     responses={404: {"description": "Not found"}},
 )
-
-
-# class LoginRequest(BaseModel):
-#      email: EmailStr
-#      password: str
-
-
-# def fake_authentication(email: str, password: str) -> bool:
-
-#      #TODO: Implement real authentication logic
-
-#      if email is not None and password is not None:
-#          return True
-
-#      if email == "user@example.com" and password == "password":
-#          return True
-
-#      return False
-
-
-
-# @router.post("/", status_code=200)
-# async def login(email: EmailStr, password: str):
-#     is_authenticated = fake_authentication(email, password)
-
-#     if not is_authenticated:
-#         return {
-#             "status": 400,
-#             "message": "Failed to login"
-#         }
-
-#     return {
-#         "status": 200,
-#         "message": "Successfully logged in"
-#     }
-
 
 # to get a string like this run:
 # openssl rand -hex 32
@@ -104,7 +67,7 @@ def decode_access_token(token: str):
     return token_data
 
 
-@router.post("/", response_model=Token)
+@router.post("/")
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user_email = form_data.username
     user = authenticate_user(db, user_email, form_data.password)
@@ -119,7 +82,12 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
         # data={"sub": user.username}, expires_delta=access_token_expires
         data={"sub": user.email}, expires_delta=access_token_expires
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {
+        "message": "Successfully logged in",
+        "userID": user.id,
+        "access_token": access_token,
+        "token_type": "bearer"
+    }
 
 
 

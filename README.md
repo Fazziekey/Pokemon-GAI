@@ -13,17 +13,22 @@ In general, Pokemon GAI is a feature-rich Web-based application that brings play
 
 ## install 
 
+### create conda env 
 ```
-pip install "fastapi[all]"
+conda create -n pokemon python==3.9.12 
+```
 
+### install python requirements
+
+```
 pip install -r requirements.txt
 ```
 
-## render frontend
+## install js modules
 
 ```
+cd frontend
 yarn install
-yarn start
 ```
 
 ## Down load the datasets(which will in MySQL infuture)
@@ -53,4 +58,18 @@ python ai/space3D.py
 
 ```
 python start.py
+```
+
+## use docker
+
+### build docker 
+```
+docker build -t pokemon:0.0.1  .
+```
+
+### docker run
+```
+docker run -it --rm \
+    ubuntu:18.04 \
+    bash
 ```

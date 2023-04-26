@@ -1,5 +1,12 @@
-from fastapi import FastAPI, APIRouter, HTTPException
-from pydantic import BaseModel, EmailStr
+from fastapi import APIRouter, HTTPException, Depends
+from fastapi.security import OAuth2PasswordRequestForm
+from sqlalchemy.orm import Session
+from datetime import timedelta
+
+from ..schemas.users import UserCreate
+from ..dependencies import get_db
+from .. import crud
+from .login import create_access_token
 
 router = APIRouter(
     prefix="/register",
@@ -8,33 +15,29 @@ router = APIRouter(
 )
 
 
-def fake_register(email, username, password) -> str:
-
-    # TODO: Implement real register logic
-    user_id = email + username + password
-
-    # TODO: If the email has been registered, return None
-
-    return user_id
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
 @router.post("/")
-async def register(
-    email: str,
-    username: str,
-    password: str
-):
-
-    user_id = fake_register(email=email, username=username, password=password)
-
-    if not user_id:
-        return {
-            "status": 400,
-            "message": "Failed to register user"
-        }
-
+async def register(email: str, form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+  
+    db_user = crud.users.get_user_by_username(db, username=form_data.username)
+    if db_user:
+        raise HTTPException(status_code=400, detail="Username already taken")
+    db_user = crud.users.get_user_by_email(db, email=email)
+    if db_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    
+    user = UserCreate(email=email, username=form_data.username, password=form_data.password)
+    new_user = crud.users.create_new_user(db=db, user=user)
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        # data={"sub": user.username}, expires_delta=access_token_expires
+        data={"sub": user.email}, expires_delta=access_token_expires
+    )
     return {
-        "status": 200,
         "message": "Successfully registered user",
-        "userID": user_id
+        "userID": new_user.id,
+        "access_token": access_token,
+        "token_type": "bearer"
     }

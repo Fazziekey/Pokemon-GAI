@@ -15,6 +15,7 @@ class User(Base):
     is_active = Column(Boolean, default=True)
 
     images = relationship("Image", back_populates="owner")
+    profiles = relationship("Profile", back_populates="owner")
 
 
 class Image(Base):
@@ -32,3 +33,18 @@ class Image(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="images")
+
+
+class Profile(Base):
+    __tablename__ = "profiles"
+
+    id = Column(Integer, primary_key=True, index=True)
+    age = Column(Integer, index=True)
+    role = Column(String, index=True)
+    like = Column(String, index=True)
+    motto = Column(String, index=True)
+    contact = Column(String, index=True)
+    avatar = Column(String, index=True)
+    owner_id = Column(Integer, ForeignKey("users.id"))
+
+    owner = relationship("User", back_populates="profiles")

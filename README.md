@@ -13,17 +13,24 @@ In general, Pokemon GAI is a feature-rich Web-based application that brings play
 
 ## install 
 
+### create conda env 
+```
+conda create -n pokemon python==3.9.12 
+```
+
+### install python requirements
+
 ```
 pip install "fastapi[all]"
 
 pip install -r requirements.txt
 ```
 
-## render frontend
+## install js modules
 
 ```
+cd frontend
 yarn install
-yarn start
 ```
 
 ## Down load the datasets(which will in MySQL infuture)

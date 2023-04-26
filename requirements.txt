@@ -1,17 +1,12 @@
-Cython
 numpy
 sqlalchemy
 pillow
-python-jose
-passlib
-fastapi==0.88.0
-uvicorn==0.20.0
-python-multipart==0.0.6
-rudalle==1.0.*
-# h5py==3.6.*
-email-validator
-bcrypt
-gradio_client
+fastapi[all]
 openai
 langchain
 gradio
+python-jose
+passlib
+python-multipart
+email-validator
+bcrypt

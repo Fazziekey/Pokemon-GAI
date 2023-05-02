@@ -4,6 +4,7 @@ import os
 from typing import Optional
 
 import requests
+from config import Settings, get_settings
 from fastapi import APIRouter, Depends, Request, Response
 from PIL import Image
 from pydantic import BaseModel
@@ -11,7 +12,6 @@ from sqlalchemy.orm import Session
 
 # from .. import crud
 from ..crud.images import create_user_image, upload_image
-
 from ..dependencies import get_db
 from ..schemas.images import ImageCreate
 
@@ -23,29 +23,18 @@ router = APIRouter(
     }},
 )
 
-MODEL_URL = {
-    '2D': os.environ.get("MODEL"),
-    '3D': os.environ.get("MODEL_3D"),
-}
 
-SPACE_URL = {
-    '2D': os.environ.get("SPACE"),
-    '3D': os.environ.get("SPACE_3D"),
-}
+def query_model(prompt: str, type: str, name: str, settings: Settings):
+    if type == '2D':
+        url = settings.model
+    elif type == '3D':
+        url = settings.model_3d
+    else:
+        raise Exception(f"Invalid type {type}")
 
-hf_token = os.environ.get("HF_TOKEN")
-
-if hf_token is None:
-    print("HF_TOKEN environment variable is missing")
-    hf_token = input("Enter your Hugging Face token: ")
-    os.environ["HF_TOKEN"] = hf_token
-
-headers = {"Authorization": f"Bearer {hf_token}"}
-
-
-def query_model(prompt: str, type: str, name: str):
-    url = MODEL_URL[type]
-    response = requests.post(url, headers=headers, json={"inputs": f"{prompt}"})
+    response = requests.post(url,
+                             headers={"Authorization": f"Bearer {settings.hf_token}"},
+                             json={"inputs": f"{prompt}"})
     if response.status_code != 200:
         with open('.....assert/image.png', 'rb') as f:
             binary_data = f.read()
@@ -54,10 +43,21 @@ def query_model(prompt: str, type: str, name: str):
     return response.content
 
 
-def query_space(prompt: str, type: str, name: str):
-    url = SPACE_URL[type]
+def query_space(prompt: str, type: str, name: str, settings: Settings):
+    if type == '2D':
+        url = settings.space
+    elif type == '3D':
+        url = settings.space_3d
+    else:
+        raise Exception(f"Invalid type {type}")
 
-    response = requests.post(url, headers=headers, json={"data": [f"{prompt}",]}).json()
+    response = requests.post(url,
+                             headers={
+                                 "Authorization": f"Bearer {settings.hf_token}"
+                             },
+                             json={
+                                 "data": [f"{prompt}",]
+                             }).json()
 
     if response.status_code != 200:
         raise Exception("Query failed to run by returning code of {}. {}".format(response.status_code, {
@@ -78,21 +78,20 @@ class Imagen(BaseModel):
     pokeName: str = 'pokemon'
 
 
-
 @router.post("/generate")
-async def generate_image(user_id: int, imagen: Imagen, db: Session = Depends(get_db)) -> Response:
-
+async def generate_image(
+    user_id: int, imagen: Imagen, db: Session = Depends(get_db),
+    settings: Settings = Depends(get_settings)) -> Response:
     try:
-        image_bytes = query_space(imagen.prompt, imagen.pokeType, imagen.pokeName)
+        image_bytes = query_space(imagen.prompt, imagen.pokeType, imagen.pokeName, settings)
     except:
         try:
-            image_bytes = query_model(imagen.prompt, imagen.pokeType, imagen.pokeName)
+            image_bytes = query_model(imagen.prompt, imagen.pokeType, imagen.pokeName, settings)
         except Exception as e:
             return {"status": 500, "message": str(e)}
 
     image = Image.open(io.BytesIO(image_bytes))
     image.save(f"{imagen.pokeName}.png")
-
 
     image_url = upload_image(image_bytes)
 

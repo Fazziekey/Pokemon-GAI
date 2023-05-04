@@ -4,13 +4,17 @@ from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
-    model: str = "https://api-inference.huggingface.co/models/Fazzie/PokemonGAI"
-    model_3d: str = "https://api-inference.huggingface.co/models/Timmahw/SD2.1_Pokemon3D"
+    model: str
+    model_3d: str
 
-    space: str = "https://fazzie-pokemongai.hf.space/run/predict"
-    space_3d: str = "https://fazzie-timmahw-sd2-1-pokemon3d.hf.space/run/predict"
+    space: str
+    space_3d: str
 
-    hf_token: str = ''
+    hf_token: str
+    stability_api_key: str
+
+    class Config:
+        env_file = ".env"
 
 
 @lru_cache()

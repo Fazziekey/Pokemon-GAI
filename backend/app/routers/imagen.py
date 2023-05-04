@@ -1,6 +1,7 @@
 import base64
 import io
 import os
+import pprint
 from typing import Optional
 
 import requests
@@ -32,14 +33,20 @@ def query_model(prompt: str, type: str, name: str, settings: Settings):
     else:
         raise Exception(f"Invalid type {type}")
 
+    print(f"settings.hf_token = {settings.hf_token}")
     response = requests.post(url,
                              headers={"Authorization": f"Bearer {settings.hf_token}"},
                              json={"inputs": f"{prompt}"})
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(f"response: {response}")
+    pp.pprint(f"response.content: {response.content}")
     if response.status_code != 200:
-        with open('.....assert/image.png', 'rb') as f:
-            binary_data = f.read()
-        return binary_data
-        # raise Exception("Query failed to run by returning code of {}. {}".format(response.status_code, {'prompt': prompt, 'type': type, 'name': name}))
+        # with open('.....assert/image.png', 'rb') as f:
+        #     binary_data = f.read()
+        # return binary_data
+        raise Exception(
+            f"Query failed to run, code {response.status_code}, content {response.content}, prompt: {prompt}, type: {type}, name: {name}"
+        )
     return response.content
 
 
@@ -72,7 +79,7 @@ def query_space(prompt: str, type: str, name: str, settings: Settings):
     return image_bytes
 
 
-class Imagen(BaseModel):
+class ImagenRequest(BaseModel):
     prompt: str = 'fire greninja, wings, (fire claws), smoke, cityscape'
     pokeType: str = '2D'
     pokeName: str = 'pokemon'
@@ -80,7 +87,7 @@ class Imagen(BaseModel):
 
 @router.post("/generate")
 async def generate_image(
-    user_id: int, imagen: Imagen, db: Session = Depends(get_db),
+    user_id: int, imagen: ImagenRequest, db: Session = Depends(get_db),
     settings: Settings = Depends(get_settings)) -> Response:
     try:
         image_bytes = query_space(imagen.prompt, imagen.pokeType, imagen.pokeName, settings)

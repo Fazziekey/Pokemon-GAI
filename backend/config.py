@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     space_3d: str
 
     hf_token: str
+    api_host: str = "https://api.stability.ai"
     stability_api_key: str
 
     class Config:

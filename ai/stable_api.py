@@ -37,6 +37,8 @@ if response.status_code != 200:
 
 data = response.json()
 
+print(data)
+
 for i, image in enumerate(data["artifacts"]):
     with open(f"v1_txt2img_{i}.png", "wb") as f:
         f.write(base64.b64decode(image["base64"]))

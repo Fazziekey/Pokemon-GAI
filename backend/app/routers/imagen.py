@@ -6,7 +6,7 @@ from typing import Optional
 
 import requests
 from config import Settings, get_settings
-from fastapi import APIRouter, Depends, Request, Response
+from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from PIL import Image
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -118,30 +118,38 @@ class ImagenRequest(BaseModel):
     pokeName: str = 'pokemon'
 
 
-@router.post("/generate")
-async def generate_image(
-    user_id: int, imagen: ImagenRequest, db: Session = Depends(get_db),
-    settings: Settings = Depends(get_settings)) -> Response:
+class ImagenResponse(BaseModel):
+    message: str
 
+
+@router.post(
+    "/generate",
+    response_model=ImagenResponse,
+)
+async def generate_image(
+        user_id: int,
+        imagen: ImagenRequest,
+        db: Session = Depends(get_db),
+        settings: Settings = Depends(get_settings),
+) -> dict:
     try:
         image_bytes = query_stable(imagen.prompt, imagen.pokeName, settings)
     except Exception as e:
-        return {"status": 500, "message": str(e)}
-    # try:
-    #     image_bytes = query_space(imagen.prompt, imagen.pokeType, imagen.pokeName, settings)
-    # except:
-    #     try:
-    #         image_bytes = query_model(imagen.prompt, imagen.pokeType, imagen.pokeName, settings)
-    #     except Exception as e:
-    #         return {"status": 500, "message": str(e)}
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to generate image: {e}")
 
     image = Image.open(io.BytesIO(image_bytes))
     image.save(f"{imagen.pokeName}.png")
 
-    image_url = upload_image(image_bytes)
+    try:
+        image_url = upload_image(image_bytes)
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to upload image: {e}")
 
     temp_image = ImageCreate(**imagen.dict(), image_store=image_bytes, image_url=image_url)
 
-    db_image = create_user_image(db=db, image=temp_image, user_id=user_id)
+    try:
+        db_image = create_user_image(db=db, image=temp_image, user_id=user_id)
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to save image: {e}")
 
     return {"message": f"Image saved as {imagen.pokeName}.png"}
